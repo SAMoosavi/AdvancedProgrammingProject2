@@ -41,6 +41,6 @@ void MainWindow::on_pushButton_2_clicked()
 {
     hide();
     this->registerFile = new RegisterFile(this->myUser,this);
-     this->registerFile->show();
+    this->registerFile->show();
 }
 
