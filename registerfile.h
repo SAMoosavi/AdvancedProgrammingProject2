@@ -21,7 +21,6 @@ private slots:
 private:
     Ui::RegisterFile *ui;
     User* myUser;
-    void showImg();
 };
 
 #endif // REGISTERFILE_H

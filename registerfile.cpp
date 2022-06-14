@@ -7,15 +7,8 @@ RegisterFile::RegisterFile(User * myUser,QWidget *parent) :
 {
     ui->setupUi(this);
     this->myUser  = myUser;
-    this->showImg();
 }
 
-void RegisterFile::showImg(){
-    QPixmap pix(":/img/images/register.png");
-    int w = 500;
-    int h = 300;
-    ui->label_img->setPixmap(pix.scaled(w,h,Qt::KeepAspectRatio));
-}
 
 RegisterFile::~RegisterFile()
 {

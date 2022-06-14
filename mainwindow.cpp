@@ -2,6 +2,7 @@
 #include "ui_mainwindow.h"
 #include <QDebug>
 #include <QPixmap>
+//#include <Q>
 
 MainWindow::MainWindow(User * myUser,QWidget *parent)
     : QMainWindow(parent)
