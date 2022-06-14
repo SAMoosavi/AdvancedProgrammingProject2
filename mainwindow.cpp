@@ -10,19 +10,11 @@ MainWindow::MainWindow(User * myUser,QWidget *parent)
 {
     this->myUser = myUser;
     ui->setupUi(this);
-    showImg();
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
-}
-
-void MainWindow::showImg(){
-    QPixmap pix(":/img/images/login.png");
-    int w = 500;
-    int h = 300;
-    ui->label_img->setPixmap(pix.scaled(w,h,Qt::KeepAspectRatio));
 }
 
 void MainWindow::on_pushButton_clicked()

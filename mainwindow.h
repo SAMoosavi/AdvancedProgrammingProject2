@@ -24,6 +24,5 @@ private slots:
 private:
     Ui::MainWindow *ui;
     User * myUser;
-    void showImg();
 };
 #endif // MAINWINDOW_H

@@ -91,6 +91,9 @@
       </item>
       <item>
        <widget class="QPushButton" name="pushButton">
+        <property name="styleSheet">
+         <string notr="true">background-color:blue;</string>
+        </property>
         <property name="text">
          <string>Sign up</string>
         </property>
