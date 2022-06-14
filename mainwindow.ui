@@ -94,7 +94,7 @@
           </property>
           <property name="styleSheet">
            <string notr="true">border-radius:10px;
-padding:20px 0 20px 0l;
+padding:20px 5px  20px 5pxl;
 </string>
           </property>
          </widget>
@@ -124,7 +124,7 @@ padding:20px 0 20px 0l;
           </property>
           <property name="styleSheet">
            <string notr="true">border-radius:10px;
-padding:20px 0 20px 0l;
+padding:20px 5px  20px 5pxl;
 </string>
           </property>
           <property name="echoMode">
@@ -180,7 +180,7 @@ margin:20px 0 0 0;</string>
           </property>
           <property name="styleSheet">
            <string notr="true">background:transparent;
-color:blue;
+color:#7BB4E3;
 text-align: left;
 </string>
           </property>

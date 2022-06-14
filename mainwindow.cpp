@@ -2,7 +2,6 @@
 #include "ui_mainwindow.h"
 #include <QDebug>
 #include <QPixmap>
-//#include <Q>
 
 MainWindow::MainWindow(User * myUser,QWidget *parent)
     : QMainWindow(parent)
@@ -40,6 +39,8 @@ void MainWindow::on_pushButton_clicked()
 
 void MainWindow::on_pushButton_2_clicked()
 {
-    qDebug() << "bbb";
+    hide();
+    this->registerFile = new RegisterFile(this->myUser,this);
+    this->registerFile->show();
 }
 

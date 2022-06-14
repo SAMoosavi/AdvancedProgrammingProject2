@@ -39,3 +39,11 @@ void RegisterFile::on_pushButton_clicked()
   }
 }
 
+
+void RegisterFile::on_pushButton_2_clicked()
+{
+    hide();
+    this->mainWindow = new MainWindow(this->myUser,this);
+    this->mainWindow->show();
+}
+

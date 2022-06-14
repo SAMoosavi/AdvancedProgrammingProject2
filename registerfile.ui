@@ -44,16 +44,60 @@
        </spacer>
       </item>
       <item>
+       <widget class="QLabel" name="label_2">
+        <property name="font">
+         <font>
+          <pointsize>26</pointsize>
+         </font>
+        </property>
+        <property name="text">
+         <string>Sing Up</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <spacer name="verticalSpacer_3">
+        <property name="orientation">
+         <enum>Qt::Vertical</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>20</width>
+          <height>40</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item>
        <layout class="QVBoxLayout" name="verticalLayout">
         <item>
          <widget class="QLabel" name="label_username">
+          <property name="font">
+           <font>
+            <pointsize>14</pointsize>
+           </font>
+          </property>
           <property name="text">
            <string>Username</string>
           </property>
          </widget>
         </item>
         <item>
-         <widget class="QLineEdit" name="lineEdit_username"/>
+         <widget class="QLineEdit" name="lineEdit_username">
+          <property name="font">
+           <font>
+            <pointsize>14</pointsize>
+           </font>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">border-radius:10px;
+padding:20px 5px  20px 5pxl;
+</string>
+          </property>
+         </widget>
         </item>
        </layout>
       </item>
@@ -61,6 +105,11 @@
        <layout class="QVBoxLayout" name="verticalLayout_2">
         <item>
          <widget class="QLabel" name="label_password">
+          <property name="font">
+           <font>
+            <pointsize>14</pointsize>
+           </font>
+          </property>
           <property name="text">
            <string>Password</string>
           </property>
@@ -68,6 +117,16 @@
         </item>
         <item>
          <widget class="QLineEdit" name="lineEdit_password">
+          <property name="font">
+           <font>
+            <pointsize>14</pointsize>
+           </font>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">border-radius:10px;
+padding:20px 5px  20px 5pxl;
+</string>
+          </property>
           <property name="echoMode">
            <enum>QLineEdit::Password</enum>
           </property>
@@ -79,20 +138,47 @@
        <layout class="QVBoxLayout" name="verticalLayout_4">
         <item>
          <widget class="QLabel" name="label_confirm_password">
+          <property name="font">
+           <font>
+            <pointsize>14</pointsize>
+           </font>
+          </property>
           <property name="text">
            <string>Confirm password</string>
           </property>
          </widget>
         </item>
         <item>
-         <widget class="QLineEdit" name="lineEdit_confirm_password"/>
+         <widget class="QLineEdit" name="lineEdit_confirm_password">
+          <property name="font">
+           <font>
+            <pointsize>14</pointsize>
+           </font>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">border-radius:10px;
+padding:20px 5px  20px 5pxl;
+</string>
+          </property>
+          <property name="echoMode">
+           <enum>QLineEdit::Password</enum>
+          </property>
+         </widget>
         </item>
        </layout>
       </item>
       <item>
        <widget class="QPushButton" name="pushButton">
+        <property name="font">
+         <font>
+          <pointsize>14</pointsize>
+         </font>
+        </property>
         <property name="styleSheet">
-         <string notr="true">background-color:blue;</string>
+         <string notr="true">background-color:#7BB4E3;
+border-radius:10px;
+padding:20px 0 20px 0l;
+margin:20px 0 0 0;</string>
         </property>
         <property name="text">
          <string>Sign up</string>
@@ -118,7 +204,7 @@
           </property>
           <property name="styleSheet">
            <string notr="true">background:transparent;
-color:blue;
+color:#7BB4E3;
 text-align:left;</string>
           </property>
           <property name="text">

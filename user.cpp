@@ -68,7 +68,7 @@ bool User::vDebtAmount(int debtAmount)
 
 ERegister User::Register(QString &username, QString &password, QString &confirmPassword)
 {
-   if (!this->searchUser(username))
+   if (this->searchUser(username))
    {
        return notAvailableUsername;
    }

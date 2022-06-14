@@ -3,6 +3,9 @@
 
 #include <QMainWindow>
 #include "user.h"
+#include "registerfile.h"
+
+class RegisterFile;
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -24,5 +27,6 @@ private slots:
 private:
     Ui::MainWindow *ui;
     User * myUser;
+    RegisterFile * registerFile;
 };
 #endif // MAINWINDOW_H
