@@ -2,6 +2,7 @@
 #include "ui_mainwindow.h"
 #include <QDebug>
 #include <QPixmap>
+#include <QMessageBox>
 
 MainWindow::MainWindow(User * myUser,QWidget *parent)
     : QMainWindow(parent)
@@ -22,16 +23,16 @@ void MainWindow::on_pushButton_clicked()
     QString password = ui->lineEdit_password->text();
    switch(this->myUser->login(username,password)){
        case logined:
-       qDebug() << "hi";
+       QMessageBox::information(this, "Welcome!", "Welcome!");
        break;
    case notFuond:
-       qDebug() << "not";
+       QMessageBox::critical(this, "Error!", "Username not found!");
        break;
    case notCorrectPassword:
-       qDebug() << "notCorrectPassword";
+       QMessageBox::critical(this, "Error!", "Password is not correct!");
        break;
    default:
-       qDebug() << "bay";
+       QMessageBox::information(this, "default", ":)");
 
    }
 }
