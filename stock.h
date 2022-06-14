@@ -2,6 +2,10 @@
 #define STOCK_H
 #include <bits/stdc++.h>
 #include <QString>
+#include "user.h"
+
+class User;
+struct user;
 
 using std::vector;
 
@@ -20,8 +24,8 @@ public:
     Stock();
     ~Stock();
 
-    bool buyStock(QString &username, QString &symbol, int amount);
-    void saleStock(QString &username, QString &symbol);
+    bool buyStock(user *us, QString &symbol, int amount);
+    void saleStock(user *us, QString &symbol);
     void getStocks();
     void getAllStocks();
 
