@@ -2,13 +2,15 @@
 #define REGISTERFILE_H
 
 #include <QMainWindow>
+#include <QMessageBox>
 #include "user.h"
 #include "mainwindow.h"
 
 class MainWindow;
 
-namespace Ui {
-class RegisterFile;
+namespace Ui
+{
+    class RegisterFile;
 }
 
 class RegisterFile : public QMainWindow
@@ -16,7 +18,7 @@ class RegisterFile : public QMainWindow
     Q_OBJECT
 
 public:
-    explicit RegisterFile(User*myUser ,QWidget *parent = nullptr);
+    explicit RegisterFile(User *myUser, QWidget *parent = nullptr);
     ~RegisterFile();
 
 private slots:
@@ -26,8 +28,9 @@ private slots:
 
 private:
     Ui::RegisterFile *ui;
-    User* myUser;
-    MainWindow* mainWindow;
+    User *myUser;
+    MainWindow *mainWindow;
+    void goToSingnInPage();
 };
 
 #endif // REGISTERFILE_H
