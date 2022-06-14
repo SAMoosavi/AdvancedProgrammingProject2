@@ -4,7 +4,12 @@
 #include <QString>
 #include "stock.h"
 
+class Stock;
+
+struct stock;
+
 using std::vector;
+
 struct user
 {
     QString username;
@@ -62,7 +67,7 @@ enum EGetMoney
 class User
 {
 private:
-    static vector<user *> users;
+    vector<user *> users;
 
     bool vPassword(QString &password);
     bool confirmedPassword(QString &password, QString &confirmPassword);
@@ -75,7 +80,7 @@ private:
 
     bool vDebtAmount(int debtAmount);
 
-    
+    user *searchUser(QString &username);
 
     bool withdrawAccount(int money);
 
@@ -84,8 +89,6 @@ private:
 public:
     User();
     ~User();
-    
-    static user *searchUser(QString &username);
     
     ERegister Register(QString &username, QString &password, QString &confirmPassword);
     ESetAccount setAccount(QString &name, QString &ID, QString &accountNumber, QString &IBAN);

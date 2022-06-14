@@ -1,8 +1,6 @@
 #include "user.h"
 using namespace std;
 
-vector<user*> User::users = {};
-
 User::User()
 {
 }
