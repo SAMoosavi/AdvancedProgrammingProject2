@@ -14,7 +14,7 @@
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <layout class="QHBoxLayout" name="horizontalLayout">
+   <layout class="QHBoxLayout" name="horizontalLayout_2">
     <item>
      <widget class="QLabel" name="label_img">
       <property name="enabled">
@@ -36,15 +36,6 @@
     </item>
     <item>
      <layout class="QVBoxLayout" name="verticalLayout_3">
-      <property name="spacing">
-       <number>10</number>
-      </property>
-      <property name="leftMargin">
-       <number>0</number>
-      </property>
-      <property name="rightMargin">
-       <number>0</number>
-      </property>
       <item>
        <spacer name="verticalSpacer_2">
         <property name="orientation">
@@ -63,7 +54,7 @@
         <item>
          <widget class="QLabel" name="label_username">
           <property name="text">
-           <string>username</string>
+           <string>Username</string>
           </property>
          </widget>
         </item>
@@ -77,7 +68,7 @@
         <item>
          <widget class="QLabel" name="label_password">
           <property name="text">
-           <string>password</string>
+           <string>Password</string>
           </property>
          </widget>
         </item>
@@ -93,19 +84,48 @@
       <item>
        <widget class="QPushButton" name="pushButton">
         <property name="text">
-         <string>login</string>
+         <string>Sign in</string>
         </property>
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="pushButton_2">
-        <property name="styleSheet">
-         <string notr="true">background:transparent;</string>
-        </property>
-        <property name="text">
-         <string>create Account</string>
-        </property>
-       </widget>
+       <layout class="QHBoxLayout" name="horizontalLayout">
+        <item>
+         <widget class="QLabel" name="label">
+          <property name="layoutDirection">
+           <enum>Qt::LeftToRight</enum>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">	text-align: right;</string>
+          </property>
+          <property name="text">
+           <string>Don't have an accuont? </string>
+          </property>
+          <property name="textFormat">
+           <enum>Qt::AutoText</enum>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="pushButton_2">
+          <property name="cursor">
+           <cursorShape>PointingHandCursor</cursorShape>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">background:transparent;
+color:blue;
+text-align: left;
+</string>
+          </property>
+          <property name="text">
+           <string>Sign up</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
       </item>
       <item>
        <spacer name="verticalSpacer">
