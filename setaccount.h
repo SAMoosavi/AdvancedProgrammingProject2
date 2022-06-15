@@ -3,6 +3,9 @@
 
 #include <QMainWindow>
 #include "user.h"
+#include <QString>
+#include <QMessageBox>
+
 namespace Ui {
 class SetAccount;
 }
@@ -14,6 +17,9 @@ class SetAccount : public QMainWindow
 public:
     explicit SetAccount(User *myUser,QWidget *parent = nullptr);
     ~SetAccount();
+
+private slots:
+    void on_pushButton_clicked();
 
 private:
     Ui::SetAccount *ui;
