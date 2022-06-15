@@ -23,10 +23,16 @@ void MainWindow::on_pushButton_clicked()
     switch (this->myUser->login(username, password))
     {
     case logined:
-        QMessageBox::information(this, "Welcome!", "Welcome!");
-        hide();
-        this->setAccount = new SetAccount(this->myUser, this);
-        this->setAccount->show();
+        if(this->myUser->accountIsSet()){
+            QMessageBox::information(this, "Welcome!", "Welcome!");
+            // TODO: cheng page
+        }
+        else{
+            QMessageBox::information(this, "Welcome!", "Please complete your information!");
+            hide();
+            this->setAccount = new SetAccount(this->myUser, this);
+            this->setAccount->show();
+        }
         break;
     case notFuond:
         QMessageBox::critical(this, "Error!", "Username not found!");
