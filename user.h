@@ -105,6 +105,8 @@ public:
     bool isLogin();
     void logout();
 
+    bool accountIsSet();
+
     void chargeAccount(int money);
     EGetMoney getMoney(int money);
 
