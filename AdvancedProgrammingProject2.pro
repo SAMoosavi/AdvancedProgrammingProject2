@@ -12,18 +12,21 @@ SOURCES += \
     main.cpp \
     mainwindow.cpp \
     registerfile.cpp \
+    setaccount.cpp \
     stock.cpp \
     user.cpp
 
 HEADERS += \
     mainwindow.h \
     registerfile.h \
+    setaccount.h \
     stock.h \
     user.h
 
 FORMS += \
     mainwindow.ui \
-    registerfile.ui
+    registerfile.ui \
+    setaccount.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
