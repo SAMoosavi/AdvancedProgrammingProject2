@@ -208,6 +208,10 @@ void User::logout()
     this->userLogin = 0;
 }
 
+bool User::accountIsSet(){
+    return !this->userLogin->ID.isEmpty();
+}
+
 void User::chargeAccount(int money)
 {
     if (this->userLogin->debtAmount >= money)

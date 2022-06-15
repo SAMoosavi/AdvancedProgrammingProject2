@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include "user.h"
 #include "registerfile.h"
+#include "setaccount.h"
 
 class RegisterFile;
 
@@ -28,5 +29,6 @@ private:
     Ui::MainWindow *ui;
     User * myUser;
     RegisterFile * registerFile;
+    SetAccount * setAccount;
 };
 #endif // MAINWINDOW_H
