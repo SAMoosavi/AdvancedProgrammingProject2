@@ -47,7 +47,7 @@ vector<stock*> Stock::getStocks()
     vector<stock*> stocks;
     for(auto st: this->us->stocks)
     {
-        stocks.push_back(*st);
+        stocks.push_back(st);
     }
 
     return stocks;

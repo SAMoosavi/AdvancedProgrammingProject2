@@ -27,7 +27,7 @@ public:
 
     bool buyStock( QString &symbol, int amount);
     void saleStock(QString &symbol);
-    vector<stock> getStocks();
+    vector<stock*> getStocks();
     vector<stock*> getAllStocks();
 
     stock *searchStock(QString &symbol);
