@@ -5,9 +5,11 @@ class User;
 
 struct user;
 
-Stock::Stock()
-{
+using std::vector;
 
+Stock::Stock(user *userr)
+{
+    this->us = userr;
 }
 
 Stock::~Stock()
@@ -15,44 +17,50 @@ Stock::~Stock()
 
 }
 
-bool Stock::buyStock(user *us, QString &symbol, int amount)
+bool Stock::buyStock(QString &symbol, int amount)
 {
    auto st = searchStock(symbol);
    if(st)
    {
-       if(us->dabtMoney >= amount*st->price)
+       if(this->us->money >= amount*st->price)
        {
-           us->stocks.push_back(st);
-           us->dabtMoney -= amount*st->price;
+           this->us->stocks.push_back(st);
+           this->us->money -= amount*st->price;
            return true;
        }
    }
    return false;
 }
 
-void Stock::saleStock(user *us, QString &symbol)
+void Stock::saleStock(QString &symbol)
 {
    auto st = searchStock(symbol);
    if(st)
    {
-       us->dabtMoney += st->price;
-       us->stocks.erase(find(us->stocks.begin(), us->stocks.end(), st));
+       this->us->money += st->price;
+       this->us->stocks.erase(find(us->stocks.begin(), us->stocks.end(), st));
    }
 }
 
-void Stock::getStocks()
+vector<stock*> Stock::getStocks()
 {
+    vector<stock*> stocks;
+    for(auto st: this->us->stocks)
+    {
+        stocks.push_back(*st);
+    }
 
+    return stocks;
 }
 
-void Stock::getAllStocks()
+vector<stock*> Stock::getAllStocks()
 {
-
+    return allStocks;
 }
 
 stock *Stock::searchStock(QString &symbol)
 {
-    for (auto st : stocks)
+    for (auto st : us->stocks)
     {
         if (st->symbol == symbol)
         {
