@@ -19,15 +19,16 @@ struct stock{
 class Stock
 {
 private:
-    vector<stock*> stocks;
+    vector<stock*> allStocks;
+    user *us;
 public:
-    Stock();
+    Stock(user *userr);
     ~Stock();
 
-    bool buyStock(user *us, QString &symbol, int amount);
-    void saleStock(user *us, QString &symbol);
-    void getStocks();
-    void getAllStocks();
+    bool buyStock( QString &symbol, int amount);
+    void saleStock(QString &symbol);
+    vector<stock*> getStocks();
+    vector<stock*> getAllStocks();
 
     stock *searchStock(QString &symbol);
 };

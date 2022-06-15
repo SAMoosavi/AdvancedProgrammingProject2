@@ -20,7 +20,7 @@ struct user
     //! International Bank Account Number
     QString IBAN;
     int debtAmount = 0;
-    int dabtMoney = 0;
+    int money = 0;
     int stockN;
     vector<stock *> stocks;
 };

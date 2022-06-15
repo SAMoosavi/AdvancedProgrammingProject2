@@ -218,36 +218,36 @@ void User::chargeAccount(int money)
     {
         money -= this->userLogin->debtAmount;
         this->userLogin->debtAmount = 0;
-        this->userLogin->dabtMoney += money;
+        this->userLogin->money += money;
     }
 }
 
-EGetMoney User::getMoney(int money)
+EGetMoney User::getMoney(int mmoney)
 {
     if (this->userLogin->debtAmount)
     {
         return haveDebtAmount;
     }
-    if (this->userLogin->dabtMoney < money)
+    if (this->userLogin->money < mmoney)
     {
         return MoreThanInventory;
     }
-    this->userLogin->dabtMoney -= money;
+    this->userLogin->money -= mmoney;
     return getedMoney;
 }
 
-bool User::withdrawAccount(int money)
+bool User::withdrawAccount(int mmoney)
 {
-    if (this->userLogin->dabtMoney >= money)
+    if (this->userLogin->money >= mmoney)
     {
-        this->userLogin->debtAmount -= money;
+        this->userLogin->debtAmount -= mmoney;
         return true;
     }
-    money -= this->userLogin->dabtMoney;
-    if (this->vDebtAmount(this->userLogin->debtAmount + money))
+    mmoney -= this->userLogin->money;
+    if (this->vDebtAmount(this->userLogin->debtAmount + mmoney))
     {
-        this->userLogin->dabtMoney = 0;
-        this->userLogin->debtAmount += money;
+        this->userLogin->money = 0;
+        this->userLogin->debtAmount += mmoney;
         return true;
     }
     return false;
