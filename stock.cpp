@@ -5,6 +5,7 @@
 #include <QTextStream>
 #include <QStringList>
 
+
 class User;
 
 struct user;
@@ -75,11 +76,6 @@ stock *Stock::searchStock(QString &symbol)
         }
     }
     return nullptr;
-}
-
-bool Stock::save()
-{
-    return false;
 }
 
 bool Stock::read()

@@ -34,7 +34,6 @@ public:
 
     stock *searchStock(QString &symbol);
 
-    bool save();
     bool read();
 };
 
