@@ -8,18 +8,20 @@ class User;
 struct user;
 
 using std::vector;
+using std::map;
 
 struct stock{
+    int ID;
     QString symbol;
     QString name;
-    int price;
+    double price;
     int marketCap;
 };
 
 class Stock
 {
 private:
-    vector<stock*> allStocks;
+    map<int, stock*> allStocks;
     user *us;
 public:
     Stock(user *userr);
@@ -27,10 +29,13 @@ public:
 
     bool buyStock( QString &symbol, int amount);
     void saleStock(QString &symbol);
-    vector<stock*> getStocks();
-    vector<stock*> getAllStocks();
+    map<int, stock*> getStocks();
+    map<int, stock*> getAllStocks();
 
     stock *searchStock(QString &symbol);
+
+    bool save();
+    bool read();
 };
 
 #endif // STOCK_H
