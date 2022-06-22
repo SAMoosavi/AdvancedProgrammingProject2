@@ -1,15 +1,23 @@
 #include "stock.h"
 #include "user.h"
+#include <QFile>
+#include <QString>
+#include <QTextStream>
+#include <QStringList>
+
 
 class User;
 
 struct user;
 
 using std::vector;
+using std::map;
 
 Stock::Stock(user *userr)
 {
     this->us = userr;
+
+    this->read();
 }
 
 Stock::~Stock()
@@ -42,18 +50,18 @@ void Stock::saleStock(QString &symbol)
    }
 }
 
-vector<stock*> Stock::getStocks()
+map<int, stock*> Stock::getStocks()
 {
-    vector<stock*> stocks;
+    map<int, stock*> stocks;
     for(auto st: this->us->stocks)
     {
-        stocks.push_back(st);
+        stocks[st->ID] = st;
     }
 
     return stocks;
 }
 
-vector<stock*> Stock::getAllStocks()
+map<int, stock*> Stock::getAllStocks()
 {
     return allStocks;
 }
@@ -68,4 +76,33 @@ stock *Stock::searchStock(QString &symbol)
         }
     }
     return nullptr;
+}
+
+bool Stock::read()
+{
+    QFile file(":/rec/stock_market_data.csv");
+
+    if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
+        return false;
+
+    QTextStream in(&file);
+    bool ok = false;
+    while (!in.atEnd()) {
+        if(!ok){
+            ok = true;
+            continue;
+        }
+
+        QString line = in.readLine();
+        QStringList list = line.split(",");
+        stock* tStock = new stock;
+        tStock->ID = list[0].toInt();
+        tStock->symbol = list[1];
+        tStock->name = list[2];
+        tStock->price = list[3].toDouble();
+        tStock->marketCap = list[4].toInt();
+        this->allStocks[tStock->ID] = tStock;
+    }
+
+    return true;
 }
