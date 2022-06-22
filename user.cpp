@@ -246,6 +246,7 @@ EGetMoney User::getMoney(int mmoney)
 
 bool User::save()
 {
+//TODO: check 
     QFile file(":/rec/user_data.csv");
     if (!file.open(QIODevice::WriteOnly | QIODevice::Text))
         return false;
