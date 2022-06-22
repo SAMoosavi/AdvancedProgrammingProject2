@@ -3,6 +3,7 @@ using namespace std;
 
 User::User()
 {
+    this->read();
 }
 User::~User() {}
 
@@ -263,4 +264,34 @@ bool User::withdrawAccount(int mmoney)
 // vector<stock *> getStock();
 
 // bool save();
-// bool read();
+ bool User::read(){
+     QFile file(":/rec/user_data.csv");
+
+     if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
+         return false;
+
+     QTextStream in(&file);
+     bool ok = false;
+     while (!in.atEnd()) {
+         if(!ok){
+             ok = true;
+             continue;
+         }
+
+         QString line = in.readLine();
+         QStringList list = line.split(",");
+         user* tUser = new user;
+         tUser->ID = list[0];
+         tUser->name = list[1];
+         tUser->username = list[2];
+         tUser->password = list[3];
+         tUser->accountNumber = list[4];
+         tUser->IBAN = list[5];
+         tUser->debtAmount = list[6].toInt();
+         tUser->money = list[7].toInt();
+         tUser->stockN = list[8].toInt();
+         this->users.push_back(tUser);
+     }
+
+     return true;
+ }
