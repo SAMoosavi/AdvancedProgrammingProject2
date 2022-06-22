@@ -2,6 +2,10 @@
 #define USER_H
 #include <bits/stdc++.h>
 #include <QString>
+#include <QFile>
+#include <QTextStream>
+#include <QStringList>
+
 #include "stock.h"
 
 class Stock;

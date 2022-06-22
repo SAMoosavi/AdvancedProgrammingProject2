@@ -281,7 +281,7 @@ bool User::withdrawAccount(int mmoney)
          QString line = in.readLine();
          QStringList list = line.split(",");
          user* tUser = new user;
-         tUser->ID = list[0].toInt();
+         tUser->ID = list[0];
          tUser->name = list[1];
          tUser->username = list[2];
          tUser->password = list[3];
