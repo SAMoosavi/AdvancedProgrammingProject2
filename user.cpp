@@ -5,7 +5,10 @@ User::User()
 {
     this->read();
 }
-User::~User() {}
+User::~User()
+{
+    this->save();
+}
 
 user *User::searchUser(QString &username)
 {
@@ -241,6 +244,40 @@ EGetMoney User::getMoney(int mmoney)
     return getedMoney;
 }
 
+bool User::save()
+{
+    QFile file(":/rec/user_data.csv");
+    if (!file.open(QIODevice::WriteOnly | QIODevice::Text))
+        return false;
+
+    QTextStream out(&file);
+    QString tString = "";
+
+    for(auto us: this->users){
+        tString += us->ID;
+        tString += ",";
+        tString += us->name;
+        tString += ",";
+        tString += us->username;
+        tString += ",";
+        tString += us->password;
+        tString += ",";
+        tString += us->accountNumber;
+        tString += ",";
+        tString += us->IBAN;
+        tString += ",";
+        tString += QString::number(us->debtAmount);
+        tString += ",";
+        tString += QString::number(us->money);
+        tString += ",";
+        tString += QString::number(us->stockN);
+        tString += "\n";
+    }
+
+    out << tString;
+    return true;
+}
+
 bool User::withdrawAccount(int mmoney)
 {
     if (this->userLogin->money >= mmoney)
@@ -264,34 +301,35 @@ bool User::withdrawAccount(int mmoney)
 // vector<stock *> getStock();
 
 // bool save();
- bool User::read(){
-     QFile file(":/rec/user_data.csv");
+bool User::read(){
+    QFile file(":/rec/user_data.csv");
 
-     if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
-         return false;
+    if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
+        return false;
 
-     QTextStream in(&file);
-     bool ok = false;
-     while (!in.atEnd()) {
-         if(!ok){
-             ok = true;
-             continue;
-         }
+    QTextStream in(&file);
+    bool ok = false;
+    while (!in.atEnd()) {
+        if(!ok){
+            ok = true;
+            continue;
+        }
 
-         QString line = in.readLine();
-         QStringList list = line.split(",");
-         user* tUser = new user;
-         tUser->ID = list[0];
-         tUser->name = list[1];
-         tUser->username = list[2];
-         tUser->password = list[3];
-         tUser->accountNumber = list[4];
-         tUser->IBAN = list[5];
-         tUser->debtAmount = list[6].toInt();
-         tUser->money = list[7].toInt();
-         tUser->stockN = list[8].toInt();
-         this->users.push_back(tUser);
-     }
+        QString line = in.readLine();
+        QStringList list = line.split(",");
+        user* tUser = new user;
+        tUser->ID = list[0];
+        tUser->name = list[1];
+        tUser->username = list[2];
+        tUser->password = list[3];
+        tUser->accountNumber = list[4];
+        tUser->IBAN = list[5];
+        tUser->debtAmount = list[6].toInt();
+        tUser->money = list[7].toInt();
+        tUser->stockN = list[8].toInt();
 
-     return true;
- }
+        this->users.push_back(tUser);
+    }
+
+    return true;
+}
