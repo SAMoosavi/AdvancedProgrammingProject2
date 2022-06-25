@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>BaseWindow</class>
+ <widget class="QMainWindow" name="BaseWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>800</width>
+    <height>600</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <property name="windowOpacity">
+   <double>0.000000000000000</double>
+  </property>
+  <widget class="QWidget" name="centralwidget"/>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>800</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuhk">
+    <property name="title">
+     <string>Main Menu</string>
+    </property>
+    <widget class="QMenu" name="menuMoney_2">
+     <property name="title">
+      <string>Money</string>
+     </property>
+     <addaction name="actionWithdraw"/>
+     <addaction name="actionCharge"/>
+    </widget>
+    <widget class="QMenu" name="menuChange">
+     <property name="title">
+      <string>Change</string>
+     </property>
+     <addaction name="separator"/>
+     <addaction name="actionInformation"/>
+     <addaction name="actionPassword"/>
+    </widget>
+    <addaction name="menuMoney_2"/>
+    <addaction name="menuChange"/>
+    <addaction name="actionSign_Out"/>
+    <addaction name="actionExit"/>
+   </widget>
+   <widget class="QMenu" name="menuBazaar_menu">
+    <property name="title">
+     <string>Bazaar Menu</string>
+    </property>
+    <widget class="QMenu" name="menuStock">
+     <property name="title">
+      <string>Stock</string>
+     </property>
+     <addaction name="actionBuy"/>
+     <addaction name="actionSale"/>
+    </widget>
+    <widget class="QMenu" name="menuShow">
+     <property name="title">
+      <string>Show</string>
+     </property>
+     <addaction name="actionYour_Stocks"/>
+     <addaction name="actionAll_Stocks"/>
+    </widget>
+    <addaction name="menuStock"/>
+    <addaction name="menuShow"/>
+   </widget>
+   <addaction name="menuhk"/>
+   <addaction name="menuBazaar_menu"/>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+  <action name="actionSign_Out">
+   <property name="text">
+    <string>Sign out</string>
+   </property>
+  </action>
+  <action name="actionWithdraw">
+   <property name="text">
+    <string>Withdraw</string>
+   </property>
+  </action>
+  <action name="actionCharge">
+   <property name="text">
+    <string>Charge</string>
+   </property>
+  </action>
+  <action name="actionInformation">
+   <property name="text">
+    <string>Information</string>
+   </property>
+  </action>
+  <action name="actionPassword">
+   <property name="text">
+    <string>Password</string>
+   </property>
+  </action>
+  <action name="actionBuy">
+   <property name="text">
+    <string>Buy</string>
+   </property>
+  </action>
+  <action name="actionSale">
+   <property name="text">
+    <string>Sale</string>
+   </property>
+  </action>
+  <action name="actionYour_Stocks">
+   <property name="text">
+    <string>Your Stocks</string>
+   </property>
+  </action>
+  <action name="actionAll_Stocks">
+   <property name="text">
+    <string>All Stocks</string>
+   </property>
+  </action>
+  <action name="actionExit">
+   <property name="text">
+    <string>Exit</string>
+   </property>
+  </action>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

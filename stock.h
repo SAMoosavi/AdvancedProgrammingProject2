@@ -33,12 +33,12 @@ public:
     Stock(user *userr);
     ~Stock();
 
-    bool buyStock(QString &symbol, int amount);
-    void saleStock(QString &symbol);
-    map<int, stock *> getStocks();
-    map<int, stock *> getAllStocks();
+    bool buyStock(int id, int amount);
+    void saleStock(int id);
+    map<int, stock*> getStocks();
+    map<int, stock*> getAllStocks();
 
-    stock *searchStock(QString &symbol);
+    stock *searchStock(int id);
 
     bool read();
 };
