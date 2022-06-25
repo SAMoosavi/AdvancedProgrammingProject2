@@ -195,7 +195,7 @@ vector<pair<stock*,int > > Stock::readOnStockUser(){
 
         if (userId == list[0])
         {
-           tPair.first = this->searchStock(list[1]);
+           tPair.first = this->searchStock(list[1].toInt());
            tPair.second = list[2].toInt();
            result.push_back(tPair);
         }
