@@ -106,3 +106,83 @@ bool Stock::read()
 
     return true;
 }
+
+bool Stock::saveOnStockUser(int id , int amount){
+
+    QString str = "" , user = "",other = "";
+
+    QFile readFile(this->pathStockUserFile);
+    if (!readFile.open(QIODevice::ReadOnly | QIODevice::Text))
+        return false;
+
+    QTextStream in(&readFile);
+    bool ok = false;
+    QString bay = this->us->ID + ","+ QString::number(id) + "," + QString::number(amount);
+
+    while (!in.atEnd())
+    {
+        QString line = in.readLine();
+        QStringList list = line.split(",");
+
+        if (ok && this->us->ID == list[0])
+        {
+            if(list[1].toInt() != id){
+                user += line;
+            }
+        }
+        else
+        {
+            other += line;
+        }
+
+        if (!ok)
+        {
+            ok = true;
+        }
+    }
+    str = user + bay + other;
+
+    readFile.flush();
+    readFile.close();
+
+    QFile writeFile(this->pathStockUserFile);
+    if (!writeFile.open(QIODevice::WriteOnly | QIODevice::Text))
+        return false;
+
+    QTextStream out(&writeFile);
+    out << str;
+    writeFile.flush();
+    writeFile.close();
+
+    return true;
+}
+
+vector<pair<stock*,int > > Stock::readOnStockUser(){
+    vector<pair<stock*,int > > result;
+    pair<stock*,int > tPair;
+    QString userId  = this->us->ID;
+
+    QFile readFile(this->pathStockUserFile);
+    if (!readFile.open(QIODevice::ReadOnly | QIODevice::Text))
+        return result;
+
+    QTextStream in(&readFile);
+
+    while (!in.atEnd())
+    {
+        QString line = in.readLine();
+        QStringList list = line.split(",");
+
+        if (userId == list[0])
+        {
+           tPair.first = this->searchStock(list[1]);
+           tPair.second = list[2].toInt();
+           result.push_back(tPair);
+        }
+    }
+
+    readFile.flush();
+    readFile.close();
+
+    return result;
+}
