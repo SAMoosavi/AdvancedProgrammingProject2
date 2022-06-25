@@ -67,6 +67,16 @@ enum EGetMoney
     MoreThanInventory,
 };
 
+enum ECheng
+{
+    EChengeName,
+    EChengeID,
+    EChengeAccountNumber,
+    EChengeIBAN,
+    EChengeUsername,
+    chenged,
+};
+
 class User
 {
 private:
@@ -85,6 +95,8 @@ private:
 
     bool withdrawAccount(int money);
 
+    QString userStructToString(user *us);
+
     user *userLogin = 0;
 
     const QString fileName = "C:/Users/moosavi/Desktop/AP/AdvancedProgrammingProject2/rec/user_data.csv";
@@ -97,11 +109,7 @@ public:
     ESetAccount setAccount(QString &name, QString &ID, QString &accountNumber, QString &IBAN);
     ELogin login(QString &username, QString &password);
 
-    bool chengeName(QString &name);
-    bool chengeID(QString &ID);
-    bool chengeAccountNumber(QString &accountNumber);
-    bool chengeIBAN(QString &IBAN);
-    bool chengeUsername(QString &username);
+    ECheng chengAccount(QString &username, QString &name, QString &ID, QString &accountNumber, QString &IBAN);
     EChengePassword chengePassword(QString &password, QString &confirmPassword);
 
     user *getUserLogin();
@@ -114,7 +122,8 @@ public:
     EGetMoney getMoney(int money);
 
     bool save(user *us);
-    user* read(QString &username);
+    user *read(QString &username);
+    bool replace(user *us, QString pUsername = "");
 };
 
 #endif // USER_H

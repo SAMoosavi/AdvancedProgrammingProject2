@@ -2,8 +2,10 @@
 using namespace std;
 #include <QDebug>
 
-User::User(){}
-User::~User(){}
+User::User()
+{
+}
+User::~User() {}
 
 bool User::vPassword(QString &password)
 {
@@ -119,54 +121,38 @@ ESetAccount User::setAccount(QString &name, QString &ID, QString &accountNumber,
     return setedAccount;
 }
 
-bool User::chengeName(QString &name)
+ECheng User::chengAccount(QString &username, QString &name, QString &ID, QString &accountNumber, QString &IBAN)
 {
     if (!this->vName(name))
     {
-        return false;
+        return EChengeName;
     }
-    this->userLogin->name = name;
-    return true;
-}
-
-bool User::chengeID(QString &ID)
-{
     if (!this->vID(ID))
     {
-        return false;
+        return EChengeID;
     }
-    this->userLogin->ID = ID;
-    return true;
-}
-
-bool User::chengeAccountNumber(QString &accountNumber)
-{
     if (!this->vAccountNumber(accountNumber))
     {
-        return false;
+        return EChengeAccountNumber;
     }
-    this->userLogin->accountNumber = accountNumber;
-    return true;
-}
-
-bool User::chengeIBAN(QString &IBAN)
-{
     if (!this->vIBAN(IBAN))
     {
-        return false;
+        return EChengeIBAN;
     }
-    this->userLogin->IBAN = IBAN;
-    return true;
-}
-
-bool User::chengeUsername(QString &username)
-{
     if (this->read(username))
     {
-        return false;
+        return EChengeUsername;
     }
-    this->userLogin->username = username;
-    return true;
+    user *us = this->userLogin;
+    us->name = name;
+    us->ID = ID;
+    us->accountNumber = accountNumber;
+    us->IBAN = IBAN;
+    QString pUsername = this->userLogin->username;
+    us->username = username;
+    this->replace(us, pUsername);
+
+    return chenged;
 }
 
 EChengePassword User::chengePassword(QString &password, QString &confirmPassword)
@@ -248,7 +234,8 @@ bool User::withdrawAccount(int mmoney)
     return false;
 }
 
-QString User::userStructToString(user * us){
+QString User::userStructToString(user *us)
+{
     QString tString = "";
 
     tString += us->ID;
@@ -273,7 +260,7 @@ QString User::userStructToString(user * us){
     return tString;
 }
 
-user* User::read(QString &username)
+user *User::read(QString &username)
 {
     user *tUser = nullptr;
 
@@ -294,7 +281,8 @@ user* User::read(QString &username)
         QString line = in.readLine();
         QStringList list = line.split(",");
 
-        if(username == list[2]){
+        if (username == list[2])
+        {
             tUser = new user;
             tUser->ID = list[0];
             tUser->name = list[1];
@@ -326,8 +314,15 @@ bool User::save(user *us)
     return true;
 }
 
-bool User::replace(user *us){
-   QString str, temp1="",temp2="";
+bool User::replace(user *us, QString pUsername)
+{
+
+    if (pUsername == "")
+    {
+        pUsername = us->username;
+    }
+
+    QString str, temp1 = "", temp2 = "";
 
     QFile readFile(this->fileName);
     if (!readFile.open(QIODevice::ReadOnly | QIODevice::Text))
@@ -342,12 +337,18 @@ bool User::replace(user *us){
         QString line = in.readLine();
         QStringList list = line.split(",");
 
-        if(ok && us->username == list[2]){
+        if (ok && pUsername == list[2])
+        {
             temp = 2;
-        }else{
-            if(temp == 1){
+        }
+        else
+        {
+            if (temp == 1)
+            {
                 temp1 += line;
-            }else{
+            }
+            else
+            {
                 temp2 += line;
             }
         }
