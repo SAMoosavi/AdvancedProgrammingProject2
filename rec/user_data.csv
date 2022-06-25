@@ -1,1 +1,2 @@
-ID,name,username,password,accountNumber,IBAN,debtAmount,money,stockN
+ID,name,username,password,accountNumber,IBAN,debtAmount,money,stockNID
+,,a,A,,,0,0,0
