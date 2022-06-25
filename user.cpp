@@ -264,7 +264,7 @@ user *User::read(QString &username)
 {
     user *tUser = nullptr;
 
-    QFile file(this->fileName);
+    QFile file(this->pathFile);
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
         return tUser;
 
@@ -303,7 +303,7 @@ user *User::read(QString &username)
 
 bool User::save(user *us)
 {
-    QFile file(this->fileName);
+    QFile file(this->pathFile);
     if (!file.open(QIODevice::WriteOnly | QIODevice::Text | QIODevice::Append))
         return false;
 
@@ -324,7 +324,7 @@ bool User::replace(user *us, QString pUsername)
 
     QString str, temp1 = "", temp2 = "";
 
-    QFile readFile(this->fileName);
+    QFile readFile(this->pathFile);
     if (!readFile.open(QIODevice::ReadOnly | QIODevice::Text))
         return false;
 
@@ -363,7 +363,7 @@ bool User::replace(user *us, QString pUsername)
     readFile.flush();
     readFile.close();
 
-    QFile writeFile(this->fileName);
+    QFile writeFile(this->pathFile);
     if (!writeFile.open(QIODevice::WriteOnly | QIODevice::Text))
         return false;
 
