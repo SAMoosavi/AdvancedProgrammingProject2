@@ -25,9 +25,9 @@ Stock::~Stock()
 
 }
 
-bool Stock::buyStock(QString &symbol, int amount)
+bool Stock::buyStock(int id, int amount)
 {
-   auto st = searchStock(symbol);
+   auto st = searchStock(id);
    if(st)
    {
        if(this->us->money >= amount*st->price)
@@ -40,9 +40,9 @@ bool Stock::buyStock(QString &symbol, int amount)
    return false;
 }
 
-void Stock::saleStock(QString &symbol)
+void Stock::saleStock(int id)
 {
-   auto st = searchStock(symbol);
+   auto st = searchStock(id);
    if(st)
    {
        this->us->money += st->price;
@@ -66,11 +66,11 @@ map<int, stock*> Stock::getAllStocks()
     return allStocks;
 }
 
-stock *Stock::searchStock(QString &symbol)
+stock *Stock::searchStock(int id)
 {
     for (auto st : us->stocks)
     {
-        if (st->symbol == symbol)
+        if (st->ID == id)
         {
             return st;
         }
@@ -94,10 +94,30 @@ bool Stock::read()
         }
 
         QString line = in.readLine();
+
+        int q = 0;
+        for(int i = 0; i < line.size(); i++){
+            if(line[i] == '"') q++;
+
+            if(q%2 == 1 && line[i] == ','){
+                line[i] = '`';
+            }
+        }
+
         QStringList list = line.split(",");
+
+        for(int i = 0; i < line.size(); i++){
+            if(line[i] == '`') line[i] = ',';
+        }
+
         stock* tStock = new stock;
         tStock->ID = list[0].toInt();
         tStock->symbol = list[1];
+
+        if(list[2][0] == '"'){
+            list[2][0] = ' ';
+            list[2][list.size()-1] = ' ';
+        }
         tStock->name = list[2];
         tStock->price = list[3].toDouble();
         tStock->marketCap = list[4].toInt();
