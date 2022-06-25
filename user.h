@@ -67,7 +67,6 @@ enum EGetMoney
     MoreThanInventory,
 };
 
-
 class User
 {
 private:
@@ -90,14 +89,16 @@ private:
 
     user *userLogin = 0;
 
+    const QString fileName = "C:/Users/moosavi/Desktop/AP/AdvancedProgrammingProject2/rec/user_data.csv";
+
 public:
     User();
     ~User();
-    
+
     ERegister Register(QString &username, QString &password, QString &confirmPassword);
     ESetAccount setAccount(QString &name, QString &ID, QString &accountNumber, QString &IBAN);
     ELogin login(QString &username, QString &password);
-    
+
     bool chengeName(QString &name);
     bool chengeID(QString &ID);
     bool chengeAccountNumber(QString &accountNumber);
@@ -114,14 +115,8 @@ public:
     void chargeAccount(int money);
     EGetMoney getMoney(int money);
 
-    //void buyStock(QString &symbol, int amount);
-    //void saleStock(QString &symbol);
-
-    // vector<stock *> getStock();
-
-    bool save();
+    bool save(user *us);
     bool read();
-
 };
 
 #endif // USER_H
