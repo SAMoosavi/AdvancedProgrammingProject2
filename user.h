@@ -83,8 +83,6 @@ private:
 
     bool vDebtAmount(int debtAmount);
 
-    user *searchUser(QString &username);
-
     bool withdrawAccount(int money);
 
     user *userLogin = 0;
@@ -116,7 +114,7 @@ public:
     EGetMoney getMoney(int money);
 
     bool save(user *us);
-    bool read();
+    user* read(QString &username);
 };
 
 #endif // USER_H
