@@ -85,11 +85,11 @@ ERegister User::Register(QString &username, QString &password, QString &confirmP
     {
         return EConfirmPassword;
     }
-    user *a = new user;
-    a->username = username;
-    a->password = this->hashPassword(password);
-    this->users.push_back(a);
-    this->save(a);
+    user *us = new user;
+    us->username = username;
+    us->password = this->hashPassword(password);
+    this->users.push_back(us);
+    this->save(us);
     return registered;
 }
 
