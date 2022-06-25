@@ -249,7 +249,6 @@ EGetMoney User::getMoney(int mmoney)
 
 bool User::save(user *us)
 {
-    // TODO: check
     QFile file(this->fileName);
     if (!file.open(QIODevice::WriteOnly | QIODevice::Text | QIODevice::Append))
         return false;
