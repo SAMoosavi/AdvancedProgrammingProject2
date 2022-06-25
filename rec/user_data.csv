@@ -1,1 +1,6 @@
-ID,name,username,password,accountNumber,IBAN,debtAmount,money,stockN
+ID,name,username,password,accountNumber,IBAN,debtAmount,money,stockNID
+,,a,A,,,0,0,0
+,,b,A,,,0,0,0
+,,c,A,,,0,0,0
+,,d,A,,,0,0,0
+,,e,A,,,0,0,0
