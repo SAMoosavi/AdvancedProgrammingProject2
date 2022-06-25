@@ -117,7 +117,7 @@ bool Stock::saveOnStockUser(int id , int amount){
 
     QTextStream in(&readFile);
     bool ok = false;
-    QString bay = this->us->ID + ","+ QString::number(id) + "," + QString::number(amount);
+    QString bay = amount == 0 ? "" :this->us->ID + ","+ QString::number(id) + "," + QString::number(amount);
 
     while (!in.atEnd())
     {
