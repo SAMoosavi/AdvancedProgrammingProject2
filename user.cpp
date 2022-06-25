@@ -4,23 +4,8 @@ using namespace std;
 
 User::User()
 {
-    this->read();
 }
-User::~User()
-{
-}
-
-user *User::searchUser(QString &username)
-{
-    for (auto us : users)
-    {
-        if (us->username == username)
-        {
-            return us;
-        }
-    }
-    return nullptr;
-}
+User::~User() {}
 
 bool User::vPassword(QString &password)
 {
@@ -73,7 +58,7 @@ bool User::vDebtAmount(int debtAmount)
 
 ERegister User::Register(QString &username, QString &password, QString &confirmPassword)
 {
-    if (this->searchUser(username))
+    if (this->read(username))
     {
         return notAvailableUsername;
     }
@@ -88,14 +73,13 @@ ERegister User::Register(QString &username, QString &password, QString &confirmP
     user *us = new user;
     us->username = username;
     us->password = this->hashPassword(password);
-    this->users.push_back(us);
     this->save(us);
     return registered;
 }
 
 ELogin User::login(QString &username, QString &password)
 {
-    user *a = this->searchUser(username);
+    user *a = this->read(username);
     if (!a)
     {
         return notFuond;
@@ -126,63 +110,49 @@ ESetAccount User::setAccount(QString &name, QString &ID, QString &accountNumber,
     {
         return EVIBAN;
     }
-    user *a = this->userLogin;
-    a->name = name;
-    a->ID = ID;
-    a->accountNumber = accountNumber;
-    a->IBAN = IBAN;
+    user *us = this->userLogin;
+    us->name = name;
+    us->ID = ID;
+    us->accountNumber = accountNumber;
+    us->IBAN = IBAN;
+
+    this->replace(us);
 
     return setedAccount;
 }
 
-bool User::chengeName(QString &name)
+ECheng User::chengAccount(QString &username, QString &name, QString &ID, QString &accountNumber, QString &IBAN)
 {
     if (!this->vName(name))
     {
-        return false;
+        return EChengeName;
     }
-    this->userLogin->name = name;
-    return true;
-}
-
-bool User::chengeID(QString &ID)
-{
     if (!this->vID(ID))
     {
-        return false;
+        return EChengeID;
     }
-    this->userLogin->ID = ID;
-    return true;
-}
-
-bool User::chengeAccountNumber(QString &accountNumber)
-{
     if (!this->vAccountNumber(accountNumber))
     {
-        return false;
+        return EChengeAccountNumber;
     }
-    this->userLogin->accountNumber = accountNumber;
-    return true;
-}
-
-bool User::chengeIBAN(QString &IBAN)
-{
     if (!this->vIBAN(IBAN))
     {
-        return false;
+        return EChengeIBAN;
     }
-    this->userLogin->IBAN = IBAN;
-    return true;
-}
-
-bool User::chengeUsername(QString &username)
-{
-    if (this->searchUser(username))
+    if (this->read(username))
     {
-        return false;
+        return EChengeUsername;
     }
-    this->userLogin->username = username;
-    return true;
+    user *us = this->userLogin;
+    us->name = name;
+    us->ID = ID;
+    us->accountNumber = accountNumber;
+    us->IBAN = IBAN;
+    QString pUsername = this->userLogin->username;
+    us->username = username;
+    this->replace(us, pUsername);
+
+    return chenged;
 }
 
 EChengePassword User::chengePassword(QString &password, QString &confirmPassword)
@@ -247,13 +217,25 @@ EGetMoney User::getMoney(int mmoney)
     return getedMoney;
 }
 
-bool User::save(user *us)
+bool User::withdrawAccount(int mmoney)
 {
-    QFile file(this->fileName);
-    if (!file.open(QIODevice::WriteOnly | QIODevice::Text | QIODevice::Append))
-        return false;
+    if (this->userLogin->money >= mmoney)
+    {
+        this->userLogin->debtAmount -= mmoney;
+        return true;
+    }
+    mmoney -= this->userLogin->money;
+    if (this->vDebtAmount(this->userLogin->debtAmount + mmoney))
+    {
+        this->userLogin->money = 0;
+        this->userLogin->debtAmount += mmoney;
+        return true;
+    }
+    return false;
+}
 
-    QTextStream out(&file);
+QString User::userStructToString(user *us)
+{
     QString tString = "";
 
     tString += us->ID;
@@ -275,38 +257,20 @@ bool User::save(user *us)
     tString += QString::number(us->stockN);
     tString += "\n";
 
-    out << tString;
-    file.flush();
-    file.close();
-    return true;
+    return tString;
 }
 
-bool User::withdrawAccount(int mmoney)
+user *User::read(QString &username)
 {
-    if (this->userLogin->money >= mmoney)
-    {
-        this->userLogin->debtAmount -= mmoney;
-        return true;
-    }
-    mmoney -= this->userLogin->money;
-    if (this->vDebtAmount(this->userLogin->debtAmount + mmoney))
-    {
-        this->userLogin->money = 0;
-        this->userLogin->debtAmount += mmoney;
-        return true;
-    }
-    return false;
-}
+    user *tUser = nullptr;
 
-bool User::read()
-{
-    QFile file(this->fileName);
-
+    QFile file(this->pathFile);
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
-        return false;
+        return tUser;
 
     QTextStream in(&file);
     bool ok = false;
+
     while (!in.atEnd())
     {
         if (!ok)
@@ -314,23 +278,99 @@ bool User::read()
             ok = true;
             continue;
         }
-
         QString line = in.readLine();
         QStringList list = line.split(",");
-        user *tUser = new user;
-        tUser->ID = list[0];
-        tUser->name = list[1];
-        tUser->username = list[2];
-        tUser->password = list[3];
-        tUser->accountNumber = list[4];
-        tUser->IBAN = list[5];
-        tUser->debtAmount = list[6].toInt();
-        tUser->money = list[7].toInt();
-        tUser->stockN = list[8].toInt();
 
-        this->users.push_back(tUser);
+        if (username == list[2])
+        {
+            tUser = new user;
+            tUser->ID = list[0];
+            tUser->name = list[1];
+            tUser->username = list[2];
+            tUser->password = list[3];
+            tUser->accountNumber = list[4];
+            tUser->IBAN = list[5];
+            tUser->debtAmount = list[6].toInt();
+            tUser->money = list[7].toInt();
+            tUser->stockN = list[8].toInt();
+            break;
+        }
     }
     file.flush();
     file.close();
+    return tUser;
+}
+
+bool User::save(user *us)
+{
+    QFile file(this->pathFile);
+    if (!file.open(QIODevice::WriteOnly | QIODevice::Text | QIODevice::Append))
+        return false;
+
+    QTextStream out(&file);
+    out << this->userStructToString(us);
+    file.flush();
+    file.close();
+    return true;
+}
+
+bool User::replace(user *us, QString pUsername)
+{
+
+    if (pUsername == "")
+    {
+        pUsername = us->username;
+    }
+
+    QString str, temp1 = "", temp2 = "";
+
+    QFile readFile(this->pathFile);
+    if (!readFile.open(QIODevice::ReadOnly | QIODevice::Text))
+        return false;
+
+    QTextStream in(&readFile);
+    bool ok = false;
+    short int temp = 1;
+
+    while (!in.atEnd())
+    {
+        QString line = in.readLine();
+        QStringList list = line.split(",");
+
+        if (ok && pUsername == list[2])
+        {
+            temp = 2;
+        }
+        else
+        {
+            if (temp == 1)
+            {
+                temp1 += line;
+            }
+            else
+            {
+                temp2 += line;
+            }
+        }
+
+        if (!ok)
+        {
+            ok = true;
+        }
+    }
+    str = temp1 + this->userStructToString(us) + temp2;
+
+    readFile.flush();
+    readFile.close();
+
+    QFile writeFile(this->pathFile);
+    if (!writeFile.open(QIODevice::WriteOnly | QIODevice::Text))
+        return false;
+
+    QTextStream out(&writeFile);
+    out << str;
+    writeFile.flush();
+    writeFile.close();
+
     return true;
 }

@@ -7,10 +7,12 @@
 class User;
 struct user;
 
-using std::vector;
 using std::map;
+using std::pair;
+using std::vector;
 
-struct stock{
+struct stock
+{
     int ID;
     QString symbol;
     QString name;
@@ -21,8 +23,12 @@ struct stock{
 class Stock
 {
 private:
-    map<int, stock*> allStocks;
+    map<int, stock *> allStocks;
     user *us;
+    const QString pathStockUserFile = "C:/Users/moosavi/Desktop/AP/AdvancedProgrammingProject2/rec/stock_user_data.csv";
+    bool saveOnStockUser(int id, int amount);
+    vector<pair<stock *, int>> readOnStockUser();
+
 public:
     Stock(user *userr);
     ~Stock();
