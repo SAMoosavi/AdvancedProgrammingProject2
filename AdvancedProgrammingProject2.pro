@@ -10,6 +10,7 @@ CONFIG += c++17
 
 SOURCES += \
     basewindow.cpp \
+    chengeaccount.cpp \
     main.cpp \
     mainwindow.cpp \
     registerfile.cpp \
@@ -19,6 +20,7 @@ SOURCES += \
 
 HEADERS += \
     basewindow.h \
+    chengeaccount.h \
     mainwindow.h \
     registerfile.h \
     setaccount.h \
@@ -27,6 +29,7 @@ HEADERS += \
 
 FORMS += \
     basewindow.ui \
+    chengeaccount.ui \
     mainwindow.ui \
     registerfile.ui \
     setaccount.ui
