@@ -17,7 +17,8 @@ SOURCES += \
     registerfile.cpp \
     setaccount.cpp \
     stock.cpp \
-    user.cpp
+    user.cpp \
+    withdraw.cpp
 
 HEADERS += \
     basewindow.h \
@@ -27,7 +28,8 @@ HEADERS += \
     registerfile.h \
     setaccount.h \
     stock.h \
-    user.h
+    user.h \
+    withdraw.h
 
 FORMS += \
     basewindow.ui \
@@ -35,7 +37,8 @@ FORMS += \
     chengpassword.ui \
     mainwindow.ui \
     registerfile.ui \
-    setaccount.ui
+    setaccount.ui \
+    withdraw.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
