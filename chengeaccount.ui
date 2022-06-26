@@ -262,7 +262,7 @@ padding:20px 0 20px 0l;
 margin:20px 0 0 0;</string>
           </property>
           <property name="text">
-           <string>PushButton</string>
+           <string>Edit</string>
           </property>
          </widget>
         </item>
