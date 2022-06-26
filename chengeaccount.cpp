@@ -9,11 +9,11 @@ chengeAccount::chengeAccount(User *myUser,QWidget *parent) :
     this->myUser = myUser;
 
     user * loginUser = myUser->getUserLogin();
-    ui->lineEdit_username->textEdited(loginUser->username);
-    ui->lineEdit_IBAN->textEdited(loginUser->IBAN);
-    ui->lineEdit_ID->textEdited(loginUser->ID);
-    ui->lineEdit_name->textEdited(loginUser->name);
-    ui->lineEdit_account_number->textEdited(loginUser->accountNumber);
+    ui->lineEdit_username->setText(loginUser->username);
+    ui->lineEdit_IBAN->setText(loginUser->IBAN);
+    ui->lineEdit_ID->setText(loginUser->ID);
+    ui->lineEdit_name->setText(loginUser->name);
+    ui->lineEdit_account_number->setText(loginUser->accountNumber);
 }
 
 chengeAccount::~chengeAccount()
