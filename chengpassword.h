@@ -5,8 +5,9 @@
 #include <QMessageBox>
 #include "user.h"
 
-namespace Ui {
-class chengPassword;
+namespace Ui
+{
+    class chengPassword;
 }
 
 class chengPassword : public QMainWindow
@@ -14,7 +15,7 @@ class chengPassword : public QMainWindow
     Q_OBJECT
 
 public:
-    explicit chengPassword(User* myUser,QWidget *parent = nullptr);
+    explicit chengPassword(User *myUser, QWidget *parent = nullptr);
     ~chengPassword();
 
 private slots:

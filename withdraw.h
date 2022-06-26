@@ -6,8 +6,9 @@
 #include <QString>
 #include "user.h"
 
-namespace Ui {
-class withdraw;
+namespace Ui
+{
+    class withdraw;
 }
 
 class withdraw : public QMainWindow
@@ -15,7 +16,7 @@ class withdraw : public QMainWindow
     Q_OBJECT
 
 public:
-    explicit withdraw(User*myUser ,QWidget *parent = nullptr);
+    explicit withdraw(User *myUser, QWidget *parent = nullptr);
     ~withdraw();
 
 private slots:
@@ -25,7 +26,7 @@ private slots:
 
 private:
     Ui::withdraw *ui;
-    User*myUser;
+    User *myUser;
 };
 
 #endif // WITHDRAW_H

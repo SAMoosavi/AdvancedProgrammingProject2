@@ -217,7 +217,8 @@ EGetMoney User::getMoney(int mmoney)
     return getedMoney;
 }
 
-int User::showMoney(){
+int User::showMoney()
+{
     return this->userLogin->money - this->userLogin->debtAmount;
 }
 

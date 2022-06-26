@@ -1,9 +1,8 @@
 #include "chengpassword.h"
 #include "ui_chengpassword.h"
 
-chengPassword::chengPassword(User *myUser,QWidget *parent) :
-    QMainWindow(parent),
-    ui(new Ui::chengPassword)
+chengPassword::chengPassword(User *myUser, QWidget *parent) : QMainWindow(parent),
+                                                              ui(new Ui::chengPassword)
 {
     ui->setupUi(this);
     this->myUser = myUser;
@@ -34,4 +33,3 @@ void chengPassword::on_pushButton_clicked()
         QMessageBox::warning(this, "?", "?");
     }
 }
-

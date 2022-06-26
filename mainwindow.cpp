@@ -23,11 +23,13 @@ void MainWindow::on_pushButton_clicked()
     switch (this->myUser->login(username, password))
     {
     case logined:
-        if(this->myUser->accountIsSet()){
+        if (this->myUser->accountIsSet())
+        {
             QMessageBox::information(this, "Welcome!", "Welcome!");
             // TODO: cheng page
         }
-        else{
+        else
+        {
             QMessageBox::information(this, "Welcome!", "Please complete your information!");
             hide();
             this->setAccount = new SetAccount(this->myUser, this);

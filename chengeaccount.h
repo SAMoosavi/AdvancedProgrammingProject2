@@ -5,8 +5,9 @@
 #include <QMessageBox>
 #include "user.h"
 
-namespace Ui {
-class chengeAccount;
+namespace Ui
+{
+    class chengeAccount;
 }
 
 class chengeAccount : public QMainWindow
@@ -14,7 +15,7 @@ class chengeAccount : public QMainWindow
     Q_OBJECT
 
 public:
-    explicit chengeAccount(User *myUser,QWidget *parent = nullptr);
+    explicit chengeAccount(User *myUser, QWidget *parent = nullptr);
     ~chengeAccount();
 
 private slots:

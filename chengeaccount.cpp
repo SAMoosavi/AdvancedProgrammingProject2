@@ -1,14 +1,13 @@
 #include "chengeaccount.h"
 #include "ui_chengeaccount.h"
 
-chengeAccount::chengeAccount(User *myUser,QWidget *parent) :
-    QMainWindow(parent),
-    ui(new Ui::chengeAccount)
+chengeAccount::chengeAccount(User *myUser, QWidget *parent) : QMainWindow(parent),
+                                                              ui(new Ui::chengeAccount)
 {
     ui->setupUi(this);
     this->myUser = myUser;
 
-    user * loginUser = myUser->getUserLogin();
+    user *loginUser = myUser->getUserLogin();
     ui->lineEdit_username->setText(loginUser->username);
     ui->lineEdit_IBAN->setText(loginUser->IBAN);
     ui->lineEdit_ID->setText(loginUser->ID);
@@ -29,7 +28,8 @@ void chengeAccount::on_pushButton_clicked()
     QString accountNumber = ui->lineEdit_account_number->text();
     QString IBAN = ui->lineEdit_IBAN->text();
 
-    switch(this->myUser->chengAccount(username,name,ID,accountNumber,IBAN)){
+    switch (this->myUser->chengAccount(username, name, ID, accountNumber, IBAN))
+    {
     case chenged:
         QMessageBox::information(this, "Edit Account", "Your account updated.");
         break;
@@ -52,4 +52,3 @@ void chengeAccount::on_pushButton_clicked()
         QMessageBox::warning(this, "?", "?");
     }
 }
-

@@ -4,7 +4,7 @@
 
 int main(int argc, char *argv[])
 {
-    User * myUser = new User;
+    User *myUser = new User;
     QApplication a(argc, argv);
     MainWindow w(myUser);
     w.show();
