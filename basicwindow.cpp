@@ -11,23 +11,23 @@ BasicWindow::BasicWindow(User *myUser, QWidget *parent) :
 
     user *loginUser = myUser->getUserLogin();
 
-    ui->tableView->insertRow(ui->tableView->rowCount());
-    ui->tableView->setColumnCount(4);
-    ui->tableView->verticalHeader()->setVisible(false);
-    ui->tableView->horizontalHeader()->setVisible(false);
-    ui->tableView->setItem(0, 0, new QtableViewItem("Symbol"));
-    ui->tableView->setItem(0, 1, new QtableViewItem("Full Name"));
-    ui->tableView->setItem(0, 2, new QtableViewItem("Price"));
-    ui->tableView->setItem(0, 3, new QtableViewItem("Value"));
+    ui->tableWidget->insertRow(ui->tableWidget->rowCount());
+    ui->tableWidget->setColumnCount(4);
+    ui->tableWidget->verticalHeader()->setVisible(false);
+    ui->tableWidget->horizontalHeader()->setVisible(false);
+    ui->tableWidget->setItem(0, 0, new QTableWidgetItem("Symbol"));
+    ui->tableWidget->setItem(0, 1, new QTableWidgetItem("Full Name"));
+    ui->tableWidget->setItem(0, 2, new QTableWidgetItem("Price"));
+    ui->tableWidget->setItem(0, 3, new QTableWidgetItem("Value"));
 /*
     int i = 1;
     for(auto st: loginUser->stocks){
-        ui->tableView->insertRow(ui->tableView->rowCount());
-        ui->tableView->setItem(i, 0, new QtableViewItem(st->symbol));
-        ui->tableView->setItem(i, 1, new QtableViewItem(st->name));
-        ui->tableView->setItem(i, 2, new QtableViewItem(st->price));
+        ui->tableWidget->insertRow(ui->tableWidget->rowCount());
+        ui->tableWidget->setItem(i, 0, new QTableWidgetItem(st->symbol));
+        ui->tableWidget->setItem(i, 1, new QTableWidgetItem(st->name));
+        ui->tableWidget->setItem(i, 2, new QTableWidgetItem(st->price));
         TODO: save amount and use it
-        ui->tableView->setItem(i, 3, new QtableViewItem(st->price));
+        ui->tableWidget->setItem(i, 3, new QTableWidgetItem(st->price));
         i++;
     }
 */
