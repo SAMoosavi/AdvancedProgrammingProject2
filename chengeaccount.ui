@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>SetAccount</class>
- <widget class="QMainWindow" name="SetAccount">
+ <class>chengeAccount</class>
+ <widget class="QMainWindow" name="chengeAccount">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1088</width>
-    <height>630</height>
+    <width>866</width>
+    <height>715</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -22,7 +22,7 @@
       </property>
       <property name="sizeHint" stdset="0">
        <size>
-        <width>40</width>
+        <width>171</width>
         <height>20</height>
        </size>
       </property>
@@ -44,6 +44,19 @@
        </spacer>
       </item>
       <item>
+       <spacer name="verticalSpacer_4">
+        <property name="orientation">
+         <enum>Qt::Vertical</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>20</width>
+          <height>40</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item>
        <widget class="QLabel" name="label_title">
         <property name="font">
          <font>
@@ -51,12 +64,25 @@
          </font>
         </property>
         <property name="text">
-         <string>Complete Your Information</string>
+         <string>Edit Your Information</string>
         </property>
         <property name="alignment">
          <set>Qt::AlignCenter</set>
         </property>
        </widget>
+      </item>
+      <item>
+       <spacer name="verticalSpacer_5">
+        <property name="orientation">
+         <enum>Qt::Vertical</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>20</width>
+          <height>40</height>
+         </size>
+        </property>
+       </spacer>
       </item>
       <item>
        <spacer name="verticalSpacer">
@@ -73,6 +99,35 @@
       </item>
       <item>
        <layout class="QVBoxLayout" name="verticalLayout_5">
+        <item>
+         <widget class="QLabel" name="label_username">
+          <property name="font">
+           <font>
+            <pointsize>14</pointsize>
+           </font>
+          </property>
+          <property name="text">
+           <string>Username</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLineEdit" name="lineEdit_username">
+          <property name="font">
+           <font>
+            <pointsize>14</pointsize>
+           </font>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">border-radius:10px;
+padding:20px 5px  20px 5pxl;
+</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <layout class="QVBoxLayout" name="verticalLayout_7"/>
+        </item>
         <item>
          <layout class="QVBoxLayout" name="verticalLayout_4">
           <item>
@@ -207,9 +262,22 @@ padding:20px 0 20px 0l;
 margin:20px 0 0 0;</string>
           </property>
           <property name="text">
-           <string>Complete</string>
+           <string>Edit</string>
           </property>
          </widget>
+        </item>
+        <item>
+         <spacer name="verticalSpacer_6">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>40</height>
+           </size>
+          </property>
+         </spacer>
         </item>
        </layout>
       </item>
@@ -235,7 +303,7 @@ margin:20px 0 0 0;</string>
       </property>
       <property name="sizeHint" stdset="0">
        <size>
-        <width>40</width>
+        <width>249</width>
         <height>20</height>
        </size>
       </property>
@@ -243,6 +311,17 @@ margin:20px 0 0 0;</string>
     </item>
    </layout>
   </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>866</width>
+     <height>21</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
  </widget>
  <resources/>
  <connections/>

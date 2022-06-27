@@ -120,6 +120,7 @@ public:
 
     void chargeAccount(int money);
     EGetMoney getMoney(int money);
+    int showMoney();
 
     bool save(user *us);
     user *read(QString &username);

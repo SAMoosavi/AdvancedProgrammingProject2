@@ -217,6 +217,11 @@ EGetMoney User::getMoney(int mmoney)
     return getedMoney;
 }
 
+int User::showMoney()
+{
+    return this->userLogin->money - this->userLogin->debtAmount;
+}
+
 bool User::withdrawAccount(int mmoney)
 {
     if (this->userLogin->money >= mmoney)

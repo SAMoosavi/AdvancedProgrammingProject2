@@ -35,8 +35,8 @@ public:
 
     bool buyStock(int id, int amount);
     void saleStock(int id);
-    map<int, stock*> getStocks();
-    map<int, stock*> getAllStocks();
+    map<int, stock *> getStocks();
+    map<int, stock *> getAllStocks();
 
     stock *searchStock(int id);
 

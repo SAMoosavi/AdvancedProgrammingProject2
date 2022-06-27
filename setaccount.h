@@ -6,8 +6,9 @@
 #include <QString>
 #include <QMessageBox>
 
-namespace Ui {
-class SetAccount;
+namespace Ui
+{
+    class SetAccount;
 }
 
 class SetAccount : public QMainWindow
@@ -15,7 +16,7 @@ class SetAccount : public QMainWindow
     Q_OBJECT
 
 public:
-    explicit SetAccount(User *myUser,QWidget *parent = nullptr);
+    explicit SetAccount(User *myUser, QWidget *parent = nullptr);
     ~SetAccount();
 
 private slots:

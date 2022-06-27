@@ -9,7 +9,10 @@
 class RegisterFile;
 
 QT_BEGIN_NAMESPACE
-namespace Ui { class MainWindow; }
+namespace Ui
+{
+    class MainWindow;
+}
 QT_END_NAMESPACE
 
 class MainWindow : public QMainWindow
@@ -17,7 +20,7 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 
 public:
-    MainWindow(User * myUser,QWidget *parent = nullptr);
+    MainWindow(User *myUser, QWidget *parent = nullptr);
     ~MainWindow();
 
 private slots:
@@ -27,8 +30,8 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
-    User * myUser;
-    RegisterFile * registerFile;
-    SetAccount * setAccount;
+    User *myUser;
+    RegisterFile *registerFile;
+    SetAccount *setAccount;
 };
 #endif // MAINWINDOW_H

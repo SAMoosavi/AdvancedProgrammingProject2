@@ -10,26 +10,35 @@ CONFIG += c++17
 
 SOURCES += \
     basewindow.cpp \
+    chengeaccount.cpp \
+    chengpassword.cpp \
     main.cpp \
     mainwindow.cpp \
     registerfile.cpp \
     setaccount.cpp \
     stock.cpp \
-    user.cpp
+    user.cpp \
+    withdraw.cpp
 
 HEADERS += \
     basewindow.h \
+    chengeaccount.h \
+    chengpassword.h \
     mainwindow.h \
     registerfile.h \
     setaccount.h \
     stock.h \
-    user.h
+    user.h \
+    withdraw.h
 
 FORMS += \
     basewindow.ui \
+    chengeaccount.ui \
+    chengpassword.ui \
     mainwindow.ui \
     registerfile.ui \
-    setaccount.ui
+    setaccount.ui \
+    withdraw.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
