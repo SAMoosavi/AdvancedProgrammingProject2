@@ -23,9 +23,9 @@ struct stock
 class Stock
 {
 private:
-    map<int, stock *> allStocks;
+    //map<int, stock *> allStocks;
     user *us;
-    const QString pathStockUserFile = "C:/Users/moosavi/Desktop/AP/AdvancedProgrammingProject2/rec/stock_user_data.csv";
+    const QString pathStockUserFile = "C:/Users/Lenovo/Desktop/AP/AdvancedProgrammingProject2/rec/stock_user_data.csv";
     bool saveOnStockUser(int id, int amount);
     vector<pair<stock *, int>> readOnStockUser();
 
@@ -39,8 +39,8 @@ public:
     map<int, stock *> getAllStocks();
 
     stock *searchStock(int id);
-
-    bool read();
+    static map<int, stock *> allStocks;
+    static bool read();
 };
 
 #endif // STOCK_H

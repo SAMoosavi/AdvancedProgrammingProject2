@@ -4,10 +4,13 @@
 #include <QString>
 #include <QTextStream>
 #include <QStringList>
+#include <QDebug>
 
 class User;
 
 struct user;
+
+map<int, stock *> Stock::allStocks = {};
 
 using std::map;
 using std::vector;
@@ -78,7 +81,7 @@ stock *Stock::searchStock(int id)
 
 bool Stock::read()
 {
-    QFile file(":/rec/stock_market_data.csv");
+    QFile file("C:/Users/Lenovo/Desktop/AdvancedProgrammingProject2/rec/stock_market_data.csv");
 
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
         return false;
@@ -124,12 +127,12 @@ bool Stock::read()
             list[2][0] = ' ';
             list[2][list.size() - 1] = ' ';
         }
+
         tStock->name = list[2];
         tStock->price = list[3].toDouble();
         tStock->marketCap = list[4].toInt();
-        this->allStocks[tStock->ID] = tStock;
+        allStocks[tStock->ID] = tStock;
     }
-
     return true;
 }
 
