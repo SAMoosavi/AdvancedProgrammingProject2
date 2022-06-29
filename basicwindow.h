@@ -15,6 +15,7 @@ class BasicWindow : public QMainWindow
 public:
     explicit BasicWindow(User *myUser, QWidget *parent = nullptr);
     ~BasicWindow();
+    void showAllStocks();
 
 private:
     Ui::BasicWindow *ui;

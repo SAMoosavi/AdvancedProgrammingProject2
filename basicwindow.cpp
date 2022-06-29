@@ -12,8 +12,16 @@ BasicWindow::BasicWindow(User *myUser, QWidget *parent) :
 
     this->myUser = myUser;
 
-    user *loginUser = myUser->getUserLogin();
+    this->showAllStocks();
+}
 
+BasicWindow::~BasicWindow()
+{
+    delete ui;
+}
+
+void BasicWindow::showAllStocks()
+{
     Stock::read();
 
     ui->tableWidget_buy->insertRow(ui->tableWidget_buy->rowCount());
@@ -31,10 +39,4 @@ BasicWindow::BasicWindow(User *myUser, QWidget *parent) :
         ui->tableWidget_buy->setItem(st.first+1, 2, new QTableWidgetItem(QString::number(st.second->price)));
         ui->tableWidget_buy->setItem(st.first+1, 3, new QTableWidgetItem(QString::number(st.second->marketCap)));
     }
-
-}
-
-BasicWindow::~BasicWindow()
-{
-    delete ui;
 }
