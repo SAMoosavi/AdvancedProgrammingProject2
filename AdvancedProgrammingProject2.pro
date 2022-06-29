@@ -9,7 +9,8 @@ CONFIG += c++17
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-    basewindow.cpp \
+    basicwindow.cpp \
+    buysalestock.cpp \
     chengeaccount.cpp \
     chengpassword.cpp \
     main.cpp \
@@ -21,7 +22,8 @@ SOURCES += \
     withdraw.cpp
 
 HEADERS += \
-    basewindow.h \
+    basicwindow.h \
+    buysalestock.h \
     chengeaccount.h \
     chengpassword.h \
     mainwindow.h \
@@ -32,7 +34,8 @@ HEADERS += \
     withdraw.h
 
 FORMS += \
-    basewindow.ui \
+    basicwindow.ui \
+    buysalestock.ui \
     chengeaccount.ui \
     chengpassword.ui \
     mainwindow.ui \
