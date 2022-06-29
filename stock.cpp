@@ -130,7 +130,7 @@ bool Stock::read()
 
         tStock->name = list[2];
         tStock->price = list[3].toDouble();
-        tStock->marketCap = list[4].toInt();
+        tStock->marketCap = list[4].toLongLong();
         allStocks[tStock->ID] = tStock;
     }
     return true;

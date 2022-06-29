@@ -17,7 +17,7 @@ struct stock
     QString symbol;
     QString name;
     double price;
-    int marketCap;
+    long long marketCap;
 };
 
 class Stock
