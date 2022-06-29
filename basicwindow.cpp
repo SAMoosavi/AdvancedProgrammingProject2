@@ -1,5 +1,8 @@
 #include "basicwindow.h"
 #include "ui_basicwindow.h"
+#include <QDebug>
+#include <QString>
+#include "stock.h"
 
 BasicWindow::BasicWindow(User *myUser, QWidget *parent) :
     QMainWindow(parent),
@@ -11,26 +14,29 @@ BasicWindow::BasicWindow(User *myUser, QWidget *parent) :
 
     user *loginUser = myUser->getUserLogin();
 
-    ui->tableWidget->insertRow(ui->tableWidget->rowCount());
-    ui->tableWidget->setColumnCount(4);
-    ui->tableWidget->verticalHeader()->setVisible(false);
-    ui->tableWidget->horizontalHeader()->setVisible(false);
-    ui->tableWidget->setItem(0, 0, new QTableWidgetItem("Symbol"));
-    ui->tableWidget->setItem(0, 1, new QTableWidgetItem("Full Name"));
-    ui->tableWidget->setItem(0, 2, new QTableWidgetItem("Price"));
-    ui->tableWidget->setItem(0, 3, new QTableWidgetItem("Value"));
-/*
+    Stock::read();
+
+    ui->tableWidget_buy->insertRow(ui->tableWidget_buy->rowCount());
+    ui->tableWidget_buy->setColumnCount(4);
+    ui->tableWidget_buy->verticalHeader()->setVisible(false);
+    ui->tableWidget_buy->horizontalHeader()->setVisible(false);
+    ui->tableWidget_buy->setItem(0, 0, new QTableWidgetItem("Symbol"));
+    ui->tableWidget_buy->setItem(0, 1, new QTableWidgetItem("Full Name"));
+    ui->tableWidget_buy->setItem(0, 2, new QTableWidgetItem("Price"));
+    ui->tableWidget_buy->setItem(0, 3, new QTableWidgetItem("Value"));
+    //ui->tableWidget_buy->insertRow(ui->tableWidget_buy->rowCount());
+    //ui->tableWidget_buy->setItem(1, 0, new QTableWidgetItem(Stock::allStocks[0]->symbol));
     int i = 1;
-    for(auto st: loginUser->stocks){
-        ui->tableWidget->insertRow(ui->tableWidget->rowCount());
-        ui->tableWidget->setItem(i, 0, new QTableWidgetItem(st->symbol));
-        ui->tableWidget->setItem(i, 1, new QTableWidgetItem(st->name));
-        ui->tableWidget->setItem(i, 2, new QTableWidgetItem(st->price));
-        TODO: save amount and use it
-        ui->tableWidget->setItem(i, 3, new QTableWidgetItem(st->price));
+    for(auto st: Stock::allStocks){
+        ui->tableWidget_buy->insertRow(ui->tableWidget_buy->rowCount());
+        ui->tableWidget_buy->setItem(i, 0, new QTableWidgetItem(st.second->symbol));
+        ui->tableWidget_buy->setItem(i, 1, new QTableWidgetItem(st.second->name));
+        ui->tableWidget_buy->setItem(i, 2, new QTableWidgetItem(QString::number(st.second->price)));
+        //TODO: save amount and use it
+        ui->tableWidget_buy->setItem(i, 3, new QTableWidgetItem(QString::number(st.second->price)));
         i++;
     }
-*/
+
 }
 
 BasicWindow::~BasicWindow()
