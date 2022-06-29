@@ -24,8 +24,6 @@ BasicWindow::BasicWindow(User *myUser, QWidget *parent) :
     ui->tableWidget_buy->setItem(0, 1, new QTableWidgetItem("Full Name"));
     ui->tableWidget_buy->setItem(0, 2, new QTableWidgetItem("Price"));
     ui->tableWidget_buy->setItem(0, 3, new QTableWidgetItem("Value"));
-    //ui->tableWidget_buy->insertRow(ui->tableWidget_buy->rowCount());
-    //ui->tableWidget_buy->setItem(1, 0, new QTableWidgetItem(Stock::allStocks[0]->symbol));
     int i = 1;
     for(auto st: Stock::allStocks){
         ui->tableWidget_buy->insertRow(ui->tableWidget_buy->rowCount());
