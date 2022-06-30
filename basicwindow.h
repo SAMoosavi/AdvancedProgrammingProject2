@@ -16,6 +16,10 @@ public:
     explicit BasicWindow(User *myUser, QWidget *parent = nullptr);
     ~BasicWindow();
     void showAllStocks();
+    void buyStock();
+
+private slots:
+    void on_pushButton_buy_clicked();
 
 private:
     Ui::BasicWindow *ui;
