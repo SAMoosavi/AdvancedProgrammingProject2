@@ -16,6 +16,7 @@ public:
     explicit BasicWindow(User *myUser, QWidget *parent = nullptr);
     ~BasicWindow();
     void showAllStocks();
+    void showStocks(user *us);
     void buyStock();
 
 private slots:
