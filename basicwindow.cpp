@@ -51,6 +51,8 @@ void BasicWindow::showAllStocks()
 
 void BasicWindow::showStocks(user *us)
 {
+    ui->tableWidget_sale->clear();
+    ui->tableWidget_sale->setRowCount(0);
     ui->tableWidget_sale->insertRow(ui->tableWidget_sale->rowCount());
     ui->tableWidget_sale->setColumnCount(4);
     ui->tableWidget_sale->verticalHeader()->setVisible(false);
@@ -58,47 +60,40 @@ void BasicWindow::showStocks(user *us)
     ui->tableWidget_sale->setItem(0, 0, new QTableWidgetItem("Symbol"));
     ui->tableWidget_sale->setItem(0, 1, new QTableWidgetItem("Full Name"));
     ui->tableWidget_sale->setItem(0, 2, new QTableWidgetItem("Price"));
-    //ui->tableWidget_sale->setItem(0, 3, new QTableWidgetItem("Value"));
+    ui->tableWidget_sale->setItem(0, 3, new QTableWidgetItem("Value"));
 
     for(auto st: us->stocks){
         ui->tableWidget_sale->insertRow(ui->tableWidget_sale->rowCount());
-        ui->tableWidget_sale->setItem(ui->tableWidget_sale->rowCount(), 0, new QTableWidgetItem(st.first->symbol));
-        ui->tableWidget_sale->setItem(ui->tableWidget_sale->rowCount(), 1, new QTableWidgetItem(st.first->name));
-        ui->tableWidget_sale->setItem(ui->tableWidget_sale->rowCount(), 2, new QTableWidgetItem(QString::number(st.first->price)));
-        //ui->tableWidget_buy->setItem(ui->tableWidget_buy->rowCount(), 3, new QTableWidgetItem(QString::number(st.first->price * st.second)));
+        ui->tableWidget_sale->setItem(ui->tableWidget_sale->rowCount()-1, 0, new QTableWidgetItem(st.first->symbol));
+        ui->tableWidget_sale->setItem(ui->tableWidget_sale->rowCount()-1, 1, new QTableWidgetItem(st.first->name));
+        ui->tableWidget_sale->setItem(ui->tableWidget_sale->rowCount()-1, 2, new QTableWidgetItem(QString::number(st.first->price)));
+        ui->tableWidget_sale->setItem(ui->tableWidget_sale->rowCount()-1, 3, new QTableWidgetItem(QString::number(st.first->price * st.second)));
     }
 }
 
 void BasicWindow::buyStock()
 {
     int id = 0;
-    stock *sto;
     for(auto st: Stock::allStocks){
         if(st.second->symbol == ui->comboBox_buy->currentText()){
             id = st.first;
-            sto = st.second;
             break;
         }
     }
 
     user *us = this->myUser->getUserLogin();
-    if(Stock::buyStock(us, id, QString(ui->lineEdit_buy->text()).toInt())){
+    switch(Stock::buyStock(us, id, QString(ui->lineEdit_buy->text()).toInt())){
+    case bought:
+        QMessageBox::information(this, "congratulations!", "Operation was successful");
+        showStocks(us);
+        break;
 
-        if(Stock::addToStockUser(us, id, QString(ui->lineEdit_buy->text()).toInt())){
-            QMessageBox::information(this, "congratulations!", "Operation was successful");
-            ui->tableWidget_sale->insertRow(ui->tableWidget_sale->rowCount());
-            ui->tableWidget_sale->setItem(ui->tableWidget_sale->rowCount()-1, 0, new QTableWidgetItem(sto->symbol));
-            ui->tableWidget_sale->setItem(ui->tableWidget_sale->rowCount()-1, 1, new QTableWidgetItem(sto->name));
-            ui->tableWidget_sale->setItem(ui->tableWidget_sale->rowCount()-1, 2, new QTableWidgetItem(QString::number(sto->price)));
-            //ui->tableWidget_buy->setItem(ui->tableWidget_buy->rowCount()-1, 3, new QTableWidgetItem(QString::number(sto->price * st.second)));
-
-        }
-        else{
-            QMessageBox::critical(this, "Error", "File not found!");
-        }
-    }
-    else{
+    case fileNotFound:
+        QMessageBox::critical(this, "Error", "File not found!");
+        break;
+    case notEnoughMoney:
         QMessageBox::critical(this, "Error", "Your money is not enough!");
+        break;
     }
 }
 
