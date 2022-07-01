@@ -13,12 +13,12 @@ class buySaleStock : public QMainWindow
     Q_OBJECT
 
 public:
-    explicit buySaleStock(User *myUser, QWidget *parent = nullptr);
+    explicit buySaleStock( QWidget *parent = nullptr);
     ~buySaleStock();
 
 private:
     Ui::buySaleStock *ui;
-    User *myUser;
+    User *myUser = new User();
 };
 
 #endif // BUYSALESTOCK_H

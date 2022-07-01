@@ -25,7 +25,7 @@ class withdraw : public QMainWindow
     Q_OBJECT
 
 public:
-    explicit withdraw(User *myUser, QWidget *parent = nullptr);
+    explicit withdraw( QWidget *parent = nullptr);
     ~withdraw();
 
 private slots:
@@ -47,12 +47,13 @@ private slots:
 
 private:
     Ui::withdraw *ui;
-    User *myUser;
-    chengeAccount *CengeAccount;
-    chengPassword *ChengPassword;
+    User *myUser = new User();
+    chengeAccount *ChangeAccount;
+    chengPassword *changePassword;
     withdraw *Withdraw;
     MainWindow *mainWindow;
     BasicWindow *basicWindow;
+    void deleteUserClass();
 };
 
 #endif // WITHDRAW_H

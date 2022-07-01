@@ -4,10 +4,9 @@
 #include <QPixmap>
 #include <QMessageBox>
 
-MainWindow::MainWindow(User *myUser, QWidget *parent)
+MainWindow::MainWindow( QWidget *parent)
     : QMainWindow(parent), ui(new Ui::MainWindow)
 {
-    this->myUser = myUser;
     ui->setupUi(this);
 }
 
@@ -26,15 +25,17 @@ void MainWindow::on_pushButton_clicked()
         if (this->myUser->accountIsSet())
         {
             QMessageBox::information(this, "Welcome!", "Welcome!");
+            this->deleteUserClass();
             hide();
-            this->basicWindow = new BasicWindow(this->myUser, this);
+            this->basicWindow = new BasicWindow(this);
             this->basicWindow->show();
         }
         else
         {
             QMessageBox::information(this, "Welcome!", "Please complete your information!");
+            this->deleteUserClass();
             hide();
-            this->setAccount = new SetAccount(this->myUser, this);
+            this->setAccount = new SetAccount(this);
             this->setAccount->show();
         }
         break;
@@ -51,7 +52,14 @@ void MainWindow::on_pushButton_clicked()
 
 void MainWindow::on_pushButton_2_clicked()
 {
+    this->deleteUserClass();
     hide();
-    this->registerFile = new RegisterFile(this->myUser, this);
+    this->registerFile = new RegisterFile(this);
     this->registerFile->show();
+}
+
+void MainWindow::deleteUserClass()
+{
+delete this->myUser;
+    this->myUser=0;
 }

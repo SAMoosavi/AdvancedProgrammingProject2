@@ -1,7 +1,7 @@
 #include "user.h"
 using namespace std;
 #include <QDebug>
-
+user *User::userLogin = 0;
 User::User()
 {
 }
@@ -9,9 +9,12 @@ User::~User() {}
 
 bool User::vPassword(QString &password)
 {
-    //    string a = password.toStdString();
-    //    const regex pattern("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*(\\W|_))(?=^\\S*$).{8,}$");
-    //    return regex_match(a, pattern);
+    // Check password have uper and lower case number spesial character and minimome 8 leter
+    /*
+     *  string a = password.toStdString();
+     *  const regex pattern("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*(\\W|_))(?=^\\S*$).{8,}$");
+     *  return regex_match(a, pattern);
+     */
     return true;
 }
 
@@ -33,31 +36,37 @@ QString User::hashPassword(QString &password)
 
 bool User::vName(QString &name)
 {
+    // maximome 40 character
     return name.length() <= 40;
 }
 
 bool User::vID(QString &ID)
 {
+    // 10 character
     return ID.length() == 10;
 }
 
 bool User::vAccountNumber(QString &accountNumber)
 {
+    // 10 character
     return accountNumber.length() == 10;
 }
 
 bool User::vIBAN(QString &IBAN)
 {
+    // check IR in first and 12 character
     return IBAN[0] == 'I' && IBAN[1] == 'R' && IBAN.length() == 12;
 }
 
 bool User::vDebtAmount(int debtAmount)
 {
+    // check debtAmount maximome 1,000,000
     return debtAmount <= 10e6;
 }
 
 ERegister User::Register(QString &username, QString &password, QString &confirmPassword)
 {
+    // validation
     if (this->read(username))
     {
         return notAvailableUsername;
@@ -70,6 +79,7 @@ ERegister User::Register(QString &username, QString &password, QString &confirmP
     {
         return EConfirmPassword;
     }
+    // validated now create user
     user *us = new user;
     us->username = username;
     us->password = this->hashPassword(password);
@@ -79,21 +89,25 @@ ERegister User::Register(QString &username, QString &password, QString &confirmP
 
 ELogin User::login(QString &username, QString &password)
 {
-    user *a = this->read(username);
-    if (!a)
+    // search user
+    user *us = this->read(username);
+    if (!us)
     {
         return notFuond;
     }
-    if (this->hashPassword(password) != a->password)
+    // check password
+    if (this->hashPassword(password) != us->password)
     {
         return notCorrectPassword;
     }
-    this->userLogin = a;
+    // login user
+    this->userLogin = us;
     return logined;
 }
 
 ESetAccount User::setAccount(QString &name, QString &ID, QString &accountNumber, QString &IBAN)
 {
+    // validation
     if (!this->vName(name))
     {
         return EVName;
@@ -110,43 +124,44 @@ ESetAccount User::setAccount(QString &name, QString &ID, QString &accountNumber,
     {
         return EVIBAN;
     }
-    user *us = this->userLogin;
-    us->name = name;
-    us->ID = ID;
-    us->accountNumber = accountNumber;
-    us->IBAN = IBAN;
+    // validated now set user
+    this->userLogin->name = name;
+    this->userLogin->ID = ID;
+    this->userLogin->accountNumber = accountNumber;
+    this->userLogin->IBAN = IBAN;
 
-    this->replace(us);
+    this->replace(this->userLogin);
 
     return setedAccount;
 }
 
-ECheng User::chengAccount(QString &username, QString &name, QString &ID, QString &accountNumber, QString &IBAN)
+Echange User::changeAccount(QString &username, QString &name, QString &ID, QString &accountNumber, QString &IBAN)
 {
+    // validation
     if (!this->vName(name))
     {
-        return EChengeName;
+        return EchangeName;
     }
     if (!this->vID(ID))
     {
-        return EChengeID;
+        return EchangeID;
     }
     if (!this->vAccountNumber(accountNumber))
     {
-        return EChengeAccountNumber;
+        return EchangeAccountNumber;
     }
     if (!this->vIBAN(IBAN))
     {
-        return EChengeIBAN;
+        return EchangeIBAN;
     }
-    // TODO: bugfixed in validation
     if (username != this->userLogin->username)
     {
         if (this->read(username))
         {
-            return EChengeUsername;
+            return EchangeUsername;
         }
     }
+    // validated now change user
     user *us = this->userLogin;
     us->name = name;
     us->ID = ID;
@@ -156,11 +171,12 @@ ECheng User::chengAccount(QString &username, QString &name, QString &ID, QString
     us->username = username;
     this->replace(us, pUsername);
 
-    return chenged;
+    return changed;
 }
 
-EChengePassword User::chengePassword(QString &pereventPassword, QString &password, QString &confirmPassword)
+EchangePassword User::changePassword(QString &pereventPassword, QString &password, QString &confirmPassword)
 {
+    // validation
     if (!this->vPassword(password))
     {
         return eVPassword;
@@ -173,9 +189,10 @@ EChengePassword User::chengePassword(QString &pereventPassword, QString &passwor
     {
         return ePereventPassword;
     }
+    // validated now change password
     this->userLogin->password = this->hashPassword(password);
     this->replace(this->userLogin);
-    return chengedPassword;
+    return changedPassword;
 }
 
 user *User::getUserLogin()
@@ -279,14 +296,14 @@ QString User::userStructToString(user *us)
 user *User::read(QString &username)
 {
     user *tUser = nullptr;
-
+    // open file
     QFile file(this->pathFile);
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
         return tUser;
 
     QTextStream in(&file);
     bool ok = false;
-
+    // read file line to line
     while (!in.atEnd())
     {
         if (!ok)
@@ -296,7 +313,7 @@ user *User::read(QString &username)
         }
         QString line = in.readLine();
         QStringList list = line.split(",");
-
+        // if this username create user
         if (username == list[2])
         {
             tUser = new user;
@@ -311,6 +328,7 @@ user *User::read(QString &username)
             break;
         }
     }
+    // close file
     file.flush();
     file.close();
     return tUser;
@@ -318,11 +336,13 @@ user *User::read(QString &username)
 
 bool User::save(user *us)
 {
+    // open file
     QFile file(this->pathFile);
     if (!file.open(QIODevice::WriteOnly | QIODevice::Text | QIODevice::Append))
         return false;
 
     QTextStream out(&file);
+    // write new user
     out << this->userStructToString(us);
     file.flush();
     file.close();
@@ -331,14 +351,14 @@ bool User::save(user *us)
 
 bool User::replace(user *us, QString pUsername)
 {
-
+    // set pUsername
     if (pUsername == "")
     {
         pUsername = us->username;
     }
 
     QString str, temp1 = "", temp2 = "";
-
+    // open file
     QFile readFile(this->pathFile);
     if (!readFile.open(QIODevice::ReadOnly | QIODevice::Text))
         return false;
@@ -346,12 +366,12 @@ bool User::replace(user *us, QString pUsername)
     QTextStream in(&readFile);
     bool ok = false;
     short int temp = 1;
-
+    // read file line to line
     while (!in.atEnd())
     {
         QString line = in.readLine();
         QStringList list = line.split(",");
-
+        // if this username go to temp2
         if (ok && pUsername == list[2])
         {
             temp = 2;
@@ -373,17 +393,20 @@ bool User::replace(user *us, QString pUsername)
             ok = true;
         }
     }
-    str = temp1 + this->userStructToString(us) + temp2;
-
+    // close file
     readFile.flush();
     readFile.close();
-
+    // create str for write
+    str = temp1 + this->userStructToString(us) + temp2;
+    // open file
     QFile writeFile(this->pathFile);
     if (!writeFile.open(QIODevice::WriteOnly | QIODevice::Text))
         return false;
 
     QTextStream out(&writeFile);
+    // write on file
     out << str;
+    // close file
     writeFile.flush();
     writeFile.close();
 

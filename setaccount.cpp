@@ -1,11 +1,10 @@
 #include "setaccount.h"
 #include "ui_setaccount.h"
 
-SetAccount::SetAccount(User *myUser, QWidget *parent) : QMainWindow(parent),
+SetAccount::SetAccount(QWidget *parent) : QMainWindow(parent),
                                                         ui(new Ui::SetAccount)
 {
     ui->setupUi(this);
-    this->myUser = myUser;
 }
 
 SetAccount::~SetAccount()
@@ -24,8 +23,9 @@ void SetAccount::on_pushButton_clicked()
     {
     case setedAccount:
         QMessageBox::information(this, "Welcome!", "Welcome!");
+        this->deleteUserClass();
         hide();
-        this->basicWindow = new BasicWindow(this->myUser, this);
+        this->basicWindow = new BasicWindow(this);
         this->basicWindow->show();
         break;
     case EVName:
@@ -43,4 +43,10 @@ void SetAccount::on_pushButton_clicked()
     default:
         QMessageBox::warning(this, "?", "?");
     }
+}
+
+void SetAccount::deleteUserClass()
+{
+    delete this->myUser;
+    this->myUser = 0 ;
 }

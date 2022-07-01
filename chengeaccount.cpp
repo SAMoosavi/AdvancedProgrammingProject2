@@ -1,12 +1,10 @@
 #include "chengeaccount.h"
 #include "ui_chengeaccount.h"
 
-chengeAccount::chengeAccount(User *myUser, QWidget *parent) : QMainWindow(parent),
+chengeAccount::chengeAccount( QWidget *parent) : QMainWindow(parent),
                                                               ui(new Ui::chengeAccount)
 {
     ui->setupUi(this);
-    this->myUser = myUser;
-
     user *loginUser = myUser->getUserLogin();
     ui->lineEdit_username->setText(loginUser->username);
     ui->lineEdit_IBAN->setText(loginUser->IBAN);
@@ -28,24 +26,24 @@ void chengeAccount::on_pushButton_clicked()
     QString accountNumber = ui->lineEdit_account_number->text();
     QString IBAN = ui->lineEdit_IBAN->text();
 
-    switch (this->myUser->chengAccount(username, name, ID, accountNumber, IBAN))
+    switch (this->myUser->changeAccount(username, name, ID, accountNumber, IBAN))
     {
-    case chenged:
+    case changed:
         QMessageBox::information(this, "Edit Account", "Your account updated.");
         break;
-    case EChengeName:
+    case EchangeName:
         QMessageBox::critical(this, "Error", "Name must be less than 40 letters!");
         break;
-    case EChengeID:
+    case EchangeID:
         QMessageBox::critical(this, "Error", "ID must be 10 letters!");
         break;
-    case EChengeAccountNumber:
+    case EchangeAccountNumber:
         QMessageBox::critical(this, "Error", "Account number must be 10 letters!");
         break;
-    case EChengeIBAN:
+    case EchangeIBAN:
         QMessageBox::critical(this, "Error", "IBAN is not correct!");
         break;
-    case EChengeUsername:
+    case EchangeUsername:
         QMessageBox::critical(this, "Error", "Your username is not available!");
         break;
     default:
@@ -54,26 +52,23 @@ void chengeAccount::on_pushButton_clicked()
 }
 
 
-void chengeAccount::on_actionInformation_triggered()
-{
-//    hide();
-//    this->CengeAccount = new chengeAccount(this->myUser, this);
-//    this->CengeAccount->show();
-}
+void chengeAccount::on_actionInformation_triggered(){}
 
 
 void chengeAccount::on_actionPassword_triggered()
 {
+    this->deleteUserClass();
     hide();
-    this->ChengPassword = new chengPassword(this->myUser, this);
-    this->ChengPassword->show();
+    this->changePassword = new chengPassword(this);
+    this->changePassword->show();
 }
 
 
 void chengeAccount::on_actionCharge_and_triggered()
 {
+    this->deleteUserClass();
     hide();
-    this->Withdraw = new withdraw(this->myUser, this);
+    this->Withdraw = new withdraw(this);
     this->Withdraw->show();
 }
 
@@ -81,22 +76,31 @@ void chengeAccount::on_actionCharge_and_triggered()
 void chengeAccount::on_actionSing_out_triggered()
 {
     this->myUser->logout();
+    this->deleteUserClass();
     hide();
-    this->mainWindow = new MainWindow(this->myUser, this);
+    this->mainWindow = new MainWindow(this);
     this->mainWindow->show();
 }
 
 
 void chengeAccount::on_actionExit_triggered()
 {
+    this->deleteUserClass();
     close();
+}
+
+void chengeAccount::deleteUserClass()
+{
+    delete this->myUser;
+    this->myUser = 0;
 }
 
 
 void chengeAccount::on_actionstock_triggered()
 {
+    this->deleteUserClass();
     hide();
-    this->basicWindow = new BasicWindow(this->myUser, this);
+    this->basicWindow = new BasicWindow(this);
     this->basicWindow->show();
 }
 

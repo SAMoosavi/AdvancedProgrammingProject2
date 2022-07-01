@@ -5,12 +5,11 @@
 #include <QString>
 #include "stock.h"
 
-BasicWindow::BasicWindow(User *myUser, QWidget *parent) :
+BasicWindow::BasicWindow( QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::BasicWindow)
 {
     ui->setupUi(this);
-    this->myUser = myUser;
     user *us = myUser->getUserLogin();
 
     this->showAllStocks();
@@ -109,27 +108,33 @@ void BasicWindow::on_pushButton_buy_clicked()
     buyStock();
 }
 
-
+void BasicWindow::deleteUserClass(){
+    delete this->myUser;
+    this->myUser = 0;
+}
 void BasicWindow::on_actionInformation_triggered()
 {
+    this->deleteUserClass();
     hide();
-    this->CengeAccount = new chengeAccount(this->myUser, this);
+    this->CengeAccount = new chengeAccount(this);
     this->CengeAccount->show();
 }
 
 
 void BasicWindow::on_actionPassword_triggered()
 {
+    this->deleteUserClass();
     hide();
-    this->ChengPassword = new chengPassword(this->myUser, this);
-    this->ChengPassword->show();
+    this->changePassword = new chengPassword(this);
+    this->changePassword->show();
 }
 
 
 void BasicWindow::on_actionCharge_and_withdraw_money_triggered()
 {
+    this->deleteUserClass();
     hide();
-    this->Withdraw = new withdraw(this->myUser, this);
+    this->Withdraw = new withdraw(this);
     this->Withdraw->show();
 }
 
@@ -137,22 +142,19 @@ void BasicWindow::on_actionCharge_and_withdraw_money_triggered()
 void BasicWindow::on_actionSign_out_triggered()
 {
     this->myUser->logout();
+    this->deleteUserClass();
     hide();
-    this->mainWindow = new MainWindow(this->myUser, this);
+    this->mainWindow = new MainWindow(this);
     this->mainWindow->show();
 }
 
 
 void BasicWindow::on_actionExit_triggered()
 {
+    this->deleteUserClass();
     close();
 }
 
 
-void BasicWindow::on_actionStock_triggered()
-{
-//    hide();
-//    this->basicWindow = new BasicWindow(this->myUser, this);
-//    this->basicWindow->show();
-}
+void BasicWindow::on_actionStock_triggered(){}
 

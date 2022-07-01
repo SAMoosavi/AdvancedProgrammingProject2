@@ -53,9 +53,9 @@ enum ESetAccount
     EVIBAN,
 };
 
-enum EChengePassword
+enum EchangePassword
 {
-    chengedPassword,
+    changedPassword,
     eVPassword,
     eConfirmPassword,
     ePereventPassword,
@@ -68,21 +68,19 @@ enum EGetMoney
     MoreThanInventory,
 };
 
-enum ECheng
+enum Echange
 {
-    EChengeName,
-    EChengeID,
-    EChengeAccountNumber,
-    EChengeIBAN,
-    EChengeUsername,
-    chenged,
+    EchangeName,
+    EchangeID,
+    EchangeAccountNumber,
+    EchangeIBAN,
+    EchangeUsername,
+    changed,
 };
 
 class User
 {
 private:
-    vector<user *> users;
-
     bool vPassword(QString &password);
     bool confirmedPassword(QString &password, QString &confirmPassword);
     QString hashPassword(QString &password);
@@ -98,7 +96,7 @@ private:
 
     QString userStructToString(user *us);
 
-    user *userLogin = 0;
+    static user *userLogin;
 
     // const QString pathFile = "C:/Users/Lenovo/Desktop/AdvancedProgrammingProject2/rec/user_data.csv";
     const QString pathFile = "C:/Users/moosavi/Desktop/AP/AdvancedProgrammingProject2/rec/user_data.csv";
@@ -111,8 +109,8 @@ public:
     ESetAccount setAccount(QString &name, QString &ID, QString &accountNumber, QString &IBAN);
     ELogin login(QString &username, QString &password);
 
-    ECheng chengAccount(QString &username, QString &name, QString &ID, QString &accountNumber, QString &IBAN);
-    EChengePassword chengePassword(QString &pereventPassword,QString &password, QString &confirmPassword);
+    Echange changeAccount(QString &username, QString &name, QString &ID, QString &accountNumber, QString &IBAN);
+    EchangePassword changePassword(QString &pereventPassword, QString &password, QString &confirmPassword);
 
     user *getUserLogin();
     bool isLogin();
