@@ -159,7 +159,7 @@ ECheng User::chengAccount(QString &username, QString &name, QString &ID, QString
     return chenged;
 }
 
-EChengePassword User::chengePassword(QString &password, QString &confirmPassword)
+EChengePassword User::chengePassword(QString &pereventPassword,QString &password, QString &confirmPassword)
 {
     if (!this->vPassword(password))
     {
@@ -168,6 +168,9 @@ EChengePassword User::chengePassword(QString &password, QString &confirmPassword
     if (!this->confirmedPassword(password, confirmPassword))
     {
         return eConfirmPassword;
+    }
+    if(this->hashPassword(pereventPassword) != this->userLogin->password){
+        return ePereventPassword;
     }
     this->userLogin->password = password;
     return chengedPassword;
