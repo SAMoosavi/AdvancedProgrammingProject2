@@ -15,10 +15,11 @@ chengPassword::~chengPassword()
 
 void chengPassword::on_pushButton_clicked()
 {
+    QString pereventPassword = ui->lineEdit_PereventPassword->text();
     QString confirmPassword = ui->lineEdit_confirm_password->text();
     QString password = ui->lineEdit_password->text();
 
-    switch (this->myUser->chengePassword(password, confirmPassword))
+    switch (this->myUser->chengePassword(pereventPassword,password, confirmPassword))
     {
     case chengedPassword:
         QMessageBox::information(this, "Chenge Password", "Your password chenged.");
@@ -28,6 +29,9 @@ void chengPassword::on_pushButton_clicked()
         break;
     case eConfirmPassword:
         QMessageBox::critical(this, "Error", "Your confirm password is not correct!");
+        break;
+    case ePereventPassword:
+        QMessageBox::critical(this, "Error", "Your prevent password is not correct!");
         break;
     default:
         QMessageBox::warning(this, "?", "?");
