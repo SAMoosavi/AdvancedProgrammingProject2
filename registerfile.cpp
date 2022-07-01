@@ -1,11 +1,10 @@
 #include "registerfile.h"
 #include "ui_registerfile.h"
 
-RegisterFile::RegisterFile(User *myUser, QWidget *parent) : QMainWindow(parent),
+RegisterFile::RegisterFile(QWidget *parent) : QMainWindow(parent),
                                                             ui(new Ui::RegisterFile)
 {
     ui->setupUi(this);
-    this->myUser = myUser;
 }
 
 RegisterFile::~RegisterFile()
@@ -46,7 +45,14 @@ void RegisterFile::on_pushButton_2_clicked()
 
 void RegisterFile::goToSingnInPage()
 {
+    this->deleteUserClass();
     hide();
-    this->mainWindow = new MainWindow(this->myUser, this);
+    this->mainWindow = new MainWindow(this);
     this->mainWindow->show();
+}
+
+void RegisterFile::deleteUserClass()
+{
+    delete this->myUser;
+    this->myUser = 0;
 }

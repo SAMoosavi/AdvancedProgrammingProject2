@@ -18,7 +18,7 @@ class RegisterFile : public QMainWindow
     Q_OBJECT
 
 public:
-    explicit RegisterFile(User *myUser, QWidget *parent = nullptr);
+    explicit RegisterFile(QWidget *parent = nullptr);
     ~RegisterFile();
 
 private slots:
@@ -28,9 +28,10 @@ private slots:
 
 private:
     Ui::RegisterFile *ui;
-    User *myUser;
+    User *myUser = new User();
     MainWindow *mainWindow;
     void goToSingnInPage();
+    void deleteUserClass();
 };
 
 #endif // REGISTERFILE_H

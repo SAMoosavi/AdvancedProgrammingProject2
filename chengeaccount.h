@@ -24,7 +24,7 @@ class chengeAccount : public QMainWindow
     Q_OBJECT
 
 public:
-    explicit chengeAccount(User *myUser, QWidget *parent = nullptr);
+    explicit chengeAccount( QWidget *parent = nullptr);
     ~chengeAccount();
 
 private slots:
@@ -45,12 +45,13 @@ private slots:
 private:
     Ui::chengeAccount *ui;
 
-    User *myUser;
+   User *myUser = new User();
     chengeAccount *ChangeAccount;
     chengPassword *changePassword;
     withdraw *Withdraw;
     MainWindow *mainWindow;
     BasicWindow *basicWindow;
+    void deleteUserClass();
 };
 
 #endif // CHENGEACCOUNT_H

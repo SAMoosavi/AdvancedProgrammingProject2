@@ -23,7 +23,7 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 
 public:
-    MainWindow(User *myUser, QWidget *parent = nullptr);
+    MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
 private slots:
@@ -33,9 +33,10 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
-    User *myUser;
+    User *myUser = new User();
     RegisterFile *registerFile;
     SetAccount *setAccount;
     BasicWindow *basicWindow;
+    void deleteUserClass();
 };
 #endif // MAINWINDOW_H

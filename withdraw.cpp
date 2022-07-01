@@ -1,11 +1,10 @@
 #include "withdraw.h"
 #include "ui_withdraw.h"
 
-withdraw::withdraw(User *myUser, QWidget *parent) : QMainWindow(parent),
+withdraw::withdraw(QWidget *parent) : QMainWindow(parent),
                                                     ui(new Ui::withdraw)
 {
     ui->setupUi(this);
-    this->myUser = myUser;
     ui->label_money->setText(QString::number(this->myUser->showMoney()));
 }
 
@@ -46,41 +45,47 @@ void withdraw::on_pushButton_Charge_clicked()
 
 void withdraw::on_actionInformation_triggered()
 {
+    this->deleteUserClass();
     hide();
-    this->ChangeAccount = new chengeAccount(this->myUser, this);
+    this->ChangeAccount = new chengeAccount(this);
     this->ChangeAccount->show();
 }
 
 void withdraw::on_actionPassword_triggered()
 {
+    this->deleteUserClass();
     hide();
-    this->changePassword = new chengPassword(this->myUser, this);
+    this->changePassword = new chengPassword(this);
     this->changePassword->show();
 }
 
-void withdraw::on_actionCharge_and_withdraw_money_triggered()
-{
-//    hide();
-//    this->Withdraw = new withdraw(this->myUser, this);
-//    this->Withdraw->show();
-}
+void withdraw::on_actionCharge_and_withdraw_money_triggered(){}
 
 void withdraw::on_actionSign_out_triggered()
 {
     this->myUser->logout();
     hide();
-    this->mainWindow = new MainWindow(this->myUser, this);
+    this->deleteUserClass();
+    this->mainWindow = new MainWindow(this);
     this->mainWindow->show();
 }
 
 void withdraw::on_actionExit_triggered()
 {
+    this->deleteUserClass();
     close();
+}
+
+void withdraw::deleteUserClass()
+{
+    delete this->myUser;
+    this->myUser = 0;
 }
 
 void withdraw::on_actionStock_triggered()
 {
+    this->deleteUserClass();
     hide();
-    this->basicWindow = new BasicWindow(this->myUser, this);
+    this->basicWindow = new BasicWindow(this);
     this->basicWindow->show();
 }

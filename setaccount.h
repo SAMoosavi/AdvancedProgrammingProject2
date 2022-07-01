@@ -19,7 +19,7 @@ class SetAccount : public QMainWindow
     Q_OBJECT
 
 public:
-    explicit SetAccount(User *myUser, QWidget *parent = nullptr);
+    explicit SetAccount(QWidget *parent = nullptr);
     ~SetAccount();
 
 private slots:
@@ -27,8 +27,9 @@ private slots:
 
 private:
     Ui::SetAccount *ui;
-    User *myUser;
+    User *myUser = new User();
     BasicWindow *basicWindow;
+    void deleteUserClass();
 };
 
 #endif // SETACCOUNT_H

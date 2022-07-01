@@ -22,7 +22,7 @@ class BasicWindow : public QMainWindow
     Q_OBJECT
 
 public:
-    explicit BasicWindow(User *myUser, QWidget *parent = nullptr);
+    explicit BasicWindow( QWidget *parent = nullptr);
     ~BasicWindow();
     void showAllStocks();
     void showStocks(user *us);
@@ -45,12 +45,13 @@ private slots:
 
 private:
     Ui::BasicWindow *ui;
-    User *myUser;
+    User *myUser = new User();
     chengeAccount *CengeAccount;
     chengPassword *changePassword;
     withdraw *Withdraw;
     MainWindow *mainWindow;
     BasicWindow *basicWindow;
+    void deleteUserClass();
 };
 
 #endif // BASICWINDOW_H
