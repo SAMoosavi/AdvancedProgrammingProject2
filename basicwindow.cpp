@@ -12,6 +12,8 @@ BasicWindow::BasicWindow( QWidget *parent) :
     ui->setupUi(this);
     this->us = myUser->getUserLogin();
     this->showAllStocks();
+
+    stock->readOnStockUser();
     this->showStocks();
     for(auto st: stock->allStocks){
         ui->comboBox_buy->addItem(st.second->symbol);
@@ -111,7 +113,6 @@ void BasicWindow::saleStock()
             break;
         }
     }
-    user *us = this->myUser->getUserLogin();
 
     if(!stock->saleStock(id)){
         QMessageBox::critical(this, "Error", "File not found");
