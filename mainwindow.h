@@ -8,6 +8,8 @@
 #include "basicwindow.h"
 
 class RegisterFile;
+class BasicWindow;
+class SetAccount;
 
 QT_BEGIN_NAMESPACE
 namespace Ui

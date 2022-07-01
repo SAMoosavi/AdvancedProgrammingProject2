@@ -102,3 +102,50 @@ void BasicWindow::on_pushButton_buy_clicked()
     buyStock();
 }
 
+
+void BasicWindow::on_actionInformation_triggered()
+{
+    hide();
+    this->CengeAccount = new chengeAccount(this->myUser, this);
+    this->CengeAccount->show();
+}
+
+
+void BasicWindow::on_actionPassword_triggered()
+{
+    hide();
+    this->ChengPassword = new chengPassword(this->myUser, this);
+    this->ChengPassword->show();
+}
+
+
+void BasicWindow::on_actionCharge_and_withdraw_money_triggered()
+{
+    hide();
+    this->Withdraw = new withdraw(this->myUser, this);
+    this->Withdraw->show();
+}
+
+
+void BasicWindow::on_actionSign_out_triggered()
+{
+    this->myUser->logout();
+    hide();
+    this->mainWindow = new MainWindow(this->myUser, this);
+    this->mainWindow->show();
+}
+
+
+void BasicWindow::on_actionExit_triggered()
+{
+    close();
+}
+
+
+void BasicWindow::on_actionStock_triggered()
+{
+//    hide();
+//    this->basicWindow = new BasicWindow(this->myUser, this);
+//    this->basicWindow->show();
+}
+
