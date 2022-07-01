@@ -10,13 +10,14 @@ class User;
 
 struct user;
 
-map<int, stock *> Stock::allStocks = {};
 
 using std::map;
 using std::vector;
 
 Stock::Stock()
 {
+    User *myUser = new User();
+    this->us = myUser->getUserLogin();
     this->read();
 }
 
@@ -24,15 +25,16 @@ Stock::~Stock()
 {
 }
 
-EBuy Stock::buyStock(user *us, int id, int amount)
+EBuy Stock::buyStock(int id, int amount)
 {
 
     auto st = searchStock(nullptr, id);
     if (st)
     {
+
         if (us->money >= amount * st->price)
         {
-            if(saveOnStockUser(us, id, amount)){
+            if(saveOnStockUser(id, amount)){
 
                 us->money -= amount * st->price;
                 return bought;
@@ -44,7 +46,7 @@ EBuy Stock::buyStock(user *us, int id, int amount)
         }
         else if(us->money + 1000*1000 - us->debtAmount >= amount * st->price)
         {
-            if(saveOnStockUser(us, id, amount)){
+            if(saveOnStockUser(id, amount)){
 
                 us->debtAmount += amount * st->price - us->money;
                 us->money = 0;
@@ -60,41 +62,20 @@ EBuy Stock::buyStock(user *us, int id, int amount)
 }
 
 
-bool Stock::saleStock(user *us, int id)
+bool Stock::saleStock(int id)
 {
 
         for(int i = 0; i < us->stocks.size(); i++){
             if(us->stocks[i].first->ID == id){
-                us->money += us->stocks[i].first->price;
+                us->money += us->stocks[i].first->price*us->stocks[i].second;
                 us->stocks.erase(us->stocks.begin()+i);
-                if(!deleteFromStockUser(us, id)){
+                if(!deleteFromStockUser(id)){
                     return false;
                 }
             }
         }
         return true;
-        //us->stocks.erase(find(us->stocks.begin(), us->stocks.end(), {st}));
 }
-
-
-/*
-map<int, stock *> Stock::getStocks(user *us)
-{
-    map<int, stock *> stocks;
-    for (auto st : us->stocks)
-    {
-        stocks[st->ID] = st;
-    }
-
-    return stocks;
-}
-
-
-map<int, stock *> Stock::getAllStocks()
-{
-    return allStocks;
-}
-*/
 
 stock *Stock::searchStock(user *us, int id)
 {
@@ -176,7 +157,7 @@ bool Stock::read()
     return true;
 }
 
-bool Stock::saveOnStockUser(user *us, int id, int amount)
+bool Stock::saveOnStockUser(int id, int amount)
 {
 
     QString firstline = "", other = "";
@@ -228,7 +209,7 @@ bool Stock::saveOnStockUser(user *us, int id, int amount)
     writeFile.flush();
     writeFile.close();
 
-    if(readOnStockUser(us)){
+    if(readOnStockUser()){
         return true;
     }
     else{
@@ -236,7 +217,7 @@ bool Stock::saveOnStockUser(user *us, int id, int amount)
     }
 }
 
-bool Stock::readOnStockUser(user *us)
+bool Stock::readOnStockUser()
 {
     us->stocks.clear();
     pair<stock *, int> tPair;
@@ -266,7 +247,7 @@ bool Stock::readOnStockUser(user *us)
     return true;
 }
 
-bool Stock::deleteFromStockUser(user *us, int id)
+bool Stock::deleteFromStockUser(int id)
 {
     QString str;
 

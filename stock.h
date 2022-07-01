@@ -33,22 +33,22 @@ private:
     // const QString pathStockUserFile = "C:/Users/Lenovo/Desktop/AP/AdvancedProgrammingProject2/rec/stock_user_data.csv";
     const QString pathStockUserFile = "C:/Users/Lenovo/Desktop/AdvancedProgrammingProject2/rec/stock_user_data.csv";
 
-    static bool saveOnStockUser(user *us, int id, int amount);
-    static bool readOnStockUser(user *us);
-    static bool deleteFromStockUser(user *us, int id);
+    bool saveOnStockUser(int id, int amount);
+    bool readOnStockUser();
+    bool deleteFromStockUser(int id);
+
+    user *us;
 
 public:
     Stock();
     ~Stock();
 
-    static EBuy buyStock(user *us, int id, int amount);
-    static bool saleStock(user *us, int id);
-    map<int, stock *> getStocks(user *us);
-    map<int, stock *> getAllStocks();
+    EBuy buyStock(int id, int amount);
+    bool saleStock(int id);
 
-    static stock *searchStock(user *us, int id);
-    static map<int, stock *> allStocks;
-    static bool read();
+    stock *searchStock(user *us, int id);
+    map<int, stock *> allStocks;
+    bool read();
 };
 
 #endif // STOCK_H
