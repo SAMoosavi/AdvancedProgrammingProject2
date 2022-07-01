@@ -139,9 +139,13 @@ ECheng User::chengAccount(QString &username, QString &name, QString &ID, QString
     {
         return EChengeIBAN;
     }
-    if (this->read(username))
+    // TODO: bugfixed in validation
+    if (username != this->userLogin->username)
     {
-        return EChengeUsername;
+        if (this->read(username))
+        {
+            return EChengeUsername;
+        }
     }
     user *us = this->userLogin;
     us->name = name;
