@@ -137,7 +137,7 @@
      <x>0</x>
      <y>0</y>
      <width>872</width>
-     <height>25</height>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuMain_Menu">
@@ -151,6 +151,7 @@
      <addaction name="actionInformation"/>
      <addaction name="actionPassword"/>
     </widget>
+    <addaction name="actionStock"/>
     <addaction name="menuChange"/>
     <addaction name="actionCharge_and_withdraw_money"/>
     <addaction name="actionSign_out"/>
@@ -212,6 +213,11 @@
   <action name="actionCharge_and_withdraw_money">
    <property name="text">
     <string>Charge and withdraw money</string>
+   </property>
+  </action>
+  <action name="actionStock">
+   <property name="text">
+    <string>Stock</string>
    </property>
   </action>
  </widget>

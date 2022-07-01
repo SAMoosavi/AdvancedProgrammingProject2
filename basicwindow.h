@@ -41,6 +41,8 @@ private slots:
 
     void on_actionExit_triggered();
 
+    void on_actionStock_triggered();
+
 private:
     Ui::BasicWindow *ui;
     User *myUser;
@@ -48,6 +50,7 @@ private:
     chengPassword *ChengPassword;
     withdraw *Withdraw;
     MainWindow *mainWindow;
+    BasicWindow *basicWindow;
 };
 
 #endif // BASICWINDOW_H

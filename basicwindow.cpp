@@ -141,3 +141,11 @@ void BasicWindow::on_actionExit_triggered()
     close();
 }
 
+
+void BasicWindow::on_actionStock_triggered()
+{
+//    hide();
+//    this->basicWindow = new BasicWindow(this->myUser, this);
+//    this->basicWindow->show();
+}
+
