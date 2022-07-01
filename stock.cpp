@@ -10,13 +10,14 @@ class User;
 
 struct user;
 
-map<int, stock *> Stock::allStocks = {};
 
 using std::map;
 using std::vector;
 
 Stock::Stock()
 {
+    User *myUser = new User();
+    this->us = myUser->getUserLogin();
     this->read();
 }
 
@@ -24,17 +25,20 @@ Stock::~Stock()
 {
 }
 
-EBuy Stock::buyStock(user *us, int id, int amount)
+EBuy Stock::buyStock(int id, int amount)
 {
 
     auto st = searchStock(nullptr, id);
     if (st)
     {
+
         if (us->money >= amount * st->price)
         {
-            if(saveOnStockUser(us, id, amount)){
+            if(saveOnStockUser(id, amount)){
 
                 us->money -= amount * st->price;
+                User *myUser = new User();
+                myUser->replace(us);
                 return bought;
             }
             else{
@@ -44,10 +48,12 @@ EBuy Stock::buyStock(user *us, int id, int amount)
         }
         else if(us->money + 1000*1000 - us->debtAmount >= amount * st->price)
         {
-            if(saveOnStockUser(us, id, amount)){
+            if(saveOnStockUser(id, amount)){
 
                 us->debtAmount += amount * st->price - us->money;
                 us->money = 0;
+                User *myUser = new User();
+                myUser->replace(us);
                 return bought;
             }
             else{
@@ -60,41 +66,20 @@ EBuy Stock::buyStock(user *us, int id, int amount)
 }
 
 
-bool Stock::saleStock(user *us, int id)
+bool Stock::saleStock(int id)
 {
 
         for(int i = 0; i < us->stocks.size(); i++){
             if(us->stocks[i].first->ID == id){
-                us->money += us->stocks[i].first->price;
+                us->money += us->stocks[i].first->price*us->stocks[i].second;
                 us->stocks.erase(us->stocks.begin()+i);
-                if(!deleteFromStockUser(us, id)){
+                if(!deleteFromStockUser(id)){
                     return false;
                 }
             }
         }
         return true;
-        //us->stocks.erase(find(us->stocks.begin(), us->stocks.end(), {st}));
 }
-
-
-/*
-map<int, stock *> Stock::getStocks(user *us)
-{
-    map<int, stock *> stocks;
-    for (auto st : us->stocks)
-    {
-        stocks[st->ID] = st;
-    }
-
-    return stocks;
-}
-
-
-map<int, stock *> Stock::getAllStocks()
-{
-    return allStocks;
-}
-*/
 
 stock *Stock::searchStock(user *us, int id)
 {
@@ -121,7 +106,7 @@ stock *Stock::searchStock(user *us, int id)
 
 bool Stock::read()
 {
-    QFile file("C:/Users/moosavi/Desktop/AP/AdvancedProgrammingProject2/rec/stock_market_data.csv");
+    QFile file("C:/Users/Lenovo/Desktop/AdvancedProgrammingProject2/rec/stock_market_data.csv");
 
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
         return false;
@@ -152,10 +137,10 @@ bool Stock::read()
 
         QStringList list = line.split(",");
 
-        for (int i = 0; i < line.size(); i++)
+        for (int i = 0; i < list[2].size(); i++)
         {
-            if (line[i] == '`')
-                line[i] = ',';
+            if (list[2][i] == '`')
+                list[2][i] = ',';
         }
 
         stock *tStock = new stock;
@@ -165,7 +150,7 @@ bool Stock::read()
         if (list[2][0] == '"')
         {
             list[2][0] = ' ';
-            list[2][list.size() - 1] = ' ';
+            list[2][list[2].size() - 1] = ' ';
         }
 
         tStock->name = list[2];
@@ -176,12 +161,12 @@ bool Stock::read()
     return true;
 }
 
-bool Stock::saveOnStockUser(user *us, int id, int amount)
+bool Stock::saveOnStockUser(int id, int amount)
 {
 
     QString firstline = "", other = "";
 
-    QFile readFile("C:/Users/moosavi/Desktop/AP/AdvancedProgrammingProject2/rec/stock_user_data.csv");
+    QFile readFile("C:/Users/Lenovo/Desktop/AdvancedProgrammingProject2/rec/stock_user_data.csv");
     if (!readFile.open(QIODevice::ReadOnly | QIODevice::Text))
         return false;
 
@@ -219,7 +204,7 @@ bool Stock::saveOnStockUser(user *us, int id, int amount)
     readFile.flush();
     readFile.close();
 
-    QFile writeFile("C:/Users/moosavi/Desktop/AP/AdvancedProgrammingProject2/rec/stock_user_data.csv");
+    QFile writeFile("C:/Users/Lenovo/Desktop/AdvancedProgrammingProject2/rec/stock_user_data.csv");
     if (!writeFile.open(QIODevice::WriteOnly | QIODevice::Text))
         return false;
 
@@ -228,7 +213,7 @@ bool Stock::saveOnStockUser(user *us, int id, int amount)
     writeFile.flush();
     writeFile.close();
 
-    if(readOnStockUser(us)){
+    if(readOnStockUser()){
         return true;
     }
     else{
@@ -236,12 +221,12 @@ bool Stock::saveOnStockUser(user *us, int id, int amount)
     }
 }
 
-bool Stock::readOnStockUser(user *us)
+bool Stock::readOnStockUser()
 {
     us->stocks.clear();
     pair<stock *, int> tPair;
 
-    QFile readFile("C:/Users/moosavi/Desktop/AP/AdvancedProgrammingProject2/rec/stock_user_data.csv");
+    QFile readFile("C:/Users/Lenovo/Desktop/AdvancedProgrammingProject2/rec/stock_user_data.csv");
     if (!readFile.open(QIODevice::ReadOnly | QIODevice::Text))
         return false;
 
@@ -266,11 +251,11 @@ bool Stock::readOnStockUser(user *us)
     return true;
 }
 
-bool Stock::deleteFromStockUser(user *us, int id)
+bool Stock::deleteFromStockUser(int id)
 {
     QString str;
 
-    QFile readFile("C:/Users/moosavi/Desktop/AP/AdvancedProgrammingProject2/rec/stock_user_data.csv");
+    QFile readFile("C:/Users/Lenovo/Desktop/AdvancedProgrammingProject2/rec/stock_user_data.csv");
     if (!readFile.open(QIODevice::ReadOnly | QIODevice::Text))
         return false;
 
@@ -288,7 +273,7 @@ bool Stock::deleteFromStockUser(user *us, int id)
     readFile.flush();
     readFile.close();
 
-    QFile writeFile("C:/Users/moosavi/Desktop/AP/AdvancedProgrammingProject2/rec/stock_user_data.csv");
+    QFile writeFile("C:/Users/Lenovo/Desktop/AdvancedProgrammingProject2/rec/stock_user_data.csv");
     if (!writeFile.open(QIODevice::WriteOnly | QIODevice::Text))
         return false;
 

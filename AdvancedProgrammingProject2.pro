@@ -10,7 +10,6 @@ CONFIG += c++17
 
 SOURCES += \
     basicwindow.cpp \
-    buysalestock.cpp \
     chengeaccount.cpp \
     chengpassword.cpp \
     main.cpp \
@@ -23,7 +22,6 @@ SOURCES += \
 
 HEADERS += \
     basicwindow.h \
-    buysalestock.h \
     chengeaccount.h \
     chengpassword.h \
     mainwindow.h \
@@ -35,7 +33,6 @@ HEADERS += \
 
 FORMS += \
     basicwindow.ui \
-    buysalestock.ui \
     chengeaccount.ui \
     chengpassword.ui \
     mainwindow.ui \

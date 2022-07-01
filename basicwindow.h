@@ -25,7 +25,7 @@ public:
     explicit BasicWindow( QWidget *parent = nullptr);
     ~BasicWindow();
     void showAllStocks();
-    void showStocks(user *us);
+    void showStocks();
     void buyStock();
     void saleStock();
 
@@ -49,6 +49,8 @@ private slots:
 private:
     Ui::BasicWindow *ui;
     User *myUser = new User();
+    user *us;
+    Stock *stock = new Stock();
     chengeAccount *CengeAccount;
     chengPassword *changePassword;
     withdraw *Withdraw;
