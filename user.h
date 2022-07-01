@@ -111,7 +111,7 @@ public:
     ESetAccount setAccount(QString &name, QString &ID, QString &accountNumber, QString &IBAN);
     ELogin login(QString &username, QString &password);
 
-    ECheng chengAccount(QString &username, QString &name, QString &ID, QString &accountNumber, QString &IBAN);
+    ECheng changeAccount(QString &username, QString &name, QString &ID, QString &accountNumber, QString &IBAN);
     EChengePassword chengePassword(QString &pereventPassword,QString &password, QString &confirmPassword);
 
     user *getUserLogin();

@@ -9,9 +9,12 @@ User::~User() {}
 
 bool User::vPassword(QString &password)
 {
-    //    string a = password.toStdString();
-    //    const regex pattern("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*(\\W|_))(?=^\\S*$).{8,}$");
-    //    return regex_match(a, pattern);
+    // Check password have uper and lower case number spesial character and minimome 8 leter
+    /*
+     *  string a = password.toStdString();
+     *  const regex pattern("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*(\\W|_))(?=^\\S*$).{8,}$");
+     *  return regex_match(a, pattern);
+     */
     return true;
 }
 
@@ -33,31 +36,37 @@ QString User::hashPassword(QString &password)
 
 bool User::vName(QString &name)
 {
+    // maximome 40 character
     return name.length() <= 40;
 }
 
 bool User::vID(QString &ID)
 {
+    // 10 character
     return ID.length() == 10;
 }
 
 bool User::vAccountNumber(QString &accountNumber)
 {
+    // 10 character
     return accountNumber.length() == 10;
 }
 
 bool User::vIBAN(QString &IBAN)
 {
+    // check IR in first and 12 character
     return IBAN[0] == 'I' && IBAN[1] == 'R' && IBAN.length() == 12;
 }
 
 bool User::vDebtAmount(int debtAmount)
 {
+    // check debtAmount maximome 1,000,000
     return debtAmount <= 10e6;
 }
 
 ERegister User::Register(QString &username, QString &password, QString &confirmPassword)
 {
+    // validation
     if (this->read(username))
     {
         return notAvailableUsername;
@@ -70,6 +79,7 @@ ERegister User::Register(QString &username, QString &password, QString &confirmP
     {
         return EConfirmPassword;
     }
+    // validated now create user
     user *us = new user;
     us->username = username;
     us->password = this->hashPassword(password);
@@ -79,21 +89,25 @@ ERegister User::Register(QString &username, QString &password, QString &confirmP
 
 ELogin User::login(QString &username, QString &password)
 {
-    user *a = this->read(username);
-    if (!a)
+    // search user
+    user *us = this->read(username);
+    if (!us)
     {
         return notFuond;
     }
+    // check password
     if (this->hashPassword(password) != a->password)
     {
         return notCorrectPassword;
     }
-    this->userLogin = a;
+    // login user
+    this->userLogin = us;
     return logined;
 }
 
 ESetAccount User::setAccount(QString &name, QString &ID, QString &accountNumber, QString &IBAN)
 {
+    // validation
     if (!this->vName(name))
     {
         return EVName;
@@ -110,18 +124,18 @@ ESetAccount User::setAccount(QString &name, QString &ID, QString &accountNumber,
     {
         return EVIBAN;
     }
-    user *us = this->userLogin;
-    us->name = name;
-    us->ID = ID;
-    us->accountNumber = accountNumber;
-    us->IBAN = IBAN;
+    // validated now change user
+    this->userLogin->name = name;
+    this->userLogin->ID = ID;
+    this->userLogin->accountNumber = accountNumber;
+    this->userLogin->IBAN = IBAN;
 
-    this->replace(us);
+    this->replace(this->userLogin);
 
     return setedAccount;
 }
 
-ECheng User::chengAccount(QString &username, QString &name, QString &ID, QString &accountNumber, QString &IBAN)
+ECheng User::changeAccount(QString &username, QString &name, QString &ID, QString &accountNumber, QString &IBAN)
 {
     if (!this->vName(name))
     {

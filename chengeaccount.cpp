@@ -28,7 +28,7 @@ void chengeAccount::on_pushButton_clicked()
     QString accountNumber = ui->lineEdit_account_number->text();
     QString IBAN = ui->lineEdit_IBAN->text();
 
-    switch (this->myUser->chengAccount(username, name, ID, accountNumber, IBAN))
+    switch (this->myUser->changeAccount(username, name, ID, accountNumber, IBAN))
     {
     case chenged:
         QMessageBox::information(this, "Edit Account", "Your account updated.");
