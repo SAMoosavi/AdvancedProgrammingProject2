@@ -19,10 +19,10 @@ void chengPassword::on_pushButton_clicked()
     QString confirmPassword = ui->lineEdit_confirm_password->text();
     QString password = ui->lineEdit_password->text();
 
-    switch (this->myUser->chengePassword(pereventPassword,password, confirmPassword))
+    switch (this->myUser->changePassword(pereventPassword,password, confirmPassword))
     {
-    case chengedPassword:
-        QMessageBox::information(this, "Chenge Password", "Your password chenged.");
+    case changedPassword:
+        QMessageBox::information(this, "change Password", "Your password changed.");
         break;
     case eVPassword:
         QMessageBox::critical(this, "Error", "Your password is not strong enough!");
@@ -42,8 +42,8 @@ void chengPassword::on_pushButton_clicked()
 void chengPassword::on_actionInformation_triggered()
 {
     hide();
-    this->CengeAccount = new chengeAccount(this->myUser, this);
-    this->CengeAccount->show();
+    this->ChangeAccount = new chengeAccount(this->myUser, this);
+    this->ChangeAccount->show();
 }
 
 

@@ -121,8 +121,8 @@ void BasicWindow::on_actionInformation_triggered()
 void BasicWindow::on_actionPassword_triggered()
 {
     hide();
-    this->ChengPassword = new chengPassword(this->myUser, this);
-    this->ChengPassword->show();
+    this->changePassword = new chengPassword(this->myUser, this);
+    this->changePassword->show();
 }
 
 

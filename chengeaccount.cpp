@@ -30,22 +30,22 @@ void chengeAccount::on_pushButton_clicked()
 
     switch (this->myUser->changeAccount(username, name, ID, accountNumber, IBAN))
     {
-    case chenged:
+    case changed:
         QMessageBox::information(this, "Edit Account", "Your account updated.");
         break;
-    case EChengeName:
+    case EchangeName:
         QMessageBox::critical(this, "Error", "Name must be less than 40 letters!");
         break;
-    case EChengeID:
+    case EchangeID:
         QMessageBox::critical(this, "Error", "ID must be 10 letters!");
         break;
-    case EChengeAccountNumber:
+    case EchangeAccountNumber:
         QMessageBox::critical(this, "Error", "Account number must be 10 letters!");
         break;
-    case EChengeIBAN:
+    case EchangeIBAN:
         QMessageBox::critical(this, "Error", "IBAN is not correct!");
         break;
-    case EChengeUsername:
+    case EchangeUsername:
         QMessageBox::critical(this, "Error", "Your username is not available!");
         break;
     default:
@@ -65,8 +65,8 @@ void chengeAccount::on_actionInformation_triggered()
 void chengeAccount::on_actionPassword_triggered()
 {
     hide();
-    this->ChengPassword = new chengPassword(this->myUser, this);
-    this->ChengPassword->show();
+    this->changePassword = new chengPassword(this->myUser, this);
+    this->changePassword->show();
 }
 
 

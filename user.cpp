@@ -96,7 +96,7 @@ ELogin User::login(QString &username, QString &password)
         return notFuond;
     }
     // check password
-    if (this->hashPassword(password) != a->password)
+    if (this->hashPassword(password) != us->password)
     {
         return notCorrectPassword;
     }
@@ -124,7 +124,7 @@ ESetAccount User::setAccount(QString &name, QString &ID, QString &accountNumber,
     {
         return EVIBAN;
     }
-    // validated now change user
+    // validated now set user
     this->userLogin->name = name;
     this->userLogin->ID = ID;
     this->userLogin->accountNumber = accountNumber;
@@ -135,32 +135,33 @@ ESetAccount User::setAccount(QString &name, QString &ID, QString &accountNumber,
     return setedAccount;
 }
 
-ECheng User::changeAccount(QString &username, QString &name, QString &ID, QString &accountNumber, QString &IBAN)
+Echange User::changeAccount(QString &username, QString &name, QString &ID, QString &accountNumber, QString &IBAN)
 {
+    // validation
     if (!this->vName(name))
     {
-        return EChengeName;
+        return EchangeName;
     }
     if (!this->vID(ID))
     {
-        return EChengeID;
+        return EchangeID;
     }
     if (!this->vAccountNumber(accountNumber))
     {
-        return EChengeAccountNumber;
+        return EchangeAccountNumber;
     }
     if (!this->vIBAN(IBAN))
     {
-        return EChengeIBAN;
+        return EchangeIBAN;
     }
-    // TODO: bugfixed in validation
     if (username != this->userLogin->username)
     {
         if (this->read(username))
         {
-            return EChengeUsername;
+            return EchangeUsername;
         }
     }
+    // validated now change user
     user *us = this->userLogin;
     us->name = name;
     us->ID = ID;
@@ -170,10 +171,10 @@ ECheng User::changeAccount(QString &username, QString &name, QString &ID, QStrin
     us->username = username;
     this->replace(us, pUsername);
 
-    return chenged;
+    return changed;
 }
 
-EChengePassword User::chengePassword(QString &pereventPassword, QString &password, QString &confirmPassword)
+EchangePassword User::changePassword(QString &pereventPassword, QString &password, QString &confirmPassword)
 {
     if (!this->vPassword(password))
     {
@@ -189,7 +190,7 @@ EChengePassword User::chengePassword(QString &pereventPassword, QString &passwor
     }
     this->userLogin->password = this->hashPassword(password);
     this->replace(this->userLogin);
-    return chengedPassword;
+    return changedPassword;
 }
 
 user *User::getUserLogin()

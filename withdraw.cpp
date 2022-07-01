@@ -47,15 +47,15 @@ void withdraw::on_pushButton_Charge_clicked()
 void withdraw::on_actionInformation_triggered()
 {
     hide();
-    this->CengeAccount = new chengeAccount(this->myUser, this);
-    this->CengeAccount->show();
+    this->ChangeAccount = new chengeAccount(this->myUser, this);
+    this->ChangeAccount->show();
 }
 
 void withdraw::on_actionPassword_triggered()
 {
     hide();
-    this->ChengPassword = new chengPassword(this->myUser, this);
-    this->ChengPassword->show();
+    this->changePassword = new chengPassword(this->myUser, this);
+    this->changePassword->show();
 }
 
 void withdraw::on_actionCharge_and_withdraw_money_triggered()

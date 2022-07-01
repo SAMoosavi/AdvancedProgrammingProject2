@@ -46,8 +46,8 @@ private:
     Ui::chengPassword *ui;
 
     User *myUser;
-    chengeAccount *CengeAccount;
-    chengPassword *ChengPassword;
+    chengeAccount *ChangeAccount;
+    chengPassword *changePassword;
     withdraw *Withdraw;
     MainWindow *mainWindow;
     BasicWindow *basicWindow;
