@@ -20,7 +20,8 @@ struct stock
     long long marketCap;
 };
 
-enum EBuy{
+enum EBuy
+{
     bought,
     fileNotFound,
     notEnoughMoney,
@@ -29,22 +30,20 @@ enum EBuy{
 class Stock
 {
 private:
-    //const QString pathStockUserFile = "C:/Users/Lenovo/Desktop/AP/AdvancedProgrammingProject2/rec/stock_user_data.csv";
+    // const QString pathStockUserFile = "C:/Users/Lenovo/Desktop/AP/AdvancedProgrammingProject2/rec/stock_user_data.csv";
+    const QString pathStockUserFile = "C:/Users/moosavi/Desktop/AP/AdvancedProgrammingProject2/rec/stock_user_data.csv";
     static bool saveOnStockUser(user *us, int id, int amount);
     static bool readOnStockUser(user *us);
-
 
 public:
     Stock();
     ~Stock();
-
 
     static EBuy buyStock(user *us, int id, int amount);
     static void saleStock(user *us, int id);
     map<int, stock *> getStocks(user *us);
     map<int, stock *> getAllStocks();
 
-    //static void fileToUserStocks();
     static stock *searchStock(user *us, int id);
     static map<int, stock *> allStocks;
     static bool read();

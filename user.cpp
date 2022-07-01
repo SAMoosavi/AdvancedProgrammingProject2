@@ -139,9 +139,13 @@ ECheng User::chengAccount(QString &username, QString &name, QString &ID, QString
     {
         return EChengeIBAN;
     }
-    if (this->read(username))
+    // TODO: bugfixed in validation
+    if (username != this->userLogin->username)
     {
-        return EChengeUsername;
+        if (this->read(username))
+        {
+            return EChengeUsername;
+        }
     }
     user *us = this->userLogin;
     us->name = name;
@@ -155,7 +159,7 @@ ECheng User::chengAccount(QString &username, QString &name, QString &ID, QString
     return chenged;
 }
 
-EChengePassword User::chengePassword(QString &password, QString &confirmPassword)
+EChengePassword User::chengePassword(QString &pereventPassword, QString &password, QString &confirmPassword)
 {
     if (!this->vPassword(password))
     {
@@ -165,7 +169,12 @@ EChengePassword User::chengePassword(QString &password, QString &confirmPassword
     {
         return eConfirmPassword;
     }
-    this->userLogin->password = password;
+    if (this->hashPassword(pereventPassword) != this->userLogin->password)
+    {
+        return ePereventPassword;
+    }
+    this->userLogin->password = this->hashPassword(password);
+    this->replace(this->userLogin);
     return chengedPassword;
 }
 
@@ -201,6 +210,7 @@ void User::chargeAccount(int money)
         this->userLogin->debtAmount = 0;
         this->userLogin->money += money;
     }
+    this->replace(this->userLogin);
 }
 
 EGetMoney User::getMoney(int mmoney)
@@ -214,6 +224,7 @@ EGetMoney User::getMoney(int mmoney)
         return MoreThanInventory;
     }
     this->userLogin->money -= mmoney;
+    this->replace(this->userLogin);
     return getedMoney;
 }
 
@@ -227,6 +238,7 @@ bool User::withdrawAccount(int mmoney)
     if (this->userLogin->money >= mmoney)
     {
         this->userLogin->debtAmount -= mmoney;
+        this->replace(this->userLogin);
         return true;
     }
     mmoney -= this->userLogin->money;
@@ -234,6 +246,7 @@ bool User::withdrawAccount(int mmoney)
     {
         this->userLogin->money = 0;
         this->userLogin->debtAmount += mmoney;
+        this->replace(this->userLogin);
         return true;
     }
     return false;
@@ -347,11 +360,11 @@ bool User::replace(user *us, QString pUsername)
         {
             if (temp == 1)
             {
-                temp1 += line;
+                temp1 += line + '\n';
             }
             else
             {
-                temp2 += line;
+                temp2 += line + '\n';
             }
         }
 

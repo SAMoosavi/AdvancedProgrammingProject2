@@ -7,6 +7,8 @@
 #include <QMessageBox>
 #include "basicwindow.h"
 
+class BasicWindow;
+
 namespace Ui
 {
     class SetAccount;
