@@ -24,7 +24,7 @@ Stock::~Stock()
 {
 }
 
-bool Stock::buyStock(user *us, int id, int amount)
+EBuy Stock::buyStock(user *us, int id, int amount)
 {
 
     auto st = searchStock(nullptr, id);
@@ -32,22 +32,31 @@ bool Stock::buyStock(user *us, int id, int amount)
     {
         if (us->money >= amount * st->price)
         {
-            if(addToStockUser(us, id, amount));
-            us->stocks.push_back({st, amount});
-            us->money -= amount * st->price;
-            return true;
+            if(saveOnStockUser(us, id, amount)){
+
+                us->money -= amount * st->price;
+                return bought;
+            }
+            else{
+                return notEnoughMoney;
+            }
+
         }
         else if(us->money + 1000*1000 - us->debtAmount >= amount * st->price)
         {
-            us->stocks.push_back({st, amount});
-            us->debtAmount += amount * st->price - us->money;
-            us->money = 0;
-            return true;
+            if(saveOnStockUser(us, id, amount)){
 
+                us->debtAmount += amount * st->price - us->money;
+                us->money = 0;
+                return bought;
+            }
+            else{
+                return notEnoughMoney;
+            }
         }
 
     }
-    return false;
+    return fileNotFound;
 }
 
 /*
@@ -161,21 +170,6 @@ bool Stock::read()
     return true;
 }
 
-bool Stock::addToStockUser(user *us, int id, int amount){
-    QString str = us->ID + "," + QString::number(id) + "," + QString::number(amount) + '\n';
-
-    QFile File("C:/Users/Lenovo/Desktop/AdvancedProgrammingProject2/rec/stock_user_data.csv");
-    if (!File.open(QIODevice::WriteOnly | QIODevice::Text | QIODevice::Append))
-        return false;
-
-    QTextStream out(&File);
-    out << str;
-    File.flush();
-    File.close();
-    return true;
-}
-
-
 bool Stock::saveOnStockUser(user *us, int id, int amount)
 {
 
@@ -228,18 +222,22 @@ bool Stock::saveOnStockUser(user *us, int id, int amount)
     writeFile.flush();
     writeFile.close();
 
-    return true;
+    if(readOnStockUser(us)){
+        return true;
+    }
+    else{
+        return false;
+    }
 }
-/*
-vector<pair<stock *, int>> Stock::readOnStockUser(user *us)
+
+bool Stock::readOnStockUser(user *us)
 {
-    vector<pair<stock *, int>> result;
+    us->stocks.clear();
     pair<stock *, int> tPair;
-    QString userId = us->ID;
 
     QFile readFile("C:/Users/Lenovo/Desktop/AdvancedProgrammingProject2/rec/stock_user_data.csv");
     if (!readFile.open(QIODevice::ReadOnly | QIODevice::Text))
-        return result;
+        return false;
 
     QTextStream in(&readFile);
 
@@ -248,17 +246,17 @@ vector<pair<stock *, int>> Stock::readOnStockUser(user *us)
         QString line = in.readLine();
         QStringList list = line.split(",");
 
-        if (userId == list[0])
+        if (us->ID == list[0])
         {
-            tPair.first = this->searchStock(us, list[1].toInt());
+            tPair.first = searchStock(nullptr, list[1].toInt());
             tPair.second = list[2].toInt();
-            result.push_back(tPair);
+            us->stocks.push_back(tPair);
         }
     }
 
     readFile.flush();
     readFile.close();
 
-    return result;
+    return true;
 }
-*/
+
