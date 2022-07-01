@@ -3,6 +3,9 @@
 
 #include <QMainWindow>
 #include "user.h"
+#include "chengeaccount.h"
+
+class chengeAccount;
 
 namespace Ui {
 class BasicWindow;
@@ -22,9 +25,12 @@ public:
 private slots:
     void on_pushButton_buy_clicked();
 
+    void on_actionInformation_triggered();
+
 private:
     Ui::BasicWindow *ui;
     User *myUser;
+    chengeAccount *CengeAccount;
 };
 
 #endif // BASICWINDOW_H

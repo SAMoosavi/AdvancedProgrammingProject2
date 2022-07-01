@@ -102,3 +102,11 @@ void BasicWindow::on_pushButton_buy_clicked()
     buyStock();
 }
 
+
+void BasicWindow::on_actionInformation_triggered()
+{
+    hide();
+    this->CengeAccount = new chengeAccount(this->myUser, this);
+    this->CengeAccount->show();
+}
+
