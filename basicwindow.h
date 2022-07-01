@@ -4,8 +4,10 @@
 #include <QMainWindow>
 #include "user.h"
 #include "chengeaccount.h"
+#include "chengpassword.h"
 
 class chengeAccount;
+class chengPassword;
 
 namespace Ui {
 class BasicWindow;
@@ -27,10 +29,13 @@ private slots:
 
     void on_actionInformation_triggered();
 
+    void on_actionPassword_triggered();
+
 private:
     Ui::BasicWindow *ui;
     User *myUser;
     chengeAccount *CengeAccount;
+    chengPassword *ChengPassword;
 };
 
 #endif // BASICWINDOW_H

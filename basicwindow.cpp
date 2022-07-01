@@ -110,3 +110,11 @@ void BasicWindow::on_actionInformation_triggered()
     this->CengeAccount->show();
 }
 
+
+void BasicWindow::on_actionPassword_triggered()
+{
+    hide();
+    this->ChengPassword = new chengPassword(this->myUser, this);
+    this->ChengPassword->show();
+}
+
