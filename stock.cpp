@@ -37,6 +37,8 @@ EBuy Stock::buyStock(int id, int amount)
             if(saveOnStockUser(id, amount)){
 
                 us->money -= amount * st->price;
+                User *myUser = new User();
+                myUser->replace(us);
                 return bought;
             }
             else{
@@ -50,6 +52,8 @@ EBuy Stock::buyStock(int id, int amount)
 
                 us->debtAmount += amount * st->price - us->money;
                 us->money = 0;
+                User *myUser = new User();
+                myUser->replace(us);
                 return bought;
             }
             else{

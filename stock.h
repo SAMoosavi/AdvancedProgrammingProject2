@@ -34,7 +34,6 @@ private:
     const QString pathStockUserFile = "C:/Users/Lenovo/Desktop/AdvancedProgrammingProject2/rec/stock_user_data.csv";
 
     bool saveOnStockUser(int id, int amount);
-    bool readOnStockUser();
     bool deleteFromStockUser(int id);
 
     user *us;
@@ -42,6 +41,8 @@ private:
 public:
     Stock();
     ~Stock();
+
+    bool readOnStockUser();
 
     EBuy buyStock(int id, int amount);
     bool saleStock(int id);
