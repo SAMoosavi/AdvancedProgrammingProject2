@@ -10,11 +10,10 @@ BasicWindow::BasicWindow( QWidget *parent) :
     ui(new Ui::BasicWindow)
 {
     ui->setupUi(this);
-    user *us = myUser->getUserLogin();
-
+    this->us = myUser->getUserLogin();
     this->showAllStocks();
-    this->showStocks(us);
-    for(auto st: Stock::allStocks){
+    this->showStocks();
+    for(auto st: stock->allStocks){
         ui->comboBox_buy->addItem(st.second->symbol);
     }
     for(auto st: us->stocks){
@@ -31,7 +30,7 @@ BasicWindow::~BasicWindow()
 
 void BasicWindow::showAllStocks()
 {
-    Stock::read();
+    stock->read();
 
     ui->tableWidget_buy->insertRow(ui->tableWidget_buy->rowCount());
     ui->tableWidget_buy->setColumnCount(4);
@@ -41,7 +40,7 @@ void BasicWindow::showAllStocks()
     ui->tableWidget_buy->setItem(0, 1, new QTableWidgetItem("Full Name"));
     ui->tableWidget_buy->setItem(0, 2, new QTableWidgetItem("Price"));
     ui->tableWidget_buy->setItem(0, 3, new QTableWidgetItem("Market Capacity"));
-    for(auto st: Stock::allStocks){
+    for(auto st: stock->allStocks){
         ui->tableWidget_buy->insertRow(ui->tableWidget_buy->rowCount());
         ui->tableWidget_buy->setItem(st.first+1, 0, new QTableWidgetItem(st.second->symbol));
         ui->tableWidget_buy->setItem(st.first+1, 1, new QTableWidgetItem(st.second->name));
@@ -50,7 +49,7 @@ void BasicWindow::showAllStocks()
     }
 }
 
-void BasicWindow::showStocks(user *us)
+void BasicWindow::showStocks()
 {
     ui->tableWidget_sale->clear();
     ui->tableWidget_sale->setRowCount(0);
@@ -75,18 +74,18 @@ void BasicWindow::showStocks(user *us)
 void BasicWindow::buyStock()
 {
     int id = 0;
-    for(auto st: Stock::allStocks){
+    for(auto st: stock->allStocks){
         if(st.second->symbol == ui->comboBox_buy->currentText()){
             id = st.first;
             break;
         }
     }
 
-    user *us = this->myUser->getUserLogin();
-    switch(Stock::buyStock(us, id, QString(ui->lineEdit_buy->text()).toInt())){
+
+    switch(stock->buyStock(id, QString(ui->lineEdit_buy->text()).toInt())){
     case bought:
         QMessageBox::information(this, "congratulations!", "Operation was successful");
-        showStocks(us);
+        showStocks();
         ui->comboBox_sale->clear();
         for(auto st: us->stocks){
             ui->comboBox_sale->addItem(st.first->symbol);
@@ -106,7 +105,7 @@ void BasicWindow::buyStock()
 void BasicWindow::saleStock()
 {
     int id = 0;
-    for(auto st: Stock::allStocks){
+    for(auto st: stock->allStocks){
         if(st.second->symbol == ui->comboBox_sale->currentText()){
             id = st.first;
             break;
@@ -114,7 +113,7 @@ void BasicWindow::saleStock()
     }
     user *us = this->myUser->getUserLogin();
 
-    if(!Stock::saleStock(us, id)){
+    if(!stock->saleStock(id)){
         QMessageBox::critical(this, "Error", "File not found");
     }
     else{
@@ -122,7 +121,7 @@ void BasicWindow::saleStock()
         for(auto st: us->stocks){
             ui->comboBox_sale->addItem(st.first->symbol);
         }
-        showStocks(us);
+        showStocks();
         ui->label_money->setText(QString::number(us->money-us->debtAmount));
     }
 
