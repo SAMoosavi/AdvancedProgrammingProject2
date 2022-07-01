@@ -27,6 +27,7 @@ public:
     void showAllStocks();
     void showStocks(user *us);
     void buyStock();
+    void saleStock();
 
 private slots:
     void on_pushButton_buy_clicked();
@@ -42,6 +43,8 @@ private slots:
     void on_actionExit_triggered();
 
     void on_actionStock_triggered();
+
+    void on_pushButton_sale_clicked();
 
 private:
     Ui::BasicWindow *ui;

@@ -103,6 +103,31 @@ void BasicWindow::buyStock()
     ui->label_money->setText(QString::number(us->money-us->debtAmount));
 }
 
+void BasicWindow::saleStock()
+{
+    int id = 0;
+    for(auto st: Stock::allStocks){
+        if(st.second->symbol == ui->comboBox_sale->currentText()){
+            id = st.first;
+            break;
+        }
+    }
+    user *us = this->myUser->getUserLogin();
+
+    if(!Stock::saleStock(us, id)){
+        QMessageBox::critical(this, "Error", "File not found");
+    }
+    else{
+        ui->comboBox_sale->clear();
+        for(auto st: us->stocks){
+            ui->comboBox_sale->addItem(st.first->symbol);
+        }
+        showStocks(us);
+        ui->label_money->setText(QString::number(us->money-us->debtAmount));
+    }
+
+}
+
 void BasicWindow::on_pushButton_buy_clicked()
 {
     buyStock();
@@ -157,4 +182,10 @@ void BasicWindow::on_actionExit_triggered()
 
 
 void BasicWindow::on_actionStock_triggered(){}
+
+
+void BasicWindow::on_pushButton_sale_clicked()
+{
+    saleStock();
+}
 
