@@ -24,14 +24,14 @@ class Stock
 {
 private:
     //const QString pathStockUserFile = "C:/Users/Lenovo/Desktop/AP/AdvancedProgrammingProject2/rec/stock_user_data.csv";
-    //static bool saveOnStockUser(user *us, int id, int amount);
+
     //vector<pair<stock *, int>> readOnStockUser(user *us);
 
 
 public:
     Stock();
     ~Stock();
-
+    static bool saveOnStockUser(user *us, int id, int amount);
     static bool buyStock(user *us, int id, int amount);
     static void saleStock(user *us, int id);
     map<int, stock *> getStocks(user *us);

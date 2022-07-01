@@ -175,20 +175,19 @@ bool Stock::addToStockUser(user *us, int id, int amount){
     return true;
 }
 
-/*
+
 bool Stock::saveOnStockUser(user *us, int id, int amount)
 {
 
-    QString str = "", user = "", other = "";
+    QString firstline = "", other = "";
 
-    QFile readFile("C:/Users/Lenovo/Desktop/AP/AdvancedProgrammingProject2/rec/stock_user_data.csv");
+    QFile readFile("C:/Users/Lenovo/Desktop/AdvancedProgrammingProject2/rec/stock_user_data.csv");
     if (!readFile.open(QIODevice::ReadOnly | QIODevice::Text))
         return false;
 
     QTextStream in(&readFile);
     bool ok = false;
-    QString bay = amount == 0 ? "" : us->ID + "," + QString::number(id) + "," + QString::number(amount);
-
+    int am = amount;
     while (!in.atEnd())
     {
         QString line = in.readLine();
@@ -198,12 +197,15 @@ bool Stock::saveOnStockUser(user *us, int id, int amount)
         {
             if (list[1].toInt() != id)
             {
-                user += line;
+                other += line + '\n';
+            }
+            else{
+                am += list[2].toInt();
             }
         }
         else
         {
-            other += line;
+            firstline += line;
         }
 
         if (!ok)
@@ -211,12 +213,13 @@ bool Stock::saveOnStockUser(user *us, int id, int amount)
             ok = true;
         }
     }
-    str = user + bay + other;
+    QString buy = us->ID + "," + QString::number(id) + "," + QString::number(am);
+    QString str = firstline + '\n' + other + buy + '\n';
 
     readFile.flush();
     readFile.close();
 
-    QFile writeFile("C:/Users/Lenovo/Desktop/AP/AdvancedProgrammingProject2/rec/stock_user_data.csv");
+    QFile writeFile("C:/Users/Lenovo/Desktop/AdvancedProgrammingProject2/rec/stock_user_data.csv");
     if (!writeFile.open(QIODevice::WriteOnly | QIODevice::Text))
         return false;
 
@@ -227,14 +230,14 @@ bool Stock::saveOnStockUser(user *us, int id, int amount)
 
     return true;
 }
-
+/*
 vector<pair<stock *, int>> Stock::readOnStockUser(user *us)
 {
     vector<pair<stock *, int>> result;
     pair<stock *, int> tPair;
     QString userId = us->ID;
 
-    QFile readFile("C:/Users/Lenovo/Desktop/AP/AdvancedProgrammingProject2/rec/stock_user_data.csv");
+    QFile readFile("C:/Users/Lenovo/Desktop/AdvancedProgrammingProject2/rec/stock_user_data.csv");
     if (!readFile.open(QIODevice::ReadOnly | QIODevice::Text))
         return result;
 
