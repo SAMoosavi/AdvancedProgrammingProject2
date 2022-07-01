@@ -1,0 +1,30 @@
+#ifndef BASICWINDOW_H
+#define BASICWINDOW_H
+
+#include <QMainWindow>
+#include "user.h"
+
+namespace Ui {
+class BasicWindow;
+}
+
+class BasicWindow : public QMainWindow
+{
+    Q_OBJECT
+
+public:
+    explicit BasicWindow(User *myUser, QWidget *parent = nullptr);
+    ~BasicWindow();
+    void showAllStocks();
+    void showStocks(user *us);
+    void buyStock();
+
+private slots:
+    void on_pushButton_buy_clicked();
+
+private:
+    Ui::BasicWindow *ui;
+    User *myUser;
+};
+
+#endif // BASICWINDOW_H

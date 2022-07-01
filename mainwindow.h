@@ -5,6 +5,7 @@
 #include "user.h"
 #include "registerfile.h"
 #include "setaccount.h"
+#include "basicwindow.h"
 
 class RegisterFile;
 
@@ -33,5 +34,6 @@ private:
     User *myUser;
     RegisterFile *registerFile;
     SetAccount *setAccount;
+    BasicWindow *basicWindow;
 };
 #endif // MAINWINDOW_H

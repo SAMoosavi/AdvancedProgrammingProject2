@@ -26,7 +26,9 @@ void MainWindow::on_pushButton_clicked()
         if (this->myUser->accountIsSet())
         {
             QMessageBox::information(this, "Welcome!", "Welcome!");
-            // TODO: cheng page
+            hide();
+            this->basicWindow = new BasicWindow(this->myUser, this);
+            this->basicWindow->show();
         }
         else
         {

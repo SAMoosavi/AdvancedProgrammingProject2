@@ -99,7 +99,7 @@ private:
 
     user *userLogin = 0;
 
-    const QString pathFile = "C:/Users/moosavi/Desktop/AP/AdvancedProgrammingProject2/rec/user_data.csv";
+    const QString pathFile = "C:/Users/Lenovo/Desktop/AdvancedProgrammingProject2/rec/user_data.csv";
 
 public:
     User();

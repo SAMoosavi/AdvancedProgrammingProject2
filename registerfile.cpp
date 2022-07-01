@@ -22,7 +22,7 @@ void RegisterFile::on_pushButton_clicked()
     switch (this->myUser->Register(username, password, confirmPassword))
     {
     case registered:
-        QMessageBox::information(this, "Sign Up", "You are sign up");
+        QMessageBox::information(this, "Sign Up", "You are signed up");
         this->goToSingnInPage();
         break;
     case EVPassword:

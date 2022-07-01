@@ -24,7 +24,9 @@ void SetAccount::on_pushButton_clicked()
     {
     case setedAccount:
         QMessageBox::information(this, "Welcome!", "Welcome!");
-        // TODO: cheng page
+        hide();
+        this->basicWindow = new BasicWindow(this->myUser, this);
+        this->basicWindow->show();
         break;
     case EVName:
         QMessageBox::critical(this, "Error", "Name must be less than 40 letters!");

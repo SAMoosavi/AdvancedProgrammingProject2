@@ -4,18 +4,19 @@
 #include <QString>
 #include <QTextStream>
 #include <QStringList>
+#include <QDebug>
 
 class User;
 
 struct user;
 
+map<int, stock *> Stock::allStocks = {};
+
 using std::map;
 using std::vector;
 
-Stock::Stock(user *userr)
+Stock::Stock()
 {
-    this->us = userr;
-
     this->read();
 }
 
@@ -23,35 +24,58 @@ Stock::~Stock()
 {
 }
 
-bool Stock::buyStock(int id, int amount)
+EBuy Stock::buyStock(user *us, int id, int amount)
 {
-    auto st = searchStock(id);
+
+    auto st = searchStock(nullptr, id);
     if (st)
     {
-        if (this->us->money >= amount * st->price)
+        if (us->money >= amount * st->price)
         {
-            this->us->stocks.push_back(st);
-            this->us->money -= amount * st->price;
-            return true;
+            if(saveOnStockUser(us, id, amount)){
+
+                us->money -= amount * st->price;
+                return bought;
+            }
+            else{
+                return notEnoughMoney;
+            }
+
         }
+        else if(us->money + 1000*1000 - us->debtAmount >= amount * st->price)
+        {
+            if(saveOnStockUser(us, id, amount)){
+
+                us->debtAmount += amount * st->price - us->money;
+                us->money = 0;
+                return bought;
+            }
+            else{
+                return notEnoughMoney;
+            }
+        }
+
     }
-    return false;
+    return fileNotFound;
 }
 
-void Stock::saleStock(int id)
+/*
+void Stock::saleStock(user *us, int id)
 {
-    auto st = searchStock(id);
+    auto st = searchStock(us, id);
     if (st)
     {
-        this->us->money += st->price;
-        this->us->stocks.erase(find(us->stocks.begin(), us->stocks.end(), st));
+        us->money += st->price;
+        us->stocks.erase(find(us->stocks.begin(), us->stocks.end(), st));
     }
 }
+*/
 
-map<int, stock *> Stock::getStocks()
+/*
+map<int, stock *> Stock::getStocks(user *us)
 {
     map<int, stock *> stocks;
-    for (auto st : this->us->stocks)
+    for (auto st : us->stocks)
     {
         stocks[st->ID] = st;
     }
@@ -59,18 +83,31 @@ map<int, stock *> Stock::getStocks()
     return stocks;
 }
 
+
 map<int, stock *> Stock::getAllStocks()
 {
     return allStocks;
 }
+*/
 
-stock *Stock::searchStock(int id)
+stock *Stock::searchStock(user *us, int id)
 {
+    if(us == nullptr){
+        for (auto st : allStocks)
+        {
+            if (st.first == id)
+            {
+                return st.second;
+            }
+        }
+        return nullptr;
+    }
+
     for (auto st : us->stocks)
     {
-        if (st->ID == id)
+        if (st.first->ID == id)
         {
-            return st;
+            return st.first;
         }
     }
     return nullptr;
@@ -78,7 +115,7 @@ stock *Stock::searchStock(int id)
 
 bool Stock::read()
 {
-    QFile file(":/rec/stock_market_data.csv");
+    QFile file("C:/Users/Lenovo/Desktop/AdvancedProgrammingProject2/rec/stock_market_data.csv");
 
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
         return false;
@@ -124,43 +161,45 @@ bool Stock::read()
             list[2][0] = ' ';
             list[2][list.size() - 1] = ' ';
         }
+
         tStock->name = list[2];
         tStock->price = list[3].toDouble();
-        tStock->marketCap = list[4].toInt();
-        this->allStocks[tStock->ID] = tStock;
+        tStock->marketCap = list[4].toLongLong();
+        allStocks[tStock->ID] = tStock;
     }
-
     return true;
 }
 
-bool Stock::saveOnStockUser(int id, int amount)
+bool Stock::saveOnStockUser(user *us, int id, int amount)
 {
 
-    QString str = "", user = "", other = "";
+    QString firstline = "", other = "";
 
-    QFile readFile(this->pathStockUserFile);
+    QFile readFile("C:/Users/Lenovo/Desktop/AdvancedProgrammingProject2/rec/stock_user_data.csv");
     if (!readFile.open(QIODevice::ReadOnly | QIODevice::Text))
         return false;
 
     QTextStream in(&readFile);
     bool ok = false;
-    QString bay = amount == 0 ? "" : this->us->ID + "," + QString::number(id) + "," + QString::number(amount);
-
+    int am = amount;
     while (!in.atEnd())
     {
         QString line = in.readLine();
         QStringList list = line.split(",");
 
-        if (ok && this->us->ID == list[0])
+        if (ok && us->ID == list[0])
         {
             if (list[1].toInt() != id)
             {
-                user += line;
+                other += line + '\n';
+            }
+            else{
+                am += list[2].toInt();
             }
         }
         else
         {
-            other += line;
+            firstline += line;
         }
 
         if (!ok)
@@ -168,12 +207,13 @@ bool Stock::saveOnStockUser(int id, int amount)
             ok = true;
         }
     }
-    str = user + bay + other;
+    QString buy = us->ID + "," + QString::number(id) + "," + QString::number(am);
+    QString str = firstline + '\n' + other + buy + '\n';
 
     readFile.flush();
     readFile.close();
 
-    QFile writeFile(this->pathStockUserFile);
+    QFile writeFile("C:/Users/Lenovo/Desktop/AdvancedProgrammingProject2/rec/stock_user_data.csv");
     if (!writeFile.open(QIODevice::WriteOnly | QIODevice::Text))
         return false;
 
@@ -182,18 +222,22 @@ bool Stock::saveOnStockUser(int id, int amount)
     writeFile.flush();
     writeFile.close();
 
-    return true;
+    if(readOnStockUser(us)){
+        return true;
+    }
+    else{
+        return false;
+    }
 }
 
-vector<pair<stock *, int>> Stock::readOnStockUser()
+bool Stock::readOnStockUser(user *us)
 {
-    vector<pair<stock *, int>> result;
+    us->stocks.clear();
     pair<stock *, int> tPair;
-    QString userId = this->us->ID;
 
-    QFile readFile(this->pathStockUserFile);
+    QFile readFile("C:/Users/Lenovo/Desktop/AdvancedProgrammingProject2/rec/stock_user_data.csv");
     if (!readFile.open(QIODevice::ReadOnly | QIODevice::Text))
-        return result;
+        return false;
 
     QTextStream in(&readFile);
 
@@ -202,16 +246,17 @@ vector<pair<stock *, int>> Stock::readOnStockUser()
         QString line = in.readLine();
         QStringList list = line.split(",");
 
-        if (userId == list[0])
+        if (us->ID == list[0])
         {
-            tPair.first = this->searchStock(list[1].toInt());
+            tPair.first = searchStock(nullptr, list[1].toInt());
             tPair.second = list[2].toInt();
-            result.push_back(tPair);
+            us->stocks.push_back(tPair);
         }
     }
 
     readFile.flush();
     readFile.close();
 
-    return result;
+    return true;
 }
+

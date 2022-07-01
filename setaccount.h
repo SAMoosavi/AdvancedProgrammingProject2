@@ -5,6 +5,7 @@
 #include "user.h"
 #include <QString>
 #include <QMessageBox>
+#include "basicwindow.h"
 
 namespace Ui
 {
@@ -25,6 +26,7 @@ private slots:
 private:
     Ui::SetAccount *ui;
     User *myUser;
+    BasicWindow *basicWindow;
 };
 
 #endif // SETACCOUNT_H
