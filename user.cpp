@@ -1,7 +1,7 @@
 #include "user.h"
 using namespace std;
 #include <QDebug>
-
+user *User::userLogin = 0;
 User::User()
 {
 }
