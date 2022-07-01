@@ -12,8 +12,8 @@ class Stock;
 
 struct stock;
 
-using std::vector;
 using std::pair;
+using std::vector;
 
 struct user
 {
@@ -58,6 +58,7 @@ enum EChengePassword
     chengedPassword,
     eVPassword,
     eConfirmPassword,
+    ePereventPassword,
 };
 
 enum EGetMoney
@@ -99,7 +100,8 @@ private:
 
     user *userLogin = 0;
 
-    const QString pathFile = "C:/Users/Lenovo/Desktop/AdvancedProgrammingProject2/rec/user_data.csv";
+    // const QString pathFile = "C:/Users/Lenovo/Desktop/AdvancedProgrammingProject2/rec/user_data.csv";
+    const QString pathFile = "C:/Users/moosavi/Desktop/AP/AdvancedProgrammingProject2/rec/user_data.csv";
 
 public:
     User();
@@ -110,7 +112,7 @@ public:
     ELogin login(QString &username, QString &password);
 
     ECheng chengAccount(QString &username, QString &name, QString &ID, QString &accountNumber, QString &IBAN);
-    EChengePassword chengePassword(QString &password, QString &confirmPassword);
+    EChengePassword chengePassword(QString &pereventPassword,QString &password, QString &confirmPassword);
 
     user *getUserLogin();
     bool isLogin();
