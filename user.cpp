@@ -176,6 +176,7 @@ Echange User::changeAccount(QString &username, QString &name, QString &ID, QStri
 
 EchangePassword User::changePassword(QString &pereventPassword, QString &password, QString &confirmPassword)
 {
+    // validation
     if (!this->vPassword(password))
     {
         return eVPassword;
@@ -188,6 +189,7 @@ EchangePassword User::changePassword(QString &pereventPassword, QString &passwor
     {
         return ePereventPassword;
     }
+    // validated now change password
     this->userLogin->password = this->hashPassword(password);
     this->replace(this->userLogin);
     return changedPassword;
@@ -294,14 +296,14 @@ QString User::userStructToString(user *us)
 user *User::read(QString &username)
 {
     user *tUser = nullptr;
-
+    // open file
     QFile file(this->pathFile);
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
         return tUser;
 
     QTextStream in(&file);
     bool ok = false;
-
+    // read file line to line
     while (!in.atEnd())
     {
         if (!ok)
@@ -311,7 +313,7 @@ user *User::read(QString &username)
         }
         QString line = in.readLine();
         QStringList list = line.split(",");
-
+        // if this username create user
         if (username == list[2])
         {
             tUser = new user;
@@ -326,6 +328,7 @@ user *User::read(QString &username)
             break;
         }
     }
+    // close file
     file.flush();
     file.close();
     return tUser;
@@ -333,11 +336,13 @@ user *User::read(QString &username)
 
 bool User::save(user *us)
 {
+    // open file
     QFile file(this->pathFile);
     if (!file.open(QIODevice::WriteOnly | QIODevice::Text | QIODevice::Append))
         return false;
 
     QTextStream out(&file);
+    // write new user
     out << this->userStructToString(us);
     file.flush();
     file.close();
@@ -346,14 +351,14 @@ bool User::save(user *us)
 
 bool User::replace(user *us, QString pUsername)
 {
-
+    // set pUsername
     if (pUsername == "")
     {
         pUsername = us->username;
     }
 
     QString str, temp1 = "", temp2 = "";
-
+    // open file
     QFile readFile(this->pathFile);
     if (!readFile.open(QIODevice::ReadOnly | QIODevice::Text))
         return false;
@@ -361,12 +366,12 @@ bool User::replace(user *us, QString pUsername)
     QTextStream in(&readFile);
     bool ok = false;
     short int temp = 1;
-
+    // read file line to line
     while (!in.atEnd())
     {
         QString line = in.readLine();
         QStringList list = line.split(",");
-
+        // if this username go to temp2
         if (ok && pUsername == list[2])
         {
             temp = 2;
@@ -388,17 +393,20 @@ bool User::replace(user *us, QString pUsername)
             ok = true;
         }
     }
-    str = temp1 + this->userStructToString(us) + temp2;
-
+    // close file
     readFile.flush();
     readFile.close();
-
+    // create str for write
+    str = temp1 + this->userStructToString(us) + temp2;
+    // open file
     QFile writeFile(this->pathFile);
     if (!writeFile.open(QIODevice::WriteOnly | QIODevice::Text))
         return false;
 
     QTextStream out(&writeFile);
+    // write on file
     out << str;
+    // close file
     writeFile.flush();
     writeFile.close();
 
