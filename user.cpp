@@ -172,7 +172,8 @@ EChengePassword User::chengePassword(QString &pereventPassword,QString &password
     if(this->hashPassword(pereventPassword) != this->userLogin->password){
         return ePereventPassword;
     }
-    this->userLogin->password = password;
+    this->userLogin->password = this->hashPassword(password);
+    this->replace(this->userLogin);
     return chengedPassword;
 }
 
