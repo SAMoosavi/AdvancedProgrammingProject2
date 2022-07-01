@@ -118,3 +118,11 @@ void BasicWindow::on_actionPassword_triggered()
     this->ChengPassword->show();
 }
 
+
+void BasicWindow::on_actionCharge_and_withdraw_money_triggered()
+{
+    hide();
+    this->Withdraw = new withdraw(this->myUser, this);
+    this->Withdraw->show();
+}
+
