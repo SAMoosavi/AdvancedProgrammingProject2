@@ -15,11 +15,10 @@ BasicWindow::BasicWindow(User *myUser, QWidget *parent) :
 
     this->showAllStocks();
     this->showStocks(us);
-//1234567890
     for(auto st: Stock::allStocks){
         ui->comboBox_buy->addItem(st.second->symbol);
     }
-
+    ui->label_money->setText(QString::number(us->money-us->debtAmount));
 
 }
 
@@ -95,6 +94,7 @@ void BasicWindow::buyStock()
         QMessageBox::critical(this, "Error", "Your money is not enough!");
         break;
     }
+    ui->label_money->setText(QString::number(us->money-us->debtAmount));
 }
 
 void BasicWindow::on_pushButton_buy_clicked()

@@ -15,43 +15,21 @@
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout_4">
-    <item row="0" column="0">
-     <widget class="QLabel" name="label">
-      <property name="font">
-       <font>
-        <pointsize>20</pointsize>
-       </font>
-      </property>
-      <property name="text">
-       <string>Stocks you can buy </string>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignCenter</set>
-      </property>
-     </widget>
+    <item row="3" column="1">
+     <layout class="QGridLayout" name="gridLayout_3">
+      <item row="0" column="0">
+       <widget class="QComboBox" name="comboBox_sale"/>
+      </item>
+      <item row="1" column="0">
+       <widget class="QPushButton" name="pushButton_sale">
+        <property name="text">
+         <string>Sale</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
     </item>
-    <item row="0" column="1">
-     <widget class="QLabel" name="label_2">
-      <property name="font">
-       <font>
-        <pointsize>20</pointsize>
-       </font>
-      </property>
-      <property name="text">
-       <string>Stocks you have </string>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignCenter</set>
-      </property>
-     </widget>
-    </item>
-    <item row="1" column="0">
-     <widget class="QTableWidget" name="tableWidget_buy"/>
-    </item>
-    <item row="1" column="1">
-     <widget class="QTableWidget" name="tableWidget_sale"/>
-    </item>
-    <item row="2" column="0">
+    <item row="3" column="0">
      <layout class="QGridLayout" name="gridLayout_2">
       <item row="0" column="0">
        <layout class="QGridLayout" name="gridLayout">
@@ -98,19 +76,58 @@
       </item>
      </layout>
     </item>
+    <item row="1" column="1">
+     <widget class="QLabel" name="label_2">
+      <property name="font">
+       <font>
+        <pointsize>20</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>Stocks you have </string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+    </item>
     <item row="2" column="1">
-     <layout class="QGridLayout" name="gridLayout_3">
-      <item row="0" column="0">
-       <widget class="QComboBox" name="comboBox_sale"/>
-      </item>
-      <item row="1" column="0">
-       <widget class="QPushButton" name="pushButton_sale">
-        <property name="text">
-         <string>Sale</string>
-        </property>
-       </widget>
-      </item>
-     </layout>
+     <widget class="QTableWidget" name="tableWidget_sale"/>
+    </item>
+    <item row="2" column="0">
+     <widget class="QTableWidget" name="tableWidget_buy"/>
+    </item>
+    <item row="1" column="0">
+     <widget class="QLabel" name="label">
+      <property name="font">
+       <font>
+        <pointsize>20</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>Stocks you can buy </string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="0">
+     <widget class="QLabel" name="label_3">
+      <property name="text">
+       <string>Your money:</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="1">
+     <widget class="QLabel" name="label_money">
+      <property name="text">
+       <string>TextLabel</string>
+      </property>
+     </widget>
     </item>
    </layout>
   </widget>
@@ -127,13 +144,6 @@
     <property name="title">
      <string>Main Menu</string>
     </property>
-    <widget class="QMenu" name="menuMoney">
-     <property name="title">
-      <string>Money</string>
-     </property>
-     <addaction name="actionWithdraw"/>
-     <addaction name="actionCharge"/>
-    </widget>
     <widget class="QMenu" name="menuChange">
      <property name="title">
       <string>Change</string>
@@ -141,34 +151,12 @@
      <addaction name="actionInformation"/>
      <addaction name="actionPassword"/>
     </widget>
-    <addaction name="menuMoney"/>
     <addaction name="menuChange"/>
+    <addaction name="actionCharge_and_withdraw_money"/>
     <addaction name="actionSign_out"/>
     <addaction name="actionExit"/>
    </widget>
-   <widget class="QMenu" name="menuBazaar_Menu">
-    <property name="title">
-     <string>Bazaar Menu</string>
-    </property>
-    <widget class="QMenu" name="menuStock">
-     <property name="title">
-      <string>Stock</string>
-     </property>
-     <addaction name="actionBuy"/>
-     <addaction name="actionSale"/>
-    </widget>
-    <widget class="QMenu" name="menuShow">
-     <property name="title">
-      <string>Show</string>
-     </property>
-     <addaction name="actionYour_stocks"/>
-     <addaction name="actionAll_stocks"/>
-    </widget>
-    <addaction name="menuStock"/>
-    <addaction name="menuShow"/>
-   </widget>
    <addaction name="menuMain_Menu"/>
-   <addaction name="menuBazaar_Menu"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
   <action name="actionSign_out">
@@ -219,6 +207,11 @@
   <action name="actionAll_stocks">
    <property name="text">
     <string>All stocks</string>
+   </property>
+  </action>
+  <action name="actionCharge_and_withdraw_money">
+   <property name="text">
+    <string>Charge and withdraw money</string>
    </property>
   </action>
  </widget>
