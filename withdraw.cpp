@@ -43,3 +43,44 @@ void withdraw::on_pushButton_Charge_clicked()
     ui->lineEdit_Charge->setText("");
     QMessageBox::information(this, "Charge", "Charged money.");
 }
+
+void withdraw::on_actionInformation_triggered()
+{
+    hide();
+    this->CengeAccount = new chengeAccount(this->myUser, this);
+    this->CengeAccount->show();
+}
+
+void withdraw::on_actionPassword_triggered()
+{
+    hide();
+    this->ChengPassword = new chengPassword(this->myUser, this);
+    this->ChengPassword->show();
+}
+
+void withdraw::on_actionCharge_and_withdraw_money_triggered()
+{
+//    hide();
+//    this->Withdraw = new withdraw(this->myUser, this);
+//    this->Withdraw->show();
+}
+
+void withdraw::on_actionSign_out_triggered()
+{
+    this->myUser->logout();
+    hide();
+    this->mainWindow = new MainWindow(this->myUser, this);
+    this->mainWindow->show();
+}
+
+void withdraw::on_actionExit_triggered()
+{
+    close();
+}
+
+void withdraw::on_actionStock_triggered()
+{
+    hide();
+    this->basicWindow = new BasicWindow(this->myUser, this);
+    this->basicWindow->show();
+}
