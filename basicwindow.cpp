@@ -126,3 +126,12 @@ void BasicWindow::on_actionCharge_and_withdraw_money_triggered()
     this->Withdraw->show();
 }
 
+
+void BasicWindow::on_actionSign_out_triggered()
+{
+    this->myUser->logout();
+    hide();
+    this->mainWindow = new MainWindow(this->myUser, this);
+    this->mainWindow->show();
+}
+

@@ -6,10 +6,12 @@
 #include "chengeaccount.h"
 #include "chengpassword.h"
 #include "withdraw.h"
+#include "mainwindow.h"
 
 class chengeAccount;
 class chengPassword;
 class withdraw;
+class MainWindow;
 
 namespace Ui {
 class BasicWindow;
@@ -35,12 +37,15 @@ private slots:
 
     void on_actionCharge_and_withdraw_money_triggered();
 
+    void on_actionSign_out_triggered();
+
 private:
     Ui::BasicWindow *ui;
     User *myUser;
     chengeAccount *CengeAccount;
     chengPassword *ChengPassword;
     withdraw *Withdraw;
+    MainWindow *mainWindow;
 };
 
 #endif // BASICWINDOW_H
