@@ -159,7 +159,7 @@ ECheng User::chengAccount(QString &username, QString &name, QString &ID, QString
     return chenged;
 }
 
-EChengePassword User::chengePassword(QString &pereventPassword,QString &password, QString &confirmPassword)
+EChengePassword User::chengePassword(QString &pereventPassword, QString &password, QString &confirmPassword)
 {
     if (!this->vPassword(password))
     {
@@ -169,7 +169,8 @@ EChengePassword User::chengePassword(QString &pereventPassword,QString &password
     {
         return eConfirmPassword;
     }
-    if(this->hashPassword(pereventPassword) != this->userLogin->password){
+    if (this->hashPassword(pereventPassword) != this->userLogin->password)
+    {
         return ePereventPassword;
     }
     this->userLogin->password = this->hashPassword(password);
@@ -209,6 +210,7 @@ void User::chargeAccount(int money)
         this->userLogin->debtAmount = 0;
         this->userLogin->money += money;
     }
+    this->replace(this->userLogin);
 }
 
 EGetMoney User::getMoney(int mmoney)
@@ -222,6 +224,7 @@ EGetMoney User::getMoney(int mmoney)
         return MoreThanInventory;
     }
     this->userLogin->money -= mmoney;
+    this->replace(this->userLogin);
     return getedMoney;
 }
 
@@ -235,6 +238,7 @@ bool User::withdrawAccount(int mmoney)
     if (this->userLogin->money >= mmoney)
     {
         this->userLogin->debtAmount -= mmoney;
+        this->replace(this->userLogin);
         return true;
     }
     mmoney -= this->userLogin->money;
@@ -242,6 +246,7 @@ bool User::withdrawAccount(int mmoney)
     {
         this->userLogin->money = 0;
         this->userLogin->debtAmount += mmoney;
+        this->replace(this->userLogin);
         return true;
     }
     return false;
