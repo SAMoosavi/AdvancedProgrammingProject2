@@ -347,11 +347,11 @@ bool User::replace(user *us, QString pUsername)
         {
             if (temp == 1)
             {
-                temp1 += line;
+                temp1 += line + '\n';
             }
             else
             {
-                temp2 += line;
+                temp2 += line + '\n';
             }
         }
 
