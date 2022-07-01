@@ -258,8 +258,6 @@ QString User::userStructToString(user *us)
     tString += QString::number(us->debtAmount);
     tString += ",";
     tString += QString::number(us->money);
-    tString += ",";
-    tString += QString::number(us->stockN);
     tString += "\n";
 
     return tString;
@@ -297,7 +295,6 @@ user *User::read(QString &username)
             tUser->IBAN = list[5];
             tUser->debtAmount = list[6].toInt();
             tUser->money = list[7].toInt();
-            tUser->stockN = list[8].toInt();
             break;
         }
     }

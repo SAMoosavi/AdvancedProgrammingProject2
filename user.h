@@ -13,6 +13,7 @@ class Stock;
 struct stock;
 
 using std::vector;
+using std::pair;
 
 struct user
 {
@@ -23,10 +24,9 @@ struct user
     QString accountNumber;
     //! International Bank Account Number
     QString IBAN;
-    int debtAmount = 0;
-    int money = 0;
-    int stockN;
-    vector<stock *> stocks;
+    long long debtAmount = 0;
+    long long money = 0;
+    vector<pair<stock *, int>> stocks;
 };
 
 enum ERegister
