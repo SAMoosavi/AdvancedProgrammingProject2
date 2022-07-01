@@ -18,7 +18,10 @@ BasicWindow::BasicWindow(User *myUser, QWidget *parent) :
     for(auto st: Stock::allStocks){
         ui->comboBox_buy->addItem(st.second->symbol);
     }
-    ui->label_money->setText(QString::number(us->money-us->debtAmount));
+    for(auto st: us->stocks){
+        ui->comboBox_sale->addItem(st.first->symbol);
+    }
+    ui->label_money->setText(QString::number(this->myUser->showMoney()));
 
 }
 
@@ -85,6 +88,10 @@ void BasicWindow::buyStock()
     case bought:
         QMessageBox::information(this, "congratulations!", "Operation was successful");
         showStocks(us);
+        ui->comboBox_sale->clear();
+        for(auto st: us->stocks){
+            ui->comboBox_sale->addItem(st.first->symbol);
+        }
         break;
 
     case fileNotFound:

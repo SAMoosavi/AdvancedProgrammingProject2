@@ -18,7 +18,11 @@
     <item row="3" column="1">
      <layout class="QGridLayout" name="gridLayout_3">
       <item row="0" column="0">
-       <widget class="QComboBox" name="comboBox_sale"/>
+       <widget class="QComboBox" name="comboBox_sale">
+        <property name="placeholderText">
+         <string>Which one?</string>
+        </property>
+       </widget>
       </item>
       <item row="1" column="0">
        <widget class="QPushButton" name="pushButton_sale">
@@ -61,7 +65,7 @@
         <item row="0" column="0">
          <widget class="QComboBox" name="comboBox_buy">
           <property name="placeholderText">
-           <string>Wich one?</string>
+           <string>Which one?</string>
           </property>
          </widget>
         </item>
