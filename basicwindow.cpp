@@ -135,3 +135,9 @@ void BasicWindow::on_actionSign_out_triggered()
     this->mainWindow->show();
 }
 
+
+void BasicWindow::on_actionExit_triggered()
+{
+    close();
+}
+

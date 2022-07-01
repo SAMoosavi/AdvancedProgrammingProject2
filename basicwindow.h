@@ -39,6 +39,8 @@ private slots:
 
     void on_actionSign_out_triggered();
 
+    void on_actionExit_triggered();
+
 private:
     Ui::BasicWindow *ui;
     User *myUser;
