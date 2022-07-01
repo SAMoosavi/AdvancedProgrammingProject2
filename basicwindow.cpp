@@ -102,7 +102,7 @@ void BasicWindow::buyStock()
             QMessageBox::critical(this, "Error", "Your money is not enough!");
             break;
         }
-        ui->label_money->setText(QString::number(us->money-us->debtAmount));
+        ui->label_money->setText(QString::number(this->myUser->showMoney()));
     }
 }
 
@@ -125,7 +125,7 @@ void BasicWindow::saleStock()
             ui->comboBox_sale->addItem(st.first->symbol);
         }
         showStocks();
-        ui->label_money->setText(QString::number(us->money-us->debtAmount));
+        ui->label_money->setText(QString::number(this->myUser->showMoney()));
     }
 
 }

@@ -323,8 +323,8 @@ user *User::read(QString &username)
             tUser->password = list[3];
             tUser->accountNumber = list[4];
             tUser->IBAN = list[5];
-            tUser->debtAmount = list[6].toInt();
-            tUser->money = list[7].toInt();
+            tUser->debtAmount = list[6].toDouble();
+            tUser->money = list[7].toDouble();
             break;
         }
     }
