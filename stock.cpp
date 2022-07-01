@@ -115,7 +115,7 @@ stock *Stock::searchStock(user *us, int id)
 
 bool Stock::read()
 {
-    QFile file("C:/Users/Lenovo/Desktop/AdvancedProgrammingProject2/rec/stock_market_data.csv");
+    QFile file("C:/Users/moosavi/Desktop/AP/AdvancedProgrammingProject2/rec/stock_market_data.csv");
 
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
         return false;
@@ -175,7 +175,7 @@ bool Stock::saveOnStockUser(user *us, int id, int amount)
 
     QString firstline = "", other = "";
 
-    QFile readFile("C:/Users/Lenovo/Desktop/AdvancedProgrammingProject2/rec/stock_user_data.csv");
+    QFile readFile("C:/Users/moosavi/Desktop/AP/AdvancedProgrammingProject2/rec/stock_user_data.csv");
     if (!readFile.open(QIODevice::ReadOnly | QIODevice::Text))
         return false;
 
@@ -213,7 +213,7 @@ bool Stock::saveOnStockUser(user *us, int id, int amount)
     readFile.flush();
     readFile.close();
 
-    QFile writeFile("C:/Users/Lenovo/Desktop/AdvancedProgrammingProject2/rec/stock_user_data.csv");
+    QFile writeFile("C:/Users/moosavi/Desktop/AP/AdvancedProgrammingProject2/rec/stock_user_data.csv");
     if (!writeFile.open(QIODevice::WriteOnly | QIODevice::Text))
         return false;
 
@@ -235,7 +235,7 @@ bool Stock::readOnStockUser(user *us)
     us->stocks.clear();
     pair<stock *, int> tPair;
 
-    QFile readFile("C:/Users/Lenovo/Desktop/AdvancedProgrammingProject2/rec/stock_user_data.csv");
+    QFile readFile("C:/Users/moosavi/Desktop/AP/AdvancedProgrammingProject2/rec/stock_user_data.csv");
     if (!readFile.open(QIODevice::ReadOnly | QIODevice::Text))
         return false;
 
