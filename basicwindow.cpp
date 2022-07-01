@@ -84,24 +84,26 @@ void BasicWindow::buyStock()
     }
 
 
-    switch(stock->buyStock(id, QString(ui->lineEdit_buy->text()).toInt())){
-    case bought:
-        QMessageBox::information(this, "congratulations!", "Operation was successful");
-        showStocks();
-        ui->comboBox_sale->clear();
-        for(auto st: us->stocks){
-            ui->comboBox_sale->addItem(st.first->symbol);
-        }
-        break;
+    if(ui->lineEdit_buy->text().toInt() != 0){
+        switch(stock->buyStock(id, QString(ui->lineEdit_buy->text()).toInt())){
+        case bought:
+            QMessageBox::information(this, "congratulations!", "Operation was successful");
+            showStocks();
+            ui->comboBox_sale->clear();
+            for(auto st: us->stocks){
+                ui->comboBox_sale->addItem(st.first->symbol);
+            }
+            break;
 
-    case fileNotFound:
-        QMessageBox::critical(this, "Error", "File not found!");
-        break;
-    case notEnoughMoney:
-        QMessageBox::critical(this, "Error", "Your money is not enough!");
-        break;
+        case fileNotFound:
+            QMessageBox::critical(this, "Error", "File not found!");
+            break;
+        case notEnoughMoney:
+            QMessageBox::critical(this, "Error", "Your money is not enough!");
+            break;
+        }
+        ui->label_money->setText(QString::number(us->money-us->debtAmount));
     }
-    ui->label_money->setText(QString::number(us->money-us->debtAmount));
 }
 
 void BasicWindow::saleStock()
