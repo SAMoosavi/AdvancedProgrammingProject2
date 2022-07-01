@@ -258,7 +258,7 @@ QString User::userStructToString(user *us)
     tString += QString::number(us->debtAmount);
     tString += ",";
     tString += QString::number(us->money);
-    tString += "\n";
+    tString += '\n';
 
     return tString;
 }
