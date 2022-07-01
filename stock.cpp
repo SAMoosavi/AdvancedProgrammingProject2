@@ -38,7 +38,7 @@ EBuy Stock::buyStock(user *us, int id, int amount)
                 return bought;
             }
             else{
-                return notEnoughMoney;
+                return fileNotFound;
             }
 
         }
@@ -51,12 +51,12 @@ EBuy Stock::buyStock(user *us, int id, int amount)
                 return bought;
             }
             else{
-                return notEnoughMoney;
+                return fileNotFound;
             }
         }
 
     }
-    return fileNotFound;
+    return notEnoughMoney;
 }
 
 /*
