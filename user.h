@@ -24,8 +24,8 @@ struct user
     QString accountNumber;
     //! International Bank Account Number
     QString IBAN;
-    long long debtAmount = 0;
-    long long money = 0;
+    double debtAmount = 0;
+    double money = 0;
     vector<pair<stock *, int>> stocks;
 };
 
@@ -99,7 +99,7 @@ private:
     static user *userLogin;
 
     // const QString pathFile = "C:/Users/Lenovo/Desktop/AdvancedProgrammingProject2/rec/user_data.csv";
-    const QString pathFile = "C:/Users/moosavi/Desktop/AP/AdvancedProgrammingProject2/rec/user_data.csv";
+    const QString pathFile = "C:/Users/Lenovo/Desktop/AdvancedProgrammingProject2/rec/user_data.csv";
 
 public:
     User();
