@@ -1,6 +1,0 @@
-<RCC>
-    <qresource prefix="/">
-        <file>rec/stock_market_data.csv</file>
-        <file>rec/user_data.csv</file>
-    </qresource>
-</RCC>
