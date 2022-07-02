@@ -31,7 +31,10 @@ class Stock
 {
 private:
     // const QString pathStockUserFile = "C:/Users/Lenovo/Desktop/AP/AdvancedProgrammingProject2/rec/stock_user_data.csv";
-    const QString pathStockUserFile = "C:/Users/Lenovo/Desktop/AdvancedProgrammingProject2/rec/stock_user_data.csv";
+    const QString pathStockUserFile = "C:/Users/moosavi/Desktop/AP/AdvancedProgrammingProject2/rec/stock_user_data.csv";
+
+    // const QString pathStock = "C:/Users/Lenovo/Desktop/AdvancedProgrammingProject2/rec/stock_market_data.csv";
+    const QString pathStock = "C:/Users/moosavi/Desktop/AP/AdvancedProgrammingProject2/rec/stock_market_data.csv";
 
     bool saveOnStockUser(int id, int amount);
     bool deleteFromStockUser(int id);

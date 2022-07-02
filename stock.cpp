@@ -10,7 +10,6 @@ class User;
 
 struct user;
 
-
 using std::map;
 using std::vector;
 
@@ -34,21 +33,23 @@ EBuy Stock::buyStock(int id, int amount)
 
         if (us->money >= amount * st->price)
         {
-            if(saveOnStockUser(id, amount)){
+            if (saveOnStockUser(id, amount))
+            {
 
                 us->money -= amount * st->price;
                 User *myUser = new User();
                 myUser->replace(us);
                 return bought;
             }
-            else{
+            else
+            {
                 return fileNotFound;
             }
-
         }
-        else if(us->money + 1000*1000 - us->debtAmount >= amount * st->price)
+        else if (us->money + 1000 * 1000 - us->debtAmount >= amount * st->price)
         {
-            if(saveOnStockUser(id, amount)){
+            if (saveOnStockUser(id, amount))
+            {
 
                 us->debtAmount += amount * st->price - us->money;
                 us->money = 0;
@@ -56,34 +57,37 @@ EBuy Stock::buyStock(int id, int amount)
                 myUser->replace(us);
                 return bought;
             }
-            else{
+            else
+            {
                 return fileNotFound;
             }
         }
-
     }
     return notEnoughMoney;
 }
 
-
 bool Stock::saleStock(int id)
 {
 
-        for(int i = 0; i < us->stocks.size(); i++){
-            if(us->stocks[i].first->ID == id){
-                us->money += us->stocks[i].first->price*us->stocks[i].second;
-                us->stocks.erase(us->stocks.begin()+i);
-                if(!deleteFromStockUser(id)){
-                    return false;
-                }
+    for (int i = 0; i < us->stocks.size(); i++)
+    {
+        if (us->stocks[i].first->ID == id)
+        {
+            us->money += us->stocks[i].first->price * us->stocks[i].second;
+            us->stocks.erase(us->stocks.begin() + i);
+            if (!deleteFromStockUser(id))
+            {
+                return false;
             }
         }
-        return true;
+    }
+    return true;
 }
 
 stock *Stock::searchStock(user *us, int id)
 {
-    if(us == nullptr){
+    if (us == nullptr)
+    {
         for (auto st : allStocks)
         {
             if (st.first == id)
@@ -106,7 +110,7 @@ stock *Stock::searchStock(user *us, int id)
 
 bool Stock::read()
 {
-    QFile file("C:/Users/Lenovo/Desktop/AdvancedProgrammingProject2/rec/stock_market_data.csv");
+    QFile file(this->pathStock);
 
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
         return false;
@@ -166,7 +170,7 @@ bool Stock::saveOnStockUser(int id, int amount)
 
     QString firstline = "", other = "";
 
-    QFile readFile("C:/Users/Lenovo/Desktop/AdvancedProgrammingProject2/rec/stock_user_data.csv");
+    QFile readFile(this->pathStockUserFile);
     if (!readFile.open(QIODevice::ReadOnly | QIODevice::Text))
         return false;
 
@@ -184,7 +188,8 @@ bool Stock::saveOnStockUser(int id, int amount)
             {
                 other += line + '\n';
             }
-            else{
+            else
+            {
                 am += list[2].toInt();
             }
         }
@@ -204,7 +209,7 @@ bool Stock::saveOnStockUser(int id, int amount)
     readFile.flush();
     readFile.close();
 
-    QFile writeFile("C:/Users/Lenovo/Desktop/AdvancedProgrammingProject2/rec/stock_user_data.csv");
+    QFile writeFile(this->pathStockUserFile);
     if (!writeFile.open(QIODevice::WriteOnly | QIODevice::Text))
         return false;
 
@@ -213,10 +218,12 @@ bool Stock::saveOnStockUser(int id, int amount)
     writeFile.flush();
     writeFile.close();
 
-    if(readOnStockUser()){
+    if (readOnStockUser())
+    {
         return true;
     }
-    else{
+    else
+    {
         return false;
     }
 }
@@ -226,7 +233,7 @@ bool Stock::readOnStockUser()
     us->stocks.clear();
     pair<stock *, int> tPair;
 
-    QFile readFile("C:/Users/Lenovo/Desktop/AdvancedProgrammingProject2/rec/stock_user_data.csv");
+    QFile readFile(this->pathStockUserFile);
     if (!readFile.open(QIODevice::ReadOnly | QIODevice::Text))
         return false;
 
@@ -255,7 +262,7 @@ bool Stock::deleteFromStockUser(int id)
 {
     QString str;
 
-    QFile readFile("C:/Users/Lenovo/Desktop/AdvancedProgrammingProject2/rec/stock_user_data.csv");
+    QFile readFile(this->pathStockUserFile);
     if (!readFile.open(QIODevice::ReadOnly | QIODevice::Text))
         return false;
 
@@ -273,7 +280,7 @@ bool Stock::deleteFromStockUser(int id)
     readFile.flush();
     readFile.close();
 
-    QFile writeFile("C:/Users/Lenovo/Desktop/AdvancedProgrammingProject2/rec/stock_user_data.csv");
+    QFile writeFile(this->pathStockUserFile);
     if (!writeFile.open(QIODevice::WriteOnly | QIODevice::Text))
         return false;
 
@@ -283,4 +290,3 @@ bool Stock::deleteFromStockUser(int id)
     writeFile.close();
     return true;
 }
-
