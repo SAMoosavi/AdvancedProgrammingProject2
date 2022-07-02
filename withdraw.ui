@@ -166,6 +166,11 @@ margin:20px 0 0 0;</string>
      <layout class="QHBoxLayout" name="horizontalLayout">
       <item>
        <widget class="QLabel" name="label_3">
+        <property name="font">
+         <font>
+          <pointsize>26</pointsize>
+         </font>
+        </property>
         <property name="text">
          <string>Your money:</string>
         </property>
