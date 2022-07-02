@@ -9,7 +9,7 @@ User::~User() {}
 
 bool User::vPassword(QString &password)
 {
-    // Check password have uper and lower case number spesial character and minimome 8 leter
+    // Check if password has upper and lower case letters, numbers, spesial characters and at least 8 letters
     /*
      *  string a = password.toStdString();
      *  const regex pattern("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*(\\W|_))(?=^\\S*$).{8,}$");
@@ -36,31 +36,31 @@ QString User::hashPassword(QString &password)
 
 bool User::vName(QString &name)
 {
-    // maximome 40 character
+    // maximum 40 characters
     return name.length() <= 40;
 }
 
 bool User::vID(QString &ID)
 {
-    // 10 character
+    // 10 characters
     return ID.length() == 10;
 }
 
 bool User::vAccountNumber(QString &accountNumber)
 {
-    // 10 character
+    // 10 characters
     return accountNumber.length() == 10;
 }
 
 bool User::vIBAN(QString &IBAN)
 {
-    // check IR in first and 12 character
+    // check the IR in the first and 12 characters
     return IBAN[0] == 'I' && IBAN[1] == 'R' && IBAN.length() == 12;
 }
 
 bool User::vDebtAmount(int debtAmount)
 {
-    // check debtAmount maximome 1,000,000
+    // maximum 1,000,000
     return debtAmount <= 10e6;
 }
 
@@ -303,7 +303,7 @@ user *User::read(QString &username)
 
     QTextStream in(&file);
     bool ok = false;
-    // read file line to line
+    // read file line by line
     while (!in.atEnd())
     {
         if (!ok)
@@ -313,7 +313,7 @@ user *User::read(QString &username)
         }
         QString line = in.readLine();
         QStringList list = line.split(",");
-        // if this username create user
+        // if this username create the user
         if (username == list[2])
         {
             tUser = new user;
@@ -366,7 +366,7 @@ bool User::replace(user *us, QString pUsername)
     QTextStream in(&readFile);
     bool ok = false;
     short int temp = 1;
-    // read file line to line
+    // read file line by line
     while (!in.atEnd())
     {
         QString line = in.readLine();
