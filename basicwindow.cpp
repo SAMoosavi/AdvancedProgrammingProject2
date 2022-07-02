@@ -42,6 +42,7 @@ void BasicWindow::showAllStocks()
     ui->tableWidget_buy->setItem(0, 1, new QTableWidgetItem("Full Name"));
     ui->tableWidget_buy->setItem(0, 2, new QTableWidgetItem("Price"));
     ui->tableWidget_buy->setItem(0, 3, new QTableWidgetItem("Market Capacity"));
+
     for(auto st: stock->allStocks){
         ui->tableWidget_buy->insertRow(ui->tableWidget_buy->rowCount());
         ui->tableWidget_buy->setItem(st.first+1, 0, new QTableWidgetItem(st.second->symbol));
@@ -49,6 +50,10 @@ void BasicWindow::showAllStocks()
         ui->tableWidget_buy->setItem(st.first+1, 2, new QTableWidgetItem(QString::number(st.second->price)));
         ui->tableWidget_buy->setItem(st.first+1, 3, new QTableWidgetItem(QString::number(st.second->marketCap)));
     }
+    ui->tableWidget_buy->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    QHeaderView* header = ui->tableWidget_buy->horizontalHeader();
+    header->setSectionResizeMode(QHeaderView::Stretch);
+    header->setStretchLastSection(true);
 }
 
 void BasicWindow::showStocks()
@@ -71,6 +76,10 @@ void BasicWindow::showStocks()
         ui->tableWidget_sale->setItem(ui->tableWidget_sale->rowCount()-1, 2, new QTableWidgetItem(QString::number(st.first->price)));
         ui->tableWidget_sale->setItem(ui->tableWidget_sale->rowCount()-1, 3, new QTableWidgetItem(QString::number(st.first->price * st.second)));
     }
+    ui->tableWidget_sale->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    QHeaderView* header = ui->tableWidget_sale->horizontalHeader();
+    header->setSectionResizeMode(QHeaderView::Stretch);
+    header->setStretchLastSection(true);
 }
 
 void BasicWindow::buyStock()
