@@ -1,0 +1,10 @@
+<RCC>
+    <qresource prefix="/">
+        <file>icons/icons8-close-96.png</file>
+        <file>icons/icons8-logout-96.png</file>
+        <file>icons/icons8-stocks-96.png</file>
+        <file>icons/icons8-information-64.png</file>
+        <file>icons/icons8-password-window-96.png</file>
+        <file>icons/icons8-money-96.png</file>
+    </qresource>
+</RCC>
