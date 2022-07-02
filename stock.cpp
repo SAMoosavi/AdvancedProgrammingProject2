@@ -73,12 +73,20 @@ bool Stock::saleStock(int id)
     {
         if (us->stocks[i].first->ID == id)
         {
-            us->money += us->stocks[i].first->price * us->stocks[i].second;
+            if(us->debtAmount >= us->stocks[i].first->price * us->stocks[i].second){
+                us->debtAmount -= us->stocks[i].first->price * us->stocks[i].second;
+            }
+            else{
+                us->money += us->stocks[i].first->price * us->stocks[i].second - us->debtAmount;
+                us->debtAmount = 0;
+            }
             us->stocks.erase(us->stocks.begin() + i);
             if (!deleteFromStockUser(id))
             {
                 return false;
             }
+            User *myUser = new User();
+            myUser->replace(us);
         }
     }
     return true;
