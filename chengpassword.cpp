@@ -21,6 +21,9 @@ void chengPassword::on_pushButton_clicked()
     switch (this->myUser->changePassword(pereventPassword,password, confirmPassword))
     {
     case changedPassword:
+        ui->lineEdit_PereventPassword->setText("");
+        ui->lineEdit_confirm_password->setText("");
+        ui->lineEdit_password->setText("");
         QMessageBox::information(this, "change Password", "Your password changed.");
         break;
     case eVPassword:
