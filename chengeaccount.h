@@ -45,7 +45,7 @@ private slots:
 private:
     Ui::chengeAccount *ui;
 
-   User *myUser = new User();
+    User *myUser = new User();
     chengeAccount *ChangeAccount;
     chengPassword *changePassword;
     withdraw *Withdraw;

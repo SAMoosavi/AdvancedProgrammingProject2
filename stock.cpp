@@ -35,8 +35,8 @@ EBuy Stock::buyStock(int id, int amount)
         {
             if (saveOnStockUser(id, amount))
             {
-
                 us->money -= amount * st->price;
+
                 // create new User object to use it's function
                 User *myUser = new User();
                 myUser->replace(us);
@@ -47,6 +47,7 @@ EBuy Stock::buyStock(int id, int amount)
                 return fileNotFound;
             }
         }
+
         // if using debt is possible
         else if (us->money + 1000 * 1000 - us->debtAmount >= amount * st->price)
         {
@@ -55,6 +56,7 @@ EBuy Stock::buyStock(int id, int amount)
 
                 us->debtAmount += amount * st->price - us->money;
                 us->money = 0;
+
                 // create new User object to use it's function
                 User *myUser = new User();
                 myUser->replace(us);
@@ -80,17 +82,20 @@ bool Stock::saleStock(int id)
             if(us->debtAmount >= us->stocks[i].first->price * us->stocks[i].second){
                 us->debtAmount -= us->stocks[i].first->price * us->stocks[i].second;
             }
+
             // if debtamount is less than how much we get
             else{
                 us->money += us->stocks[i].first->price * us->stocks[i].second - us->debtAmount;
                 us->debtAmount = 0;
             }
+
             // delete stock from us->stocks
             us->stocks.erase(us->stocks.begin() + i);
             if (!deleteFromStockUser(id))
             {
                 return false;
             }
+
             // create new User object to use it's function
             User *myUser = new User();
             myUser->replace(us);
@@ -135,6 +140,7 @@ bool Stock::read()
 
     QTextStream in(&file);
     bool ok = false;
+
     // read file line by line
     while (!in.atEnd())
     {
@@ -186,6 +192,7 @@ bool Stock::read()
         tStock->marketCap = list[4].toLongLong();
         allStocks[tStock->ID] = tStock;
     }
+
     // close file
     file.flush();
     file.close();
@@ -205,6 +212,7 @@ bool Stock::saveOnStockUser(int id, int amount)
     QTextStream in(&readFile);
     bool ok = false;
     int am = amount;
+
     // read file line by line
     while (!in.atEnd())
     {
@@ -266,6 +274,7 @@ bool Stock::readOnStockUser()
 {
     // clean us->stocks
     us->stocks.clear();
+
     // creat new pair to add to us->stocks
     pair<stock *, int> tPair;
 
@@ -307,6 +316,7 @@ bool Stock::deleteFromStockUser(int id)
         return false;
 
     QTextStream in(&readFile);
+
     // read file line by line
     while (!in.atEnd())
     {
@@ -319,6 +329,7 @@ bool Stock::deleteFromStockUser(int id)
             str += line + '\n';
         }
     }
+
     // close file
     readFile.flush();
     readFile.close();
@@ -328,8 +339,10 @@ bool Stock::deleteFromStockUser(int id)
         return false;
 
     QTextStream out(&writeFile);
+
     // write on file
     out << str;
+
     // close file
     writeFile.flush();
     writeFile.close();

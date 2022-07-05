@@ -5,7 +5,11 @@ chengeAccount::chengeAccount( QWidget *parent) : QMainWindow(parent),
                                                               ui(new Ui::chengeAccount)
 {
     ui->setupUi(this);
+
+    // set loginUser
     user *loginUser = myUser->getUserLogin();
+
+    // fill line edit
     ui->lineEdit_username->setText(loginUser->username);
     ui->lineEdit_IBAN->setText(loginUser->IBAN);
     ui->lineEdit_ID->setText(loginUser->ID);
@@ -18,6 +22,7 @@ chengeAccount::~chengeAccount()
     delete ui;
 }
 
+// push edit button
 void chengeAccount::on_pushButton_clicked()
 {
     QString username = ui->lineEdit_username->text();
@@ -26,10 +31,11 @@ void chengeAccount::on_pushButton_clicked()
     QString accountNumber = ui->lineEdit_account_number->text();
     QString IBAN = ui->lineEdit_IBAN->text();
 
+    // use changeAccount function in User class
     switch (this->myUser->changeAccount(username, name, ID, accountNumber, IBAN))
     {
     case changed:
-        QMessageBox::information(this, "Edit Account", "Your account updated.");
+        QMessageBox::information(this, "Edit Account", "Your account information updated.");
         break;
     case EchangeName:
         QMessageBox::critical(this, "Error", "Name must be less than 40 letters!");
@@ -51,10 +57,10 @@ void chengeAccount::on_pushButton_clicked()
     }
 }
 
-
+// choose change information
 void chengeAccount::on_actionInformation_triggered(){}
 
-
+// choose change password
 void chengeAccount::on_actionPassword_triggered()
 {
     this->deleteUserClass();
@@ -63,7 +69,7 @@ void chengeAccount::on_actionPassword_triggered()
     this->changePassword->show();
 }
 
-
+// choose charge and withdraw money
 void chengeAccount::on_actionCharge_and_triggered()
 {
     this->deleteUserClass();
@@ -72,7 +78,7 @@ void chengeAccount::on_actionCharge_and_triggered()
     this->Withdraw->show();
 }
 
-
+// choose sign out
 void chengeAccount::on_actionSing_out_triggered()
 {
     this->myUser->logout();
@@ -82,20 +88,14 @@ void chengeAccount::on_actionSing_out_triggered()
     this->mainWindow->show();
 }
 
-
+// choose exit
 void chengeAccount::on_actionExit_triggered()
 {
     this->deleteUserClass();
     close();
 }
 
-void chengeAccount::deleteUserClass()
-{
-    delete this->myUser;
-    this->myUser = 0;
-}
-
-
+// choose buy, sale and show stocks
 void chengeAccount::on_actionstock_triggered()
 {
     this->deleteUserClass();
@@ -104,4 +104,9 @@ void chengeAccount::on_actionstock_triggered()
     this->basicWindow->show();
 }
 
-
+// delete the User object
+void chengeAccount::deleteUserClass()
+{
+    delete this->myUser;
+    this->myUser = 0;
+}

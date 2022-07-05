@@ -12,12 +12,14 @@ RegisterFile::~RegisterFile()
     delete ui;
 }
 
+// push sign up
 void RegisterFile::on_pushButton_clicked()
 {
     QString confirmPassword = ui->lineEdit_confirm_password->text();
     QString password = ui->lineEdit_password->text();
     QString username = ui->lineEdit_username->text();
 
+    // use Register function in User class
     switch (this->myUser->Register(username, password, confirmPassword))
     {
     case registered:
@@ -38,11 +40,13 @@ void RegisterFile::on_pushButton_clicked()
     }
 }
 
+// push sign in
 void RegisterFile::on_pushButton_2_clicked()
 {
     this->goToSingnInPage();
 }
 
+// go to sign in page
 void RegisterFile::goToSingnInPage()
 {
     this->deleteUserClass();
@@ -51,6 +55,7 @@ void RegisterFile::goToSingnInPage()
     this->mainWindow->show();
 }
 
+// delete the User object
 void RegisterFile::deleteUserClass()
 {
     delete this->myUser;

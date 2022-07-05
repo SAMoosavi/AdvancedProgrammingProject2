@@ -10,11 +10,10 @@ User::~User() {}
 bool User::vPassword(QString &password)
 {
     // Check if password has upper and lower case letters, numbers, spesial characters and at least 8 letters
-    /*
-     *  string a = password.toStdString();
-     *  const regex pattern("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*(\\W|_))(?=^\\S*$).{8,}$");
-     *  return regex_match(a, pattern);
-     */
+    string a = password.toStdString();
+    const regex pattern("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*(\\W|_))(?=^\\S*$).{8,}$");
+    return regex_match(a, pattern);
+
     return true;
 }
 
@@ -79,6 +78,7 @@ ERegister User::Register(QString &username, QString &password, QString &confirmP
     {
         return EConfirmPassword;
     }
+
     // validated now create user
     user *us = new user;
     us->username = username;
@@ -95,11 +95,13 @@ ELogin User::login(QString &username, QString &password)
     {
         return notFuond;
     }
+
     // check password
     if (this->hashPassword(password) != us->password)
     {
         return notCorrectPassword;
     }
+
     // login user
     this->userLogin = us;
     return logined;
@@ -124,6 +126,7 @@ ESetAccount User::setAccount(QString &name, QString &ID, QString &accountNumber,
     {
         return EVIBAN;
     }
+
     // validated now set user
     this->userLogin->name = name;
     this->userLogin->ID = ID;
@@ -161,6 +164,7 @@ Echange User::changeAccount(QString &username, QString &name, QString &ID, QStri
             return EchangeUsername;
         }
     }
+
     // validated now change user
     user *us = this->userLogin;
     us->name = name;
@@ -189,6 +193,7 @@ EchangePassword User::changePassword(QString &pereventPassword, QString &passwor
     {
         return ePereventPassword;
     }
+
     // validated now change password
     this->userLogin->password = this->hashPassword(password);
     this->replace(this->userLogin);
@@ -250,25 +255,6 @@ int User::showMoney()
     return this->userLogin->money - this->userLogin->debtAmount;
 }
 
-bool User::withdrawAccount(int mmoney)
-{
-    if (this->userLogin->money >= mmoney)
-    {
-        this->userLogin->debtAmount -= mmoney;
-        this->replace(this->userLogin);
-        return true;
-    }
-    mmoney -= this->userLogin->money;
-    if (this->vDebtAmount(this->userLogin->debtAmount + mmoney))
-    {
-        this->userLogin->money = 0;
-        this->userLogin->debtAmount += mmoney;
-        this->replace(this->userLogin);
-        return true;
-    }
-    return false;
-}
-
 QString User::userStructToString(user *us)
 {
     QString tString = "";
@@ -296,6 +282,7 @@ QString User::userStructToString(user *us)
 user *User::read(QString &username)
 {
     user *tUser = nullptr;
+
     // open file
     QFile file(this->pathFile);
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
@@ -303,6 +290,7 @@ user *User::read(QString &username)
 
     QTextStream in(&file);
     bool ok = false;
+
     // read file line by line
     while (!in.atEnd())
     {
@@ -313,6 +301,7 @@ user *User::read(QString &username)
         }
         QString line = in.readLine();
         QStringList list = line.split(",");
+
         // if this username create the user
         if (username == list[2])
         {
@@ -328,6 +317,7 @@ user *User::read(QString &username)
             break;
         }
     }
+
     // close file
     file.flush();
     file.close();
@@ -342,6 +332,7 @@ bool User::save(user *us)
         return false;
 
     QTextStream out(&file);
+
     // write new user
     out << this->userStructToString(us);
     file.flush();
@@ -358,6 +349,7 @@ bool User::replace(user *us, QString pUsername)
     }
 
     QString str, temp1 = "", temp2 = "";
+
     // open file
     QFile readFile(this->pathFile);
     if (!readFile.open(QIODevice::ReadOnly | QIODevice::Text))
@@ -366,11 +358,13 @@ bool User::replace(user *us, QString pUsername)
     QTextStream in(&readFile);
     bool ok = false;
     short int temp = 1;
+
     // read file line by line
     while (!in.atEnd())
     {
         QString line = in.readLine();
         QStringList list = line.split(",");
+
         // if this username go to temp2
         if (ok && pUsername == list[2])
         {
@@ -393,19 +387,24 @@ bool User::replace(user *us, QString pUsername)
             ok = true;
         }
     }
+
     // close file
     readFile.flush();
     readFile.close();
-    // create str for write
+
+    // create str for writing
     str = temp1 + this->userStructToString(us) + temp2;
+
     // open file
     QFile writeFile(this->pathFile);
     if (!writeFile.open(QIODevice::WriteOnly | QIODevice::Text))
         return false;
 
     QTextStream out(&writeFile);
+
     // write on file
     out << str;
+
     // close file
     writeFile.flush();
     writeFile.close();
