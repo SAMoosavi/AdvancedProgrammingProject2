@@ -92,8 +92,6 @@ private:
 
     bool vDebtAmount(int debtAmount);
 
-    bool withdrawAccount(int money);
-
     QString userStructToString(user *us);
 
     static user *userLogin;

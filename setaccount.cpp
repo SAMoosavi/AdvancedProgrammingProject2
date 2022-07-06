@@ -12,6 +12,7 @@ SetAccount::~SetAccount()
     delete ui;
 }
 
+// push complete button
 void SetAccount::on_pushButton_clicked()
 {
     QString name = ui->lineEdit_name->text();
@@ -19,6 +20,7 @@ void SetAccount::on_pushButton_clicked()
     QString accountNumber = ui->lineEdit_account_number->text();
     QString IBAN = ui->lineEdit_IBAN->text();
 
+    // use setAccount function in User class
     switch (this->myUser->setAccount(name, ID, accountNumber, IBAN))
     {
     case setedAccount:
@@ -45,8 +47,9 @@ void SetAccount::on_pushButton_clicked()
     }
 }
 
+// delete the User object
 void SetAccount::deleteUserClass()
 {
     delete this->myUser;
-    this->myUser = 0 ;
+    this->myUser = 0;
 }

@@ -15,10 +15,13 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
+// push sign in
 void MainWindow::on_pushButton_clicked()
 {
     QString username = ui->lineEdit_username->text();
     QString password = ui->lineEdit_password->text();
+
+    // use login function in User class
     switch (this->myUser->login(username, password))
     {
     case logined:
@@ -50,6 +53,7 @@ void MainWindow::on_pushButton_clicked()
     }
 }
 
+// push sign up
 void MainWindow::on_pushButton_2_clicked()
 {
     this->deleteUserClass();
@@ -58,8 +62,9 @@ void MainWindow::on_pushButton_2_clicked()
     this->registerFile->show();
 }
 
+// delete the User object
 void MainWindow::deleteUserClass()
 {
-delete this->myUser;
-    this->myUser=0;
+    delete this->myUser;
+    this->myUser = 0;
 }
