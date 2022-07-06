@@ -220,7 +220,7 @@ bool Stock::saveOnStockUser(int id, int amount)
         QStringList list = line.split(",");
 
         // add amount to am
-        if (ok && us->ID == list[0])
+        if (ok && us->userID == list[0])
         {
             if (list[1].toInt() != id)
             {
@@ -241,7 +241,7 @@ bool Stock::saveOnStockUser(int id, int amount)
             ok = true;
         }
     }
-    QString buy = us->ID + "," + QString::number(id) + "," + QString::number(am);
+    QString buy = us->userID + "," + QString::number(id) + "," + QString::number(am);
     QString str = firstline + other + buy + '\n';
 
     // close file
@@ -291,7 +291,7 @@ bool Stock::readOnStockUser()
         QString line = in.readLine();
         QStringList list = line.split(",");
 
-        if (us->ID == list[0])
+        if (us->userID == list[0])
         {
             tPair.first = searchStock(nullptr, list[1].toInt());
             tPair.second = list[2].toInt();
@@ -324,7 +324,7 @@ bool Stock::deleteFromStockUser(int id)
         QStringList list = line.split(",");
 
         // ignore user with that id
-        if (us->ID != list[0] || list[1].toInt() != id)
+        if (us->userID != list[0] || list[1].toInt() != id)
         {
             str += line + '\n';
         }

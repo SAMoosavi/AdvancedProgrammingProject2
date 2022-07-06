@@ -33,6 +33,20 @@ QString User::hashPassword(QString &password)
     return b;
 }
 
+QString User::createUserID()
+{
+    QString id = "";
+
+    // Set a random number as starting point
+    srand((unsigned)time(0));
+    for (int i = 0; i < 10; i++)
+    {
+        // Get a random number
+        id += QString::number(rand() % 10);
+    }
+    return id;
+}
+
 bool User::vName(QString &name)
 {
     // maximum 40 characters
@@ -81,6 +95,7 @@ ERegister User::Register(QString &username, QString &password, QString &confirmP
 
     // validated now create user
     user *us = new user;
+    us->userID = this->createUserID();
     us->username = username;
     us->password = this->hashPassword(password);
     this->save(us);
@@ -259,6 +274,8 @@ QString User::userStructToString(user *us)
 {
     QString tString = "";
 
+    tString += us->userID;
+    tString += ",";
     tString += us->ID;
     tString += ",";
     tString += us->name;
@@ -303,17 +320,18 @@ user *User::read(QString &username)
         QStringList list = line.split(",");
 
         // if this username create the user
-        if (username == list[2])
+        if (username == list[3])
         {
             tUser = new user;
-            tUser->ID = list[0];
-            tUser->name = list[1];
-            tUser->username = list[2];
-            tUser->password = list[3];
-            tUser->accountNumber = list[4];
-            tUser->IBAN = list[5];
-            tUser->debtAmount = list[6].toDouble();
-            tUser->money = list[7].toDouble();
+            tUser->userID = list[0];
+            tUser->ID = list[1];
+            tUser->name = list[2];
+            tUser->username = list[3];
+            tUser->password = list[4];
+            tUser->accountNumber = list[5];
+            tUser->IBAN = list[6];
+            tUser->debtAmount = list[7].toDouble();
+            tUser->money = list[8].toDouble();
             break;
         }
     }
@@ -366,7 +384,7 @@ bool User::replace(user *us, QString pUsername)
         QStringList list = line.split(",");
 
         // if this username go to temp2
-        if (ok && pUsername == list[2])
+        if (ok && pUsername == list[3])
         {
             temp = 2;
         }

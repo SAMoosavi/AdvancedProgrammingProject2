@@ -17,6 +17,7 @@ using std::vector;
 
 struct user
 {
+    QString userID;
     QString username;
     QString password;
     QString name;
@@ -84,6 +85,7 @@ private:
     bool vPassword(QString &password);
     bool confirmedPassword(QString &password, QString &confirmPassword);
     QString hashPassword(QString &password);
+    QString createUserID();
 
     bool vName(QString &name);
     bool vID(QString &ID);
