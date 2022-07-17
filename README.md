@@ -1,3 +1,5 @@
 Advanced programming final project
 
-Please change the pathFile, pathStockUserFile and pathStock
+A stock market application written in C++ using Qt framework
+
+NOTE: Change the pathFile, pathStockUserFile and pathStock
